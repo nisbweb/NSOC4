@@ -1,19 +1,19 @@
 # Get Started with Atmega16
 ## 1. Windows Users
-* Goto the link download the folder 
+1. Goto the link download the folder 
 [link](https://drive.google.com/open?id=0B-8pemzk325Dd1EyTUNSVkxLaUk)
-1. Extract the files 
-2. Install the software downloaded
-3. Writing the code 
-4. Open Programmers Notepad (WinAvr)
-5. Write the code in C
-6. Save your program file in a new folder with name `main.c`, (any name can be given to new folder) 
-7. Now after putting your code in new folder copy and paste `MakeFile` along with `dep_creater.bat` file in the new folder
-8. Open MakeFile using any editor and check `MCU name
+2. Extract the files 
+3. Install the software downloaded
+4. Writing the code 
+5. Open Programmers Notepad (WinAvr)
+6. Write the code in C
+7. Save your program file in a new folder with name `main.c`, (any name can be given to new folder) 
+8. Now after putting your code in new folder copy and paste `MakeFile` along with `dep_creater.bat` file in the new folder
+9. Open MakeFile using any editor and check `MCU name
 MCU = atmega16 ` 
-9. Open Programmer's Notepad again goto 
+10. Open Programmer's Notepad again goto 
  Tools > Make all 
-10. Open 
+11. Open 
  progisp > Load flash 
   > Select the file main.hex (which was created)
 
