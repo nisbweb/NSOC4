@@ -42,7 +42,7 @@ cd /dev |grep USB
 ~~~ 
 cd ~
 ~~~
-   Only to know how it works in linux
+Only to know how it works in linux  
 6. Create a file named `a.c`
 7. Then to compile
 ~~~
