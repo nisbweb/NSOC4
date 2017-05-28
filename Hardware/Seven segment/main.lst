@@ -1,0 +1,105 @@
+   1               		.file	"main.c"
+   2               	__SREG__ = 0x3f
+   3               	__SP_H__ = 0x3e
+   4               	__SP_L__ = 0x3d
+   5               	__CCP__  = 0x34
+   6               	__tmp_reg__ = 0
+   7               	__zero_reg__ = 1
+  15               	.Ltext0:
+  16               	.global	main
+  18               	main:
+  19               	.LFB6:
+  20               	.LM1:
+  21               	/* prologue: function */
+  22               	/* frame size = 0 */
+  23               	.LM2:
+  24 0000 8FEF      		ldi r24,lo8(-1)
+  25 0002 84BB      		out 52-32,r24
+  26 0004 20E0      		ldi r18,lo8(0)
+  27 0006 30E0      		ldi r19,hi8(0)
+  28               	.LVL0:
+  29               	.LBB12:
+  30               	.LBB13:
+  31               	.LBB14:
+  32               	.LBB15:
+  33               	.LM3:
+  34 0008 44E1      		ldi r20,lo8(276)
+  35 000a 51E0      		ldi r21,hi8(276)
+  36               	.LVL1:
+  37               	.L8:
+  38               	.LBE15:
+  39               	.LBE14:
+  40               	.LBE13:
+  41               	.LBE12:
+  42               	.LM4:
+  43 000c F901      		movw r30,r18
+  44               	.LVL2:
+  45 000e EE0F      		lsl r30
+  46 0010 FF1F      		rol r31
+  47               	.LVL3:
+  48 0012 E050      		subi r30,lo8(-(ar))
+  49 0014 F040      		sbci r31,hi8(-(ar))
+  50 0016 8081      		ld r24,Z
+  51 0018 8BBB      		out 59-32,r24
+  52 001a 88EB      		ldi r24,lo8(3000)
+  53 001c 9BE0      		ldi r25,hi8(3000)
+  54               	.LVL4:
+  55               	.L2:
+  56               	.LBB19:
+  57               	.LBB18:
+  58               	.LBB17:
+  59               	.LBB16:
+  60               	.LM5:
+  61 001e FA01      		movw r30,r20
+  62               	.LVL5:
+  63               	/* #APP */
+  64               	 ;  105 "c:/winavr-20100110/lib/gcc/../../avr/include/util/delay_basic.h" 1
+  65 0020 3197      		1: sbiw r30,1
+  66 0022 01F4      		brne 1b
+  67               	 ;  0 "" 2
+  68               	/* #NOAPP */
+  69               	.LBE16:
+  70               	.LBE17:
+  71               	.LM6:
+  72 0024 0197      		sbiw r24,1
+  73               	.LM7:
+  74 0026 01F4      		brne .L2
+  75               	.LBE18:
+  76               	.LBE19:
+  77               	.LM8:
+  78 0028 2F5F      		subi r18,lo8(-(1))
+  79 002a 3F4F      		sbci r19,hi8(-(1))
+  80 002c 2A30      		cpi r18,10
+  81 002e 3105      		cpc r19,__zero_reg__
+  82 0030 00F0      		brlo .L8
+  83 0032 20E0      		ldi r18,lo8(0)
+  84 0034 30E0      		ldi r19,hi8(0)
+  85 0036 00C0      		rjmp .L8
+  86               	.LFE6:
+  88               	.global	ar
+  89               		.data
+  92               	ar:
+  93 0000 C000      		.word	192
+  94 0002 F900      		.word	249
+  95 0004 A400      		.word	164
+  96 0006 B000      		.word	176
+  97 0008 9900      		.word	153
+  98 000a 9200      		.word	146
+  99 000c 8200      		.word	130
+ 100 000e F800      		.word	248
+ 101 0010 8000      		.word	128
+ 102 0012 9000      		.word	144
+ 127               	.Letext0:
+DEFINED SYMBOLS
+                            *ABS*:00000000 main.c
+C:\Users\kush\AppData\Local\Temp/ccukqqHt.s:2      *ABS*:0000003f __SREG__
+C:\Users\kush\AppData\Local\Temp/ccukqqHt.s:3      *ABS*:0000003e __SP_H__
+C:\Users\kush\AppData\Local\Temp/ccukqqHt.s:4      *ABS*:0000003d __SP_L__
+C:\Users\kush\AppData\Local\Temp/ccukqqHt.s:5      *ABS*:00000034 __CCP__
+C:\Users\kush\AppData\Local\Temp/ccukqqHt.s:6      *ABS*:00000000 __tmp_reg__
+C:\Users\kush\AppData\Local\Temp/ccukqqHt.s:7      *ABS*:00000001 __zero_reg__
+C:\Users\kush\AppData\Local\Temp/ccukqqHt.s:18     .text:00000000 main
+C:\Users\kush\AppData\Local\Temp/ccukqqHt.s:92     .data:00000000 ar
+
+UNDEFINED SYMBOLS
+__do_copy_data
