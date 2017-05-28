@@ -9,11 +9,12 @@
 6. Write the code in C
 7. Save your program file in a new folder with name `main.c`, (any name can be given to new folder) 
 8. Now after putting your code in new folder copy and paste `MakeFile` along with `dep_creater.bat` file in the new folder
-9. Open MakeFile using any editor and check `MCU name
+9. Double the `dep_creater.bat` file 
+10. Open MakeFile using any editor and check `MCU name
 MCU = atmega16 ` 
-10. Open Programmer's Notepad again goto 
+11. Open Programmer's Notepad again goto 
  Tools > Make all 
-11. Open 
+12. Open 
  progisp > Load flash > Select the file main.hex (which was created)
 
 ## 2. Linux users
