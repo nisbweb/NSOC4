@@ -43,7 +43,7 @@ cd /dev |grep USB
 cd ~
 ~~~
 Only to know how it works in linux  
-6. Create a file named `a.c`
+6. Create a file named `a.c`  
 7. Then to compile
 ~~~
 avr-gcc -mmcu=atmega16 -Os a.c
