@@ -38,12 +38,12 @@ sudo /etc/init.d/udev restart
 cd /dev |grep USB
 ~~~
 5. You should see a USBasp file
-Now get back to home
+   Now get back to home
 ~~~ 
 cd ~
 ~~~
-Only to know how it works in linux
-6. Create a file named a.c 
+   Only to know how it works in linux
+6. Create a file named `a.c`
 7. Then to compile
 ~~~
 avr-gcc -mmcu=atmega16 -Os a.c
