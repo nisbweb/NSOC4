@@ -14,8 +14,7 @@ MCU = atmega16 `
 10. Open Programmer's Notepad again goto 
  Tools > Make all 
 11. Open 
- progisp > Load flash 
-  > Select the file main.hex (which was created)
+ progisp > Load flash > Select the file main.hex (which was created)
 
 ## 2. Linux users
 1. Open Terminal
