@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+
+    <h1>Notes</h1>
+    <a href="/addnote">Add Note</a><br>
+
+    {% for x in data %}
+      <div style="padding:20px; background:#eee; float:left; margin:10px;"><b>{{ x[1] }}</b><br> <p>{{ x[2] }}</p></div>
+    {% endfor %}
+
+  </body>
+</html>
