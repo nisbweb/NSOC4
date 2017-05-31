@@ -1,3 +1,5 @@
+# A string is usually a bit of text you want to display to someone, or "export" out of the program you are writing.
+# Python knows you want something to be a string when you put either " (double-quotes) or ' (single-quotes) around the text.
 # Let’s look at some of the ways Python lets you write, print, and access strings in your code.
 # Typing string values in Python code is fairly straightforward: They begin and end with a single quote.
 spam = "That is Alice's cat."
@@ -24,8 +26,8 @@ spam[6:]   # 'world!'
 spam[:5]   #  'Hello'
 
 # In and Not In operators with Strings
-'Hello' in 'Hello World'
-'cats' not in 'cats and dogs'
+'Hello' in 'Hello World'            #True
+'cats' not in 'cats and dogs'       #False
 
 # The join() and split() string methods
 

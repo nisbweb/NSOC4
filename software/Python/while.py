@@ -1,3 +1,4 @@
+# A while-loop will keep executing the code block under it as long as a boolean expression is True.
 i = 0
 numbers = []
 
