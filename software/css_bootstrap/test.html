@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Page Title</title>
+
+<style media="screen">
+p {
+    color: red;
+    text-align: center;
+}
+#para1 {
+    text-align: center;
+    color: red;
+}
+div {
+	 height: 200px;
+    width: 50%;
+    background-color: lightblue;
+}
+h3 {
+    padding-top: 50px;
+    padding-right: 30px;
+    padding-bottom: 50px;
+    padding-left: 80px;
+}
+</style>
+
+</head>
+<body background = "2.jpg">
+
+
+
+<h1>This is a Heading</h1>
+<h2>This is heading 2</h2>
+<h3>This is heading 3</h3>
+
+<p>This is a paragraph.<br>IEEE and its members inspire a global community to innovate for a better tomorrow through highly cited publications, conferences, technology standards, and professional and educational activities. IEEE is the trusted “voice” for engineering, computing, and technology information around the globe.IEEE and its members inspire a global community to innovate for a better tomorrow through highly cited publications, conferences, technology standards, and professional and educational activities. IEEE is the trusted “voice” for engineering, computing, and technology information around the globe.</p>
+<a href="https://www.google.com">Click to visit google</a><br><br><br><br>
+<img src="minions.jpg" width="400" height="142">
+<br><br><br>
+<ul>
+	<li><a href = "https://www.facebook.com">Facebook</a></li>
+	<li><a href = "https://www.quora.com">Quora</a></li>
+	<li><a href = "https://www.ieee.com">IEEE</a></li>
+	<li><a href = "https://www.nisb.in">NISB</a></li>
+</ul>
+<br>
+<ol>
+	<li><a href = "https://www.facebook.com">Facebook</a></li>
+	<li><a href = "https://www.quora.com">Quora</a></li>
+	<li><a href = "https://www.ieee.com">IEEE</a></li>
+	<li><a href = "https://www.nisb.in">NISB</a></li>
+</ol>
+
+<div style="color:white;padding:20px;">
+  <h2>London</h2>
+  <p>London is the capital city of England. It is the most populous city in the United Kingdom, with a metropolitan area of over 13 million inhabitants.</p>
+</div>
+<br><br><br><br>
+
+<center><h1>Form</h1></center>
+<form>
+<label>NAME:</label>
+<input type="text"value="" size="15" required = "true" placeholder = "Firstname"/>&nbsp &nbsp
+<input type="text"value="" size="15" required = "true" placeholder = "Lastname"/>
+<br><br>
+<label>AGE:</label>
+<input type="number"value="15" min="15" max="45" step ="1"/>&nbsp &nbsp
+<br><br>
+<label>Email:</label>
+<input type="email" autocomplete ="on" maxlength = "255"/>&nbsp &nbsp
+<br><br>
+
+<label>Date:</label>
+<input type="date" min="1990-01-01" />&nbsp &nbsp
+<br><br>
+<select name="cars">
+    <option value="volvo">Volvo</option>
+    <option value="BMW">BMW</option>
+    <option value="fiat">Fiat</option>
+    <option value="audi">Audi</option>
+  </select>
+<br><br>
+<label>Select a branch:</label>
+<input type="text" list = "branchList"/>&nbsp &nbsp
+<br><br>
+<datalist id ="branchList">
+    <option value="CSE">
+    <option value="ISE">
+    <option value="ECE">
+    <option value="IP">
+	<option value="EEE">
+	<option value="MECH">
+	<option value="CIVIL">
+  </datalist>
+<br>
+
+<button type="button" onclick="alert('Form Submitted!')">Submit!</button>
+</form>
+<br><br>
+<center><h1>Table</h1></center>
+<style>
+table, th, td {
+    border: 1px solid black;
+}
+</style>
+
+<table style="width:100%">
+  <tr>
+    <th>Firstname</th>
+    <th>Lastname</th>
+    <th>Age</th>
+  </tr>
+  <tr>
+    <td>Jill</td>
+    <td>Smith</td>
+    <td>50</td>
+  </tr>
+  <tr>
+    <td>Eve</td>
+    <td>Jackson</td>
+    <td>94</td>
+  </tr>
+  <tr>
+    <td>John</td>
+    <td>Doe</td>
+    <td>80</td>
+  </tr>
+</table>
+</body>
+</html>
