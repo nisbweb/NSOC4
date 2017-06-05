@@ -1,0 +1,19 @@
+h1 {
+    color: #fff;
+    margin-left: 20px;
+    background: #000;
+}
+
+#div1{
+  color:red;
+  border: 2px solid red;
+}
+
+#div1:hover {
+  background: #000;
+}
+
+.abc{
+  color: #fff;
+  background: #000;
+}
