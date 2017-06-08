@@ -1,47 +1,53 @@
 //Enable password authentication 
-vi etc/ssh/sshd_config
+sudo vi /etc/ssh/sshd_config
 	PasswordAuth yes
 
 //Create a non-root user with sudo access
 adduser username
-usermod -aG sudo username
+sudo usermod -aG sudo username
 sudo reboot
 //install and setup apache
+sudo apt-get update
 sudo apt-get install apache2 apache2-doc apache2-utils
 sudo a2dissite 000-default.conf
 
 //create a virtual host
-vi /etc/apache2/ssh/sites-available/nsoc.tk.conf
+sudo vi /etc/apache2/sites-available/nisb.tk.conf
 
 //The file's content
 <VirtualHost *:80>
-     ServerAdmin webmaster@nsoc.tk
-     ServerName nsoc.tk
-     ServerAlias www.nsoc.tk
-     DocumentRoot /var/www/nsoc.tk/public_html/
-     ErrorLog /var/www/nsoc.tk/logs/error.log
-     CustomLog /var/www/nsoc.tk/logs/access.log combined
+     ServerAdmin webmaster@nisb.tk
+     ServerName nisb.tk
+     ServerAlias www.nisb.tk
+     DocumentRoot /var/www/nisb.tk/public_html/
+     ErrorLog /var/www/nisb.tk/logs/error.log
+     CustomLog /var/www/nisb.tk/logs/access.log combined
 </VirtualHost>
 
-sudo mkdir -p /var/www/nsoc.tk/public_html
-sudo mkdir /var/www/nsoc.tk/logs
+sudo mkdir -p /var/www/nisb.tk/public_html
+sudo mkdir /var/www/nisb.tk/logs
 
-sudo a2ensite nsoc.tk.conf
+sudo a2ensite nisb.tk.conf
 	
 sudo service apache2 restart
 
-cd var/www/nsoc.tk/public_html/
+cd /var/www/nisb.tk/public_html/
 
 //git clone
-git init
-git remote add origin https://github.com/nisbweb/awsproject.git
-git pull origin master
+sudo git init
+
+sudo git remote add origin https://github.com/nisbweb/awsproject.git
+
+sudo git pull origin master
 
 //Install certbot for SSL/TLS cetificate
  sudo apt-get install software-properties-common
+
  sudo add-apt-repository ppa:certbot/certbot
+
  sudo apt-get update
+
  sudo apt-get install python-certbot-apache 
 
  sudo certbot --apache
- certbot renew --dry-run
+ sudo certbot renew --dry-run
