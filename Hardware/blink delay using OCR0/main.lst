@@ -1,0 +1,119 @@
+   1               		.file	"main.c"
+   2               	__SREG__ = 0x3f
+   3               	__SP_H__ = 0x3e
+   4               	__SP_L__ = 0x3d
+   5               	__CCP__  = 0x34
+   6               	__tmp_reg__ = 0
+   7               	__zero_reg__ = 1
+   9               		.text
+  10               	.Ltext0:
+  69               	.global	delay
+  71               	delay:
+   1:main.c        **** #include<avr/io.h>
+   2:main.c        **** 
+   3:main.c        **** void delay();
+   4:main.c        **** 
+   5:main.c        **** 
+   6:main.c        **** void main(){
+   7:main.c        **** DDRB=0x01;
+   8:main.c        **** 
+   9:main.c        **** 
+  10:main.c        **** 
+  11:main.c        **** while(1){
+  12:main.c        **** 
+  13:main.c        **** PORTB=0x00;
+  14:main.c        **** delay();
+  15:main.c        **** PORTB=0x01;
+  16:main.c        **** delay();
+  17:main.c        **** 
+  18:main.c        **** }
+  19:main.c        **** 
+  20:main.c        **** 
+  21:main.c        **** 
+  22:main.c        **** }
+  23:main.c        **** 
+  24:main.c        **** void delay(){
+  72               	rame size = 0 */
+  74               	.LM1:
+  75               		ldi r24,lo8(0)
+  76               		ldi r25,hi8(0)
+  78               	.LM2:
+  79 0000 80E0      		ldi r20,lo8(5)
+  25:main.c        **** int count;
+  26:main.c        **** for(count=0;count<100;count++){
+  27:main.c        **** TCCR0=0x05;
+  81               	abn	68,0,27,.LM2-.LFBB1
+  82               	.LM2:
+  83 0004 45E0      		ldi r20,lo8(5)
+  28:main.c        **** OCR0=157;
+  84               	4,lo8(0)
+  85               		ldi r25,hi8(0)
+  29:main.c        **** while((TIFR &0x02)==0);
+  30:main.c        **** TIFR=0x02;
+  87               	LM1-.LFBB1
+  88               	.LM1:
+  89 0008 22E0      		ldi r24,lo8(0)
+  90               		ldi r25,hi8(0)
+  92               	.LM2:
+  93 000a 43BF      		ldi r20,lo8(5)
+  95               	.LM3:
+  96 000c 3CBF      		ldi r19,lo8(-99)
+  98               	.LM4:
+  99               		ldi r18,lo8(2)
+ 100 000e 08B6      	.L3:
+ 102 0012 00C0      	.LM5:
+ 103               		out 83-32,r20
+ 105 0014 28BF      	.LM6:
+  31:main.c        **** TCNT0=0;
+ 106               	-.LFBB1
+ 107               	.LM5:
+ 108 0016 12BE      		out 83-32,r20
+ 110               	.LM6:
+ 111 0018 0196      		out 92-32,r19
+ 112 001a 8436      	.L2:
+ 114 001e 01F4      	.LM7:
+ 115               		in __tmp_reg__,88-32
+  32:main.c        **** }
+  33:main.c        **** 
+  34:main.c        **** }...
+ 116               	:
+ 118 0020 0895      	.LM7:
+ 119               		in __tmp_reg__,88-32
+ 120               		sbrs __tmp_reg__,1
+ 121               		rjmp .L2
+ 123               	.LM8:
+ 124               		out 88-32,r18
+ 126               	.LM9:
+ 127               		out 82-32,__zero_reg__
+ 129               	.LM10:
+ 130               		adiw r24,1
+ 131 0022 1F93      		cpi r24,100
+ 132               		cpc r25,__zero_reg__
+ 133               		brne .L3
+ 134               	/* epilogue start */
+ 136 0024 81E0      	.LM11:
+ 137 0026 87BB      		ret
+ 142               	.Lscope1:
+ 144 002a 18BA      	.global	main
+ 146               	main:
+ 148               	.LM12:
+ 149               	.LFBB2:
+ 150 0030 18BB      		push r17
+ 151               	/* prologue: function */
+ 152               	/* frame size = 0 */
+ 154 0036 00C0      	.LM13:
+ 155               		ldi r24,lo8(1)
+ 156               		out 55-32,r24
+ 158               	.LM14:
+DEFINED SYMBOLS
+                            *ABS*:00000000 main.c
+C:\Users\PRATHVI\AppData\Local\Temp/ccfsNURO.s:2      *ABS*:0000003f __SREG__
+C:\Users\PRATHVI\AppData\Local\Temp/ccfsNURO.s:3      *ABS*:0000003e __SP_H__
+C:\Users\PRATHVI\AppData\Local\Temp/ccfsNURO.s:4      *ABS*:0000003d __SP_L__
+C:\Users\PRATHVI\AppData\Local\Temp/ccfsNURO.s:5      *ABS*:00000034 __CCP__
+C:\Users\PRATHVI\AppData\Local\Temp/ccfsNURO.s:6      *ABS*:00000000 __tmp_reg__
+C:\Users\PRATHVI\AppData\Local\Temp/ccfsNURO.s:7      *ABS*:00000001 __zero_reg__
+C:\Users\PRATHVI\AppData\Local\Temp/ccfsNURO.s:71     .text:00000000 delay
+C:\Users\PRATHVI\AppData\Local\Temp/ccfsNURO.s:127    .text:00000022 main
+
+NO UNDEFINED SYMBOLS

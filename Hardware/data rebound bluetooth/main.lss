@@ -1,0 +1,1148 @@
+
+main.elf:     file format elf32-avr
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .text         0000049a  00000000  00000000  00000094  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  1 .data         00000096  00800060  0000049a  0000052e  2**0
+                  CONTENTS, ALLOC, LOAD, DATA
+  2 .bss          00000012  008000f6  008000f6  000005c4  2**0
+                  ALLOC
+  3 .stab         00000e28  00000000  00000000  000005c4  2**2
+                  CONTENTS, READONLY, DEBUGGING
+  4 .stabstr      0000099f  00000000  00000000  000013ec  2**0
+                  CONTENTS, READONLY, DEBUGGING
+
+Disassembly of section .text:
+
+00000000 <__vectors>:
+   0:	0c 94 2a 00 	jmp	0x54	; 0x54 <__ctors_end>
+   4:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+   8:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+   c:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  10:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  14:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  18:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  1c:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  20:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  24:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  28:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  2c:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  30:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  34:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  38:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  3c:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  40:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  44:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  48:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  4c:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  50:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+
+00000054 <__ctors_end>:
+  54:	11 24       	eor	r1, r1
+  56:	1f be       	out	0x3f, r1	; 63
+  58:	cf e5       	ldi	r28, 0x5F	; 95
+  5a:	d4 e0       	ldi	r29, 0x04	; 4
+  5c:	de bf       	out	0x3e, r29	; 62
+  5e:	cd bf       	out	0x3d, r28	; 61
+
+00000060 <__do_copy_data>:
+  60:	10 e0       	ldi	r17, 0x00	; 0
+  62:	a0 e6       	ldi	r26, 0x60	; 96
+  64:	b0 e0       	ldi	r27, 0x00	; 0
+  66:	ea e9       	ldi	r30, 0x9A	; 154
+  68:	f4 e0       	ldi	r31, 0x04	; 4
+  6a:	02 c0       	rjmp	.+4      	; 0x70 <.do_copy_data_start>
+
+0000006c <.do_copy_data_loop>:
+  6c:	05 90       	lpm	r0, Z+
+  6e:	0d 92       	st	X+, r0
+
+00000070 <.do_copy_data_start>:
+  70:	a6 3f       	cpi	r26, 0xF6	; 246
+  72:	b1 07       	cpc	r27, r17
+  74:	d9 f7       	brne	.-10     	; 0x6c <.do_copy_data_loop>
+
+00000076 <__do_clear_bss>:
+  76:	11 e0       	ldi	r17, 0x01	; 1
+  78:	a6 ef       	ldi	r26, 0xF6	; 246
+  7a:	b0 e0       	ldi	r27, 0x00	; 0
+  7c:	01 c0       	rjmp	.+2      	; 0x80 <.do_clear_bss_start>
+
+0000007e <.do_clear_bss_loop>:
+  7e:	1d 92       	st	X+, r1
+
+00000080 <.do_clear_bss_start>:
+  80:	a8 30       	cpi	r26, 0x08	; 8
+  82:	b1 07       	cpc	r27, r17
+  84:	e1 f7       	brne	.-8      	; 0x7e <.do_clear_bss_loop>
+  86:	0e 94 9e 00 	call	0x13c	; 0x13c <main>
+  8a:	0c 94 4b 02 	jmp	0x496	; 0x496 <_exit>
+
+0000008e <__bad_interrupt>:
+  8e:	0c 94 00 00 	jmp	0	; 0x0 <__vectors>
+
+00000092 <usart_init>:
+
+/*Function defination*/
+
+void usart_init()
+{
+UBRRH = 0;
+  92:	10 bc       	out	0x20, r1	; 32
+UBRRL =2;
+  94:	82 e0       	ldi	r24, 0x02	; 2
+  96:	89 b9       	out	0x09, r24	; 9
+UCSRA |=(1<<U2X);
+  98:	59 9a       	sbi	0x0b, 1	; 11
+UCSRB|= (1<<RXEN)|(1<<TXEN);
+  9a:	8a b1       	in	r24, 0x0a	; 10
+  9c:	88 61       	ori	r24, 0x18	; 24
+  9e:	8a b9       	out	0x0a, r24	; 10
+UCSRC |= (1 << URSEL)|(3<<UCSZ0);
+  a0:	80 b5       	in	r24, 0x20	; 32
+  a2:	86 68       	ori	r24, 0x86	; 134
+  a4:	80 bd       	out	0x20, r24	; 32
+}
+  a6:	08 95       	ret
+
+000000a8 <usart_data_transmit>:
+
+
+void usart_data_transmit(unsigned char data )
+{
+while ( !( UCSRA & (1<<UDRE)) )
+  a8:	5d 9b       	sbis	0x0b, 5	; 11
+  aa:	fe cf       	rjmp	.-4      	; 0xa8 <usart_data_transmit>
+;
+UDR = data;
+  ac:	8c b9       	out	0x0c, r24	; 12
+    milliseconds can be achieved.
+ */
+void
+_delay_loop_2(uint16_t __count)
+{
+	__asm__ volatile (
+  ae:	88 eb       	ldi	r24, 0xB8	; 184
+  b0:	9b e0       	ldi	r25, 0x0B	; 11
+  b2:	01 97       	sbiw	r24, 0x01	; 1
+  b4:	f1 f7       	brne	.-4      	; 0xb2 <usart_data_transmit+0xa>
+_delay_ms(1);
+}
+  b6:	08 95       	ret
+
+000000b8 <usart_data_receive>:
+
+unsigned char usart_data_receive( void )
+{
+while ( !(UCSRA & (1<<RXC)) )
+  b8:	5f 9b       	sbis	0x0b, 7	; 11
+  ba:	fe cf       	rjmp	.-4      	; 0xb8 <usart_data_receive>
+;
+return UDR;
+  bc:	8c b1       	in	r24, 0x0c	; 12
+}
+  be:	08 95       	ret
+
+000000c0 <usart_string_transmit>:
+
+void usart_string_transmit(char *string)
+{
+  c0:	fc 01       	movw	r30, r24
+  c2:	28 eb       	ldi	r18, 0xB8	; 184
+  c4:	3b e0       	ldi	r19, 0x0B	; 11
+  c6:	07 c0       	rjmp	.+14     	; 0xd6 <usart_string_transmit+0x16>
+}
+
+
+void usart_data_transmit(unsigned char data )
+{
+while ( !( UCSRA & (1<<UDRE)) )
+  c8:	5d 9b       	sbis	0x0b, 5	; 11
+  ca:	fe cf       	rjmp	.-4      	; 0xc8 <usart_string_transmit+0x8>
+
+void usart_string_transmit(char *string)
+{
+while(*string)
+{
+usart_data_transmit(*string++);
+  cc:	31 96       	adiw	r30, 0x01	; 1
+
+void usart_data_transmit(unsigned char data )
+{
+while ( !( UCSRA & (1<<UDRE)) )
+;
+UDR = data;
+  ce:	8c b9       	out	0x0c, r24	; 12
+  d0:	c9 01       	movw	r24, r18
+  d2:	01 97       	sbiw	r24, 0x01	; 1
+  d4:	f1 f7       	brne	.-4      	; 0xd2 <usart_string_transmit+0x12>
+return UDR;
+}
+
+void usart_string_transmit(char *string)
+{
+while(*string)
+  d6:	80 81       	ld	r24, Z
+  d8:	88 23       	and	r24, r24
+  da:	b1 f7       	brne	.-20     	; 0xc8 <usart_string_transmit+0x8>
+{
+usart_data_transmit(*string++);
+}
+}
+  dc:	08 95       	ret
+
+000000de <usart_string_receive>:
+
+char *usart_string_receive(char *receive_string,unsigned char terminating_character)
+{
+  de:	9c 01       	movw	r18, r24
+  e0:	90 e0       	ldi	r25, 0x00	; 0
+_delay_ms(1);
+}
+
+unsigned char usart_data_receive( void )
+{
+while ( !(UCSRA & (1<<RXC)) )
+  e2:	5f 9b       	sbis	0x0b, 7	; 11
+  e4:	fe cf       	rjmp	.-4      	; 0xe2 <usart_string_receive+0x4>
+;
+return UDR;
+  e6:	8c b1       	in	r24, 0x0c	; 12
+char *usart_string_receive(char *receive_string,unsigned char terminating_character)
+{
+	unsigned char temp=0x00;
+	for(unsigned char i=0;;i++)
+	{
+		*(receive_string+i)=usart_data_receive();
+  e8:	f9 01       	movw	r30, r18
+  ea:	e9 0f       	add	r30, r25
+  ec:	f1 1d       	adc	r31, r1
+  ee:	80 83       	st	Z, r24
+		if(*(receive_string+i)==terminating_character)
+  f0:	86 17       	cp	r24, r22
+  f2:	11 f0       	breq	.+4      	; 0xf8 <usart_string_receive+0x1a>
+			break;
+		else
+		temp++;
+  f4:	9f 5f       	subi	r25, 0xFF	; 255
+  f6:	f5 cf       	rjmp	.-22     	; 0xe2 <usart_string_receive+0x4>
+	}
+	*(receive_string+temp)='\0';
+  f8:	10 82       	st	Z, r1
+	return receive_string;
+}
+  fa:	c9 01       	movw	r24, r18
+  fc:	08 95       	ret
+
+000000fe <hc_06_bluetooth_transmit_byte>:
+}
+
+
+void usart_data_transmit(unsigned char data )
+{
+while ( !( UCSRA & (1<<UDRE)) )
+  fe:	5d 9b       	sbis	0x0b, 5	; 11
+ 100:	fe cf       	rjmp	.-4      	; 0xfe <hc_06_bluetooth_transmit_byte>
+;
+UDR = data;
+ 102:	8c b9       	out	0x0c, r24	; 12
+ 104:	88 eb       	ldi	r24, 0xB8	; 184
+ 106:	9b e0       	ldi	r25, 0x0B	; 11
+ 108:	01 97       	sbiw	r24, 0x01	; 1
+ 10a:	f1 f7       	brne	.-4      	; 0x108 <hc_06_bluetooth_transmit_byte+0xa>
+
+
+void hc_06_bluetooth_transmit_byte(char data_byte)
+{
+	usart_data_transmit(data_byte);
+}
+ 10c:	08 95       	ret
+
+0000010e <hc_06_bluetooth_receive_byte>:
+_delay_ms(1);
+}
+
+unsigned char usart_data_receive( void )
+{
+while ( !(UCSRA & (1<<RXC)) )
+ 10e:	5f 9b       	sbis	0x0b, 7	; 11
+ 110:	fe cf       	rjmp	.-4      	; 0x10e <hc_06_bluetooth_receive_byte>
+;
+return UDR;
+ 112:	8c b1       	in	r24, 0x0c	; 12
+char hc_06_bluetooth_receive_byte(void)
+{
+	return usart_data_receive();
+}
+ 114:	08 95       	ret
+
+00000116 <hc_06_bluetooth_transmit_string>:
+void hc_06_bluetooth_transmit_string(char *transmit_string)
+{
+	usart_string_transmit(transmit_string);
+ 116:	0e 94 60 00 	call	0xc0	; 0xc0 <usart_string_transmit>
+}
+ 11a:	08 95       	ret
+
+0000011c <hc_06_bluetooth_receive_string>:
+char *hc_06_bluetooth_receive_string(char *receive_string, unsigned char terminating_character)
+{
+ 11c:	9c 01       	movw	r18, r24
+ 11e:	90 e0       	ldi	r25, 0x00	; 0
+_delay_ms(1);
+}
+
+unsigned char usart_data_receive( void )
+{
+while ( !(UCSRA & (1<<RXC)) )
+ 120:	5f 9b       	sbis	0x0b, 7	; 11
+ 122:	fe cf       	rjmp	.-4      	; 0x120 <hc_06_bluetooth_receive_string+0x4>
+;
+return UDR;
+ 124:	8c b1       	in	r24, 0x0c	; 12
+	unsigned char temp=0x00;
+	for(unsigned char i=0;;i++)
+	{
+		*(receive_string+i)=usart_data_receive();
+ 126:	f9 01       	movw	r30, r18
+ 128:	e9 0f       	add	r30, r25
+ 12a:	f1 1d       	adc	r31, r1
+ 12c:	80 83       	st	Z, r24
+		if(*(receive_string+i)==terminating_character)
+ 12e:	86 17       	cp	r24, r22
+ 130:	11 f0       	breq	.+4      	; 0x136 <hc_06_bluetooth_receive_string+0x1a>
+			break;
+		else
+			temp++;
+ 132:	9f 5f       	subi	r25, 0xFF	; 255
+ 134:	f5 cf       	rjmp	.-22     	; 0x120 <hc_06_bluetooth_receive_string+0x4>
+	}
+	*(receive_string+temp)='\0';
+ 136:	10 82       	st	Z, r1
+	return receive_string;
+}
+ 138:	c9 01       	movw	r24, r18
+ 13a:	08 95       	ret
+
+0000013c <main>:
+#include "usart.h"
+#include "hc06.h"
+
+void main(){
+char a;
+usart_init();
+ 13c:	0e 94 49 00 	call	0x92	; 0x92 <usart_init>
+ 140:	28 eb       	ldi	r18, 0xB8	; 184
+ 142:	3b e0       	ldi	r19, 0x0B	; 11
+_delay_ms(1);
+}
+
+unsigned char usart_data_receive( void )
+{
+while ( !(UCSRA & (1<<RXC)) )
+ 144:	5f 9b       	sbis	0x0b, 7	; 11
+ 146:	fe cf       	rjmp	.-4      	; 0x144 <main+0x8>
+;
+return UDR;
+ 148:	8c b1       	in	r24, 0x0c	; 12
+}
+
+
+void usart_data_transmit(unsigned char data )
+{
+while ( !( UCSRA & (1<<UDRE)) )
+ 14a:	5d 9b       	sbis	0x0b, 5	; 11
+ 14c:	fe cf       	rjmp	.-4      	; 0x14a <main+0xe>
+;
+UDR = data;
+ 14e:	8c b9       	out	0x0c, r24	; 12
+ 150:	c9 01       	movw	r24, r18
+ 152:	01 97       	sbiw	r24, 0x01	; 1
+ 154:	f1 f7       	brne	.-4      	; 0x152 <main+0x16>
+ 156:	f6 cf       	rjmp	.-20     	; 0x144 <main+0x8>
+
+00000158 <hc_06_bluetooth_pin_change>:
+	{
+		return 0;
+	}
+}
+unsigned  char hc_06_bluetooth_pin_change(char *new_pin)
+{
+ 158:	0f 93       	push	r16
+ 15a:	1f 93       	push	r17
+ 15c:	8c 01       	movw	r16, r24
+	usart_string_transmit("AT+PIN");
+ 15e:	80 e6       	ldi	r24, 0x60	; 96
+ 160:	90 e0       	ldi	r25, 0x00	; 0
+ 162:	0e 94 60 00 	call	0xc0	; 0xc0 <usart_string_transmit>
+	usart_string_transmit(new_pin);
+ 166:	c8 01       	movw	r24, r16
+ 168:	0e 94 60 00 	call	0xc0	; 0xc0 <usart_string_transmit>
+ 16c:	e5 e0       	ldi	r30, 0x05	; 5
+ 16e:	f1 e0       	ldi	r31, 0x01	; 1
+_delay_ms(1);
+}
+
+unsigned char usart_data_receive( void )
+{
+while ( !(UCSRA & (1<<RXC)) )
+ 170:	5f 9b       	sbis	0x0b, 7	; 11
+ 172:	fe cf       	rjmp	.-4      	; 0x170 <hc_06_bluetooth_pin_change+0x18>
+;
+return UDR;
+ 174:	8c b1       	in	r24, 0x0c	; 12
+	for(unsigned char i=0; i<2;i++)
+	{
+		hc_06_buffer1[i]=usart_data_receive();
+ 176:	81 93       	st	Z+, r24
+}
+unsigned  char hc_06_bluetooth_pin_change(char *new_pin)
+{
+	usart_string_transmit("AT+PIN");
+	usart_string_transmit(new_pin);
+	for(unsigned char i=0; i<2;i++)
+ 178:	81 e0       	ldi	r24, 0x01	; 1
+ 17a:	e7 30       	cpi	r30, 0x07	; 7
+ 17c:	f8 07       	cpc	r31, r24
+ 17e:	c1 f7       	brne	.-16     	; 0x170 <hc_06_bluetooth_pin_change+0x18>
+	{
+		hc_06_buffer1[i]=usart_data_receive();
+	}
+	hc_06_buffer1[2]=0;
+ 180:	10 82       	st	Z, r1
+ 182:	e6 ef       	ldi	r30, 0xF6	; 246
+ 184:	f0 e0       	ldi	r31, 0x00	; 0
+_delay_ms(1);
+}
+
+unsigned char usart_data_receive( void )
+{
+while ( !(UCSRA & (1<<RXC)) )
+ 186:	5f 9b       	sbis	0x0b, 7	; 11
+ 188:	fe cf       	rjmp	.-4      	; 0x186 <hc_06_bluetooth_pin_change+0x2e>
+;
+return UDR;
+ 18a:	8c b1       	in	r24, 0x0c	; 12
+	for(unsigned char i=0; i<6;i++)
+	{
+		hc_06_buffer2[i]=usart_data_receive();
+ 18c:	81 93       	st	Z+, r24
+	for(unsigned char i=0; i<2;i++)
+	{
+		hc_06_buffer1[i]=usart_data_receive();
+	}
+	hc_06_buffer1[2]=0;
+	for(unsigned char i=0; i<6;i++)
+ 18e:	80 e0       	ldi	r24, 0x00	; 0
+ 190:	ec 3f       	cpi	r30, 0xFC	; 252
+ 192:	f8 07       	cpc	r31, r24
+ 194:	c1 f7       	brne	.-16     	; 0x186 <hc_06_bluetooth_pin_change+0x2e>
+	{
+		hc_06_buffer2[i]=usart_data_receive();
+	}
+	hc_06_buffer2[6]=0;
+ 196:	10 82       	st	Z, r1
+	if(!(strcmp(hc_06_buffer1,"OK")))
+ 198:	85 e0       	ldi	r24, 0x05	; 5
+ 19a:	91 e0       	ldi	r25, 0x01	; 1
+ 19c:	67 e6       	ldi	r22, 0x67	; 103
+ 19e:	70 e0       	ldi	r23, 0x00	; 0
+ 1a0:	0e 94 42 02 	call	0x484	; 0x484 <strcmp>
+ 1a4:	9c 01       	movw	r18, r24
+ 1a6:	80 e0       	ldi	r24, 0x00	; 0
+ 1a8:	23 2b       	or	r18, r19
+ 1aa:	09 f4       	brne	.+2      	; 0x1ae <hc_06_bluetooth_pin_change+0x56>
+ 1ac:	81 e0       	ldi	r24, 0x01	; 1
+	}
+	else
+	{
+		return 0;
+	}
+}
+ 1ae:	1f 91       	pop	r17
+ 1b0:	0f 91       	pop	r16
+ 1b2:	08 95       	ret
+
+000001b4 <hc_06_bluetooth_change_baud_rate>:
+	{
+		return 0;
+	}
+}
+unsigned  char hc_06_bluetooth_change_baud_rate(long int baud_rate)
+{
+ 1b4:	ef 92       	push	r14
+ 1b6:	ff 92       	push	r15
+ 1b8:	0f 93       	push	r16
+ 1ba:	1f 93       	push	r17
+ 1bc:	7b 01       	movw	r14, r22
+ 1be:	8c 01       	movw	r16, r24
+	if(baud_rate==1200)
+ 1c0:	80 eb       	ldi	r24, 0xB0	; 176
+ 1c2:	e8 16       	cp	r14, r24
+ 1c4:	84 e0       	ldi	r24, 0x04	; 4
+ 1c6:	f8 06       	cpc	r15, r24
+ 1c8:	80 e0       	ldi	r24, 0x00	; 0
+ 1ca:	08 07       	cpc	r16, r24
+ 1cc:	80 e0       	ldi	r24, 0x00	; 0
+ 1ce:	18 07       	cpc	r17, r24
+ 1d0:	19 f4       	brne	.+6      	; 0x1d8 <hc_06_bluetooth_change_baud_rate+0x24>
+	{
+		usart_string_transmit("AT+BAUD1");
+ 1d2:	8a e6       	ldi	r24, 0x6A	; 106
+ 1d4:	90 e0       	ldi	r25, 0x00	; 0
+ 1d6:	17 c0       	rjmp	.+46     	; 0x206 <hc_06_bluetooth_change_baud_rate+0x52>
+	}
+	else if(baud_rate==2400)
+ 1d8:	80 e6       	ldi	r24, 0x60	; 96
+ 1da:	e8 16       	cp	r14, r24
+ 1dc:	89 e0       	ldi	r24, 0x09	; 9
+ 1de:	f8 06       	cpc	r15, r24
+ 1e0:	80 e0       	ldi	r24, 0x00	; 0
+ 1e2:	08 07       	cpc	r16, r24
+ 1e4:	80 e0       	ldi	r24, 0x00	; 0
+ 1e6:	18 07       	cpc	r17, r24
+ 1e8:	19 f4       	brne	.+6      	; 0x1f0 <hc_06_bluetooth_change_baud_rate+0x3c>
+	{
+		usart_string_transmit("AT+BAUD2");
+ 1ea:	83 e7       	ldi	r24, 0x73	; 115
+ 1ec:	90 e0       	ldi	r25, 0x00	; 0
+ 1ee:	0b c0       	rjmp	.+22     	; 0x206 <hc_06_bluetooth_change_baud_rate+0x52>
+	}
+	else if(baud_rate==4800)
+ 1f0:	80 ec       	ldi	r24, 0xC0	; 192
+ 1f2:	e8 16       	cp	r14, r24
+ 1f4:	82 e1       	ldi	r24, 0x12	; 18
+ 1f6:	f8 06       	cpc	r15, r24
+ 1f8:	80 e0       	ldi	r24, 0x00	; 0
+ 1fa:	08 07       	cpc	r16, r24
+ 1fc:	80 e0       	ldi	r24, 0x00	; 0
+ 1fe:	18 07       	cpc	r17, r24
+ 200:	39 f4       	brne	.+14     	; 0x210 <hc_06_bluetooth_change_baud_rate+0x5c>
+	{
+		usart_string_transmit("AT+BAUD3");
+ 202:	8c e7       	ldi	r24, 0x7C	; 124
+ 204:	90 e0       	ldi	r25, 0x00	; 0
+ 206:	0e 94 60 00 	call	0xc0	; 0xc0 <usart_string_transmit>
+ 20a:	e5 e0       	ldi	r30, 0x05	; 5
+ 20c:	f1 e0       	ldi	r31, 0x01	; 1
+ 20e:	6d c0       	rjmp	.+218    	; 0x2ea <hc_06_bluetooth_change_baud_rate+0x136>
+	}
+	else if(baud_rate==9600)
+ 210:	80 e8       	ldi	r24, 0x80	; 128
+ 212:	e8 16       	cp	r14, r24
+ 214:	85 e2       	ldi	r24, 0x25	; 37
+ 216:	f8 06       	cpc	r15, r24
+ 218:	80 e0       	ldi	r24, 0x00	; 0
+ 21a:	08 07       	cpc	r16, r24
+ 21c:	80 e0       	ldi	r24, 0x00	; 0
+ 21e:	18 07       	cpc	r17, r24
+ 220:	19 f4       	brne	.+6      	; 0x228 <hc_06_bluetooth_change_baud_rate+0x74>
+	{
+		usart_string_transmit("AT+BAUD4");
+ 222:	85 e8       	ldi	r24, 0x85	; 133
+ 224:	90 e0       	ldi	r25, 0x00	; 0
+ 226:	ef cf       	rjmp	.-34     	; 0x206 <hc_06_bluetooth_change_baud_rate+0x52>
+	}
+	else if(baud_rate==19200)
+ 228:	80 e0       	ldi	r24, 0x00	; 0
+ 22a:	e8 16       	cp	r14, r24
+ 22c:	8b e4       	ldi	r24, 0x4B	; 75
+ 22e:	f8 06       	cpc	r15, r24
+ 230:	80 e0       	ldi	r24, 0x00	; 0
+ 232:	08 07       	cpc	r16, r24
+ 234:	80 e0       	ldi	r24, 0x00	; 0
+ 236:	18 07       	cpc	r17, r24
+ 238:	19 f4       	brne	.+6      	; 0x240 <hc_06_bluetooth_change_baud_rate+0x8c>
+	{
+		usart_string_transmit("AT+BAUD5");
+ 23a:	8e e8       	ldi	r24, 0x8E	; 142
+ 23c:	90 e0       	ldi	r25, 0x00	; 0
+ 23e:	e3 cf       	rjmp	.-58     	; 0x206 <hc_06_bluetooth_change_baud_rate+0x52>
+	}
+	else if(baud_rate==38400)
+ 240:	80 e0       	ldi	r24, 0x00	; 0
+ 242:	e8 16       	cp	r14, r24
+ 244:	86 e9       	ldi	r24, 0x96	; 150
+ 246:	f8 06       	cpc	r15, r24
+ 248:	80 e0       	ldi	r24, 0x00	; 0
+ 24a:	08 07       	cpc	r16, r24
+ 24c:	80 e0       	ldi	r24, 0x00	; 0
+ 24e:	18 07       	cpc	r17, r24
+ 250:	19 f4       	brne	.+6      	; 0x258 <hc_06_bluetooth_change_baud_rate+0xa4>
+	{
+		usart_string_transmit("AT+BAUD6");
+ 252:	87 e9       	ldi	r24, 0x97	; 151
+ 254:	90 e0       	ldi	r25, 0x00	; 0
+ 256:	d7 cf       	rjmp	.-82     	; 0x206 <hc_06_bluetooth_change_baud_rate+0x52>
+	}
+	else if(baud_rate==57600)
+ 258:	80 e0       	ldi	r24, 0x00	; 0
+ 25a:	e8 16       	cp	r14, r24
+ 25c:	81 ee       	ldi	r24, 0xE1	; 225
+ 25e:	f8 06       	cpc	r15, r24
+ 260:	80 e0       	ldi	r24, 0x00	; 0
+ 262:	08 07       	cpc	r16, r24
+ 264:	80 e0       	ldi	r24, 0x00	; 0
+ 266:	18 07       	cpc	r17, r24
+ 268:	19 f4       	brne	.+6      	; 0x270 <hc_06_bluetooth_change_baud_rate+0xbc>
+	{
+		usart_string_transmit("AT+BAUD7");
+ 26a:	80 ea       	ldi	r24, 0xA0	; 160
+ 26c:	90 e0       	ldi	r25, 0x00	; 0
+ 26e:	cb cf       	rjmp	.-106    	; 0x206 <hc_06_bluetooth_change_baud_rate+0x52>
+	}
+	else if(baud_rate==115200)
+ 270:	80 e0       	ldi	r24, 0x00	; 0
+ 272:	e8 16       	cp	r14, r24
+ 274:	82 ec       	ldi	r24, 0xC2	; 194
+ 276:	f8 06       	cpc	r15, r24
+ 278:	81 e0       	ldi	r24, 0x01	; 1
+ 27a:	08 07       	cpc	r16, r24
+ 27c:	80 e0       	ldi	r24, 0x00	; 0
+ 27e:	18 07       	cpc	r17, r24
+ 280:	19 f4       	brne	.+6      	; 0x288 <hc_06_bluetooth_change_baud_rate+0xd4>
+	{
+		usart_string_transmit("AT+BAUD8");
+ 282:	89 ea       	ldi	r24, 0xA9	; 169
+ 284:	90 e0       	ldi	r25, 0x00	; 0
+ 286:	bf cf       	rjmp	.-130    	; 0x206 <hc_06_bluetooth_change_baud_rate+0x52>
+	}
+	else if(baud_rate==230400)
+ 288:	80 e0       	ldi	r24, 0x00	; 0
+ 28a:	e8 16       	cp	r14, r24
+ 28c:	84 e8       	ldi	r24, 0x84	; 132
+ 28e:	f8 06       	cpc	r15, r24
+ 290:	83 e0       	ldi	r24, 0x03	; 3
+ 292:	08 07       	cpc	r16, r24
+ 294:	80 e0       	ldi	r24, 0x00	; 0
+ 296:	18 07       	cpc	r17, r24
+ 298:	19 f4       	brne	.+6      	; 0x2a0 <hc_06_bluetooth_change_baud_rate+0xec>
+	{
+		usart_string_transmit("AT+BAUD9");
+ 29a:	82 eb       	ldi	r24, 0xB2	; 178
+ 29c:	90 e0       	ldi	r25, 0x00	; 0
+ 29e:	b3 cf       	rjmp	.-154    	; 0x206 <hc_06_bluetooth_change_baud_rate+0x52>
+	}
+	else if(baud_rate==460800)
+ 2a0:	80 e0       	ldi	r24, 0x00	; 0
+ 2a2:	e8 16       	cp	r14, r24
+ 2a4:	88 e0       	ldi	r24, 0x08	; 8
+ 2a6:	f8 06       	cpc	r15, r24
+ 2a8:	87 e0       	ldi	r24, 0x07	; 7
+ 2aa:	08 07       	cpc	r16, r24
+ 2ac:	80 e0       	ldi	r24, 0x00	; 0
+ 2ae:	18 07       	cpc	r17, r24
+ 2b0:	19 f4       	brne	.+6      	; 0x2b8 <hc_06_bluetooth_change_baud_rate+0x104>
+	{
+		usart_string_transmit("AT+BAUDA");
+ 2b2:	8b eb       	ldi	r24, 0xBB	; 187
+ 2b4:	90 e0       	ldi	r25, 0x00	; 0
+ 2b6:	a7 cf       	rjmp	.-178    	; 0x206 <hc_06_bluetooth_change_baud_rate+0x52>
+	}
+	else if(baud_rate==921600)
+ 2b8:	80 e0       	ldi	r24, 0x00	; 0
+ 2ba:	e8 16       	cp	r14, r24
+ 2bc:	80 e1       	ldi	r24, 0x10	; 16
+ 2be:	f8 06       	cpc	r15, r24
+ 2c0:	8e e0       	ldi	r24, 0x0E	; 14
+ 2c2:	08 07       	cpc	r16, r24
+ 2c4:	80 e0       	ldi	r24, 0x00	; 0
+ 2c6:	18 07       	cpc	r17, r24
+ 2c8:	19 f4       	brne	.+6      	; 0x2d0 <hc_06_bluetooth_change_baud_rate+0x11c>
+	{
+		usart_string_transmit("AT+BAUDB");
+ 2ca:	84 ec       	ldi	r24, 0xC4	; 196
+ 2cc:	90 e0       	ldi	r25, 0x00	; 0
+ 2ce:	9b cf       	rjmp	.-202    	; 0x206 <hc_06_bluetooth_change_baud_rate+0x52>
+	}
+	else if(baud_rate==1382400)
+ 2d0:	80 e0       	ldi	r24, 0x00	; 0
+ 2d2:	e8 16       	cp	r14, r24
+ 2d4:	88 e1       	ldi	r24, 0x18	; 24
+ 2d6:	f8 06       	cpc	r15, r24
+ 2d8:	85 e1       	ldi	r24, 0x15	; 21
+ 2da:	08 07       	cpc	r16, r24
+ 2dc:	80 e0       	ldi	r24, 0x00	; 0
+ 2de:	18 07       	cpc	r17, r24
+ 2e0:	09 f0       	breq	.+2      	; 0x2e4 <hc_06_bluetooth_change_baud_rate+0x130>
+ 2e2:	93 cf       	rjmp	.-218    	; 0x20a <hc_06_bluetooth_change_baud_rate+0x56>
+	{
+		usart_string_transmit("AT+BAUDC");
+ 2e4:	8d ec       	ldi	r24, 0xCD	; 205
+ 2e6:	90 e0       	ldi	r25, 0x00	; 0
+ 2e8:	8e cf       	rjmp	.-228    	; 0x206 <hc_06_bluetooth_change_baud_rate+0x52>
+_delay_ms(1);
+}
+
+unsigned char usart_data_receive( void )
+{
+while ( !(UCSRA & (1<<RXC)) )
+ 2ea:	5f 9b       	sbis	0x0b, 7	; 11
+ 2ec:	fe cf       	rjmp	.-4      	; 0x2ea <hc_06_bluetooth_change_baud_rate+0x136>
+;
+return UDR;
+ 2ee:	8c b1       	in	r24, 0x0c	; 12
+	{
+		;
+	}
+	for(unsigned char i=0; i<2;i++)
+	{
+		hc_06_buffer1[i]=usart_data_receive();
+ 2f0:	81 93       	st	Z+, r24
+	}
+	else
+	{
+		;
+	}
+	for(unsigned char i=0; i<2;i++)
+ 2f2:	81 e0       	ldi	r24, 0x01	; 1
+ 2f4:	e7 30       	cpi	r30, 0x07	; 7
+ 2f6:	f8 07       	cpc	r31, r24
+ 2f8:	c1 f7       	brne	.-16     	; 0x2ea <hc_06_bluetooth_change_baud_rate+0x136>
+	{
+		hc_06_buffer1[i]=usart_data_receive();
+	}
+	hc_06_buffer1[2]=0;
+ 2fa:	10 82       	st	Z, r1
+	
+	if(baud_rate<=9600)
+ 2fc:	81 e8       	ldi	r24, 0x81	; 129
+ 2fe:	e8 16       	cp	r14, r24
+ 300:	85 e2       	ldi	r24, 0x25	; 37
+ 302:	f8 06       	cpc	r15, r24
+ 304:	80 e0       	ldi	r24, 0x00	; 0
+ 306:	08 07       	cpc	r16, r24
+ 308:	80 e0       	ldi	r24, 0x00	; 0
+ 30a:	18 07       	cpc	r17, r24
+ 30c:	5c f4       	brge	.+22     	; 0x324 <hc_06_bluetooth_change_baud_rate+0x170>
+ 30e:	e6 ef       	ldi	r30, 0xF6	; 246
+ 310:	f0 e0       	ldi	r31, 0x00	; 0
+_delay_ms(1);
+}
+
+unsigned char usart_data_receive( void )
+{
+while ( !(UCSRA & (1<<RXC)) )
+ 312:	5f 9b       	sbis	0x0b, 7	; 11
+ 314:	fe cf       	rjmp	.-4      	; 0x312 <hc_06_bluetooth_change_baud_rate+0x15e>
+;
+return UDR;
+ 316:	8c b1       	in	r24, 0x0c	; 12
+	{
+		for(unsigned char i=0; i<4;i++)
+		{
+			hc_06_buffer2[i]=usart_data_receive();
+ 318:	81 93       	st	Z+, r24
+	}
+	hc_06_buffer1[2]=0;
+	
+	if(baud_rate<=9600)
+	{
+		for(unsigned char i=0; i<4;i++)
+ 31a:	80 e0       	ldi	r24, 0x00	; 0
+ 31c:	ea 3f       	cpi	r30, 0xFA	; 250
+ 31e:	f8 07       	cpc	r31, r24
+ 320:	c1 f7       	brne	.-16     	; 0x312 <hc_06_bluetooth_change_baud_rate+0x15e>
+ 322:	3b c0       	rjmp	.+118    	; 0x39a <hc_06_bluetooth_change_baud_rate+0x1e6>
+		{
+			hc_06_buffer2[i]=usart_data_receive();
+		}
+		hc_06_buffer2[4]=0;
+	}
+	else if(baud_rate<=57600)
+ 324:	81 e0       	ldi	r24, 0x01	; 1
+ 326:	e8 16       	cp	r14, r24
+ 328:	81 ee       	ldi	r24, 0xE1	; 225
+ 32a:	f8 06       	cpc	r15, r24
+ 32c:	80 e0       	ldi	r24, 0x00	; 0
+ 32e:	08 07       	cpc	r16, r24
+ 330:	80 e0       	ldi	r24, 0x00	; 0
+ 332:	18 07       	cpc	r17, r24
+ 334:	5c f4       	brge	.+22     	; 0x34c <hc_06_bluetooth_change_baud_rate+0x198>
+ 336:	e6 ef       	ldi	r30, 0xF6	; 246
+ 338:	f0 e0       	ldi	r31, 0x00	; 0
+_delay_ms(1);
+}
+
+unsigned char usart_data_receive( void )
+{
+while ( !(UCSRA & (1<<RXC)) )
+ 33a:	5f 9b       	sbis	0x0b, 7	; 11
+ 33c:	fe cf       	rjmp	.-4      	; 0x33a <hc_06_bluetooth_change_baud_rate+0x186>
+;
+return UDR;
+ 33e:	8c b1       	in	r24, 0x0c	; 12
+	{
+		for(unsigned char i=0; i<5;i++)
+		{
+			hc_06_buffer2[i]=usart_data_receive();
+ 340:	81 93       	st	Z+, r24
+		}
+		hc_06_buffer2[4]=0;
+	}
+	else if(baud_rate<=57600)
+	{
+		for(unsigned char i=0; i<5;i++)
+ 342:	80 e0       	ldi	r24, 0x00	; 0
+ 344:	eb 3f       	cpi	r30, 0xFB	; 251
+ 346:	f8 07       	cpc	r31, r24
+ 348:	c1 f7       	brne	.-16     	; 0x33a <hc_06_bluetooth_change_baud_rate+0x186>
+ 34a:	27 c0       	rjmp	.+78     	; 0x39a <hc_06_bluetooth_change_baud_rate+0x1e6>
+		{
+			hc_06_buffer2[i]=usart_data_receive();
+		}
+		hc_06_buffer2[5]=0;
+	}
+	else if(baud_rate<=921600)
+ 34c:	81 e0       	ldi	r24, 0x01	; 1
+ 34e:	e8 16       	cp	r14, r24
+ 350:	80 e1       	ldi	r24, 0x10	; 16
+ 352:	f8 06       	cpc	r15, r24
+ 354:	8e e0       	ldi	r24, 0x0E	; 14
+ 356:	08 07       	cpc	r16, r24
+ 358:	80 e0       	ldi	r24, 0x00	; 0
+ 35a:	18 07       	cpc	r17, r24
+ 35c:	5c f4       	brge	.+22     	; 0x374 <hc_06_bluetooth_change_baud_rate+0x1c0>
+ 35e:	e6 ef       	ldi	r30, 0xF6	; 246
+ 360:	f0 e0       	ldi	r31, 0x00	; 0
+_delay_ms(1);
+}
+
+unsigned char usart_data_receive( void )
+{
+while ( !(UCSRA & (1<<RXC)) )
+ 362:	5f 9b       	sbis	0x0b, 7	; 11
+ 364:	fe cf       	rjmp	.-4      	; 0x362 <hc_06_bluetooth_change_baud_rate+0x1ae>
+;
+return UDR;
+ 366:	8c b1       	in	r24, 0x0c	; 12
+	{
+		for(unsigned char i=0; i<6;i++)
+		{
+			hc_06_buffer2[i]=usart_data_receive();
+ 368:	81 93       	st	Z+, r24
+		}
+		hc_06_buffer2[5]=0;
+	}
+	else if(baud_rate<=921600)
+	{
+		for(unsigned char i=0; i<6;i++)
+ 36a:	80 e0       	ldi	r24, 0x00	; 0
+ 36c:	ec 3f       	cpi	r30, 0xFC	; 252
+ 36e:	f8 07       	cpc	r31, r24
+ 370:	c1 f7       	brne	.-16     	; 0x362 <hc_06_bluetooth_change_baud_rate+0x1ae>
+ 372:	13 c0       	rjmp	.+38     	; 0x39a <hc_06_bluetooth_change_baud_rate+0x1e6>
+		{
+			hc_06_buffer2[i]=usart_data_receive();
+		}
+		hc_06_buffer2[6]=0;
+	}
+	else if(baud_rate==1382400)
+ 374:	80 e0       	ldi	r24, 0x00	; 0
+ 376:	e8 16       	cp	r14, r24
+ 378:	88 e1       	ldi	r24, 0x18	; 24
+ 37a:	f8 06       	cpc	r15, r24
+ 37c:	85 e1       	ldi	r24, 0x15	; 21
+ 37e:	08 07       	cpc	r16, r24
+ 380:	80 e0       	ldi	r24, 0x00	; 0
+ 382:	18 07       	cpc	r17, r24
+ 384:	59 f4       	brne	.+22     	; 0x39c <hc_06_bluetooth_change_baud_rate+0x1e8>
+ 386:	e6 ef       	ldi	r30, 0xF6	; 246
+ 388:	f0 e0       	ldi	r31, 0x00	; 0
+_delay_ms(1);
+}
+
+unsigned char usart_data_receive( void )
+{
+while ( !(UCSRA & (1<<RXC)) )
+ 38a:	5f 9b       	sbis	0x0b, 7	; 11
+ 38c:	fe cf       	rjmp	.-4      	; 0x38a <hc_06_bluetooth_change_baud_rate+0x1d6>
+;
+return UDR;
+ 38e:	8c b1       	in	r24, 0x0c	; 12
+	{
+		for(unsigned char i=0; i<7;i++)
+		{
+			hc_06_buffer2[i]=usart_data_receive();
+ 390:	81 93       	st	Z+, r24
+		}
+		hc_06_buffer2[6]=0;
+	}
+	else if(baud_rate==1382400)
+	{
+		for(unsigned char i=0; i<7;i++)
+ 392:	80 e0       	ldi	r24, 0x00	; 0
+ 394:	ed 3f       	cpi	r30, 0xFD	; 253
+ 396:	f8 07       	cpc	r31, r24
+ 398:	c1 f7       	brne	.-16     	; 0x38a <hc_06_bluetooth_change_baud_rate+0x1d6>
+		{
+			hc_06_buffer2[i]=usart_data_receive();
+		}
+		hc_06_buffer2[7]=0;
+ 39a:	10 82       	st	Z, r1
+	}
+	if(!(strcmp(hc_06_buffer1,"OK")))
+ 39c:	85 e0       	ldi	r24, 0x05	; 5
+ 39e:	91 e0       	ldi	r25, 0x01	; 1
+ 3a0:	67 e6       	ldi	r22, 0x67	; 103
+ 3a2:	70 e0       	ldi	r23, 0x00	; 0
+ 3a4:	0e 94 42 02 	call	0x484	; 0x484 <strcmp>
+ 3a8:	9c 01       	movw	r18, r24
+ 3aa:	80 e0       	ldi	r24, 0x00	; 0
+ 3ac:	23 2b       	or	r18, r19
+ 3ae:	09 f4       	brne	.+2      	; 0x3b2 <hc_06_bluetooth_change_baud_rate+0x1fe>
+ 3b0:	81 e0       	ldi	r24, 0x01	; 1
+	}
+	else
+	{
+		return 0;
+	}
+}
+ 3b2:	1f 91       	pop	r17
+ 3b4:	0f 91       	pop	r16
+ 3b6:	ff 90       	pop	r15
+ 3b8:	ef 90       	pop	r14
+ 3ba:	08 95       	ret
+
+000003bc <hc_06_bluetooth_get_version>:
+		return 0;
+	}
+}
+unsigned char hc_06_bluetooth_get_version(void)
+{
+	usart_string_transmit("AT+VERSION");
+ 3bc:	86 ed       	ldi	r24, 0xD6	; 214
+ 3be:	90 e0       	ldi	r25, 0x00	; 0
+ 3c0:	0e 94 60 00 	call	0xc0	; 0xc0 <usart_string_transmit>
+ 3c4:	e5 e0       	ldi	r30, 0x05	; 5
+ 3c6:	f1 e0       	ldi	r31, 0x01	; 1
+_delay_ms(1);
+}
+
+unsigned char usart_data_receive( void )
+{
+while ( !(UCSRA & (1<<RXC)) )
+ 3c8:	5f 9b       	sbis	0x0b, 7	; 11
+ 3ca:	fe cf       	rjmp	.-4      	; 0x3c8 <hc_06_bluetooth_get_version+0xc>
+;
+return UDR;
+ 3cc:	8c b1       	in	r24, 0x0c	; 12
+	for(unsigned char i=0; i<2;i++)
+	{
+		hc_06_buffer1[i]=usart_data_receive();
+ 3ce:	81 93       	st	Z+, r24
+	}
+}
+unsigned char hc_06_bluetooth_get_version(void)
+{
+	usart_string_transmit("AT+VERSION");
+	for(unsigned char i=0; i<2;i++)
+ 3d0:	81 e0       	ldi	r24, 0x01	; 1
+ 3d2:	e7 30       	cpi	r30, 0x07	; 7
+ 3d4:	f8 07       	cpc	r31, r24
+ 3d6:	c1 f7       	brne	.-16     	; 0x3c8 <hc_06_bluetooth_get_version+0xc>
+	{
+		hc_06_buffer1[i]=usart_data_receive();
+	}
+	hc_06_buffer1[2]=0;
+ 3d8:	10 82       	st	Z, r1
+ 3da:	e6 ef       	ldi	r30, 0xF6	; 246
+ 3dc:	f0 e0       	ldi	r31, 0x00	; 0
+_delay_ms(1);
+}
+
+unsigned char usart_data_receive( void )
+{
+while ( !(UCSRA & (1<<RXC)) )
+ 3de:	5f 9b       	sbis	0x0b, 7	; 11
+ 3e0:	fe cf       	rjmp	.-4      	; 0x3de <hc_06_bluetooth_get_version+0x22>
+;
+return UDR;
+ 3e2:	8c b1       	in	r24, 0x0c	; 12
+	for(unsigned char i=0; i<10;i++)
+	{
+		hc_06_buffer2[i]=usart_data_receive();
+ 3e4:	81 93       	st	Z+, r24
+	for(unsigned char i=0; i<2;i++)
+	{
+		hc_06_buffer1[i]=usart_data_receive();
+	}
+	hc_06_buffer1[2]=0;
+	for(unsigned char i=0; i<10;i++)
+ 3e6:	81 e0       	ldi	r24, 0x01	; 1
+ 3e8:	e0 30       	cpi	r30, 0x00	; 0
+ 3ea:	f8 07       	cpc	r31, r24
+ 3ec:	c1 f7       	brne	.-16     	; 0x3de <hc_06_bluetooth_get_version+0x22>
+	{
+		hc_06_buffer2[i]=usart_data_receive();
+	}
+	hc_06_buffer2[10]=0;
+ 3ee:	10 82       	st	Z, r1
+	if(!(strcmp(hc_06_buffer1,"OK")))
+ 3f0:	85 e0       	ldi	r24, 0x05	; 5
+ 3f2:	91 e0       	ldi	r25, 0x01	; 1
+ 3f4:	67 e6       	ldi	r22, 0x67	; 103
+ 3f6:	70 e0       	ldi	r23, 0x00	; 0
+ 3f8:	0e 94 42 02 	call	0x484	; 0x484 <strcmp>
+ 3fc:	9c 01       	movw	r18, r24
+ 3fe:	80 e0       	ldi	r24, 0x00	; 0
+ 400:	23 2b       	or	r18, r19
+ 402:	09 f4       	brne	.+2      	; 0x406 <hc_06_bluetooth_get_version+0x4a>
+ 404:	81 e0       	ldi	r24, 0x01	; 1
+	}
+	else
+	{
+		return 0;
+	}
+}
+ 406:	08 95       	ret
+
+00000408 <hc_06_bluetooth_device_name_change>:
+	{
+		return 0;
+	}
+}
+unsigned char hc_06_bluetooth_device_name_change(char *device_name)
+{
+ 408:	0f 93       	push	r16
+ 40a:	1f 93       	push	r17
+ 40c:	8c 01       	movw	r16, r24
+	usart_string_transmit("AT+NAME");
+ 40e:	81 ee       	ldi	r24, 0xE1	; 225
+ 410:	90 e0       	ldi	r25, 0x00	; 0
+ 412:	0e 94 60 00 	call	0xc0	; 0xc0 <usart_string_transmit>
+	usart_string_transmit(device_name);
+ 416:	c8 01       	movw	r24, r16
+ 418:	0e 94 60 00 	call	0xc0	; 0xc0 <usart_string_transmit>
+ 41c:	e6 ef       	ldi	r30, 0xF6	; 246
+ 41e:	f0 e0       	ldi	r31, 0x00	; 0
+_delay_ms(1);
+}
+
+unsigned char usart_data_receive( void )
+{
+while ( !(UCSRA & (1<<RXC)) )
+ 420:	5f 9b       	sbis	0x0b, 7	; 11
+ 422:	fe cf       	rjmp	.-4      	; 0x420 <hc_06_bluetooth_device_name_change+0x18>
+;
+return UDR;
+ 424:	8c b1       	in	r24, 0x0c	; 12
+	for(unsigned char i=0; i<9;i++)
+	{
+		hc_06_buffer2[i]=usart_data_receive();
+ 426:	81 93       	st	Z+, r24
+}
+unsigned char hc_06_bluetooth_device_name_change(char *device_name)
+{
+	usart_string_transmit("AT+NAME");
+	usart_string_transmit(device_name);
+	for(unsigned char i=0; i<9;i++)
+ 428:	80 e0       	ldi	r24, 0x00	; 0
+ 42a:	ef 3f       	cpi	r30, 0xFF	; 255
+ 42c:	f8 07       	cpc	r31, r24
+ 42e:	c1 f7       	brne	.-16     	; 0x420 <hc_06_bluetooth_device_name_change+0x18>
+	{
+		hc_06_buffer2[i]=usart_data_receive();
+	}
+	hc_06_buffer2[9]=0;	
+ 430:	10 82       	st	Z, r1
+	if(!(strcmp(hc_06_buffer2,"OKsetname")))
+ 432:	cf 01       	movw	r24, r30
+ 434:	09 97       	sbiw	r24, 0x09	; 9
+ 436:	69 ee       	ldi	r22, 0xE9	; 233
+ 438:	70 e0       	ldi	r23, 0x00	; 0
+ 43a:	0e 94 42 02 	call	0x484	; 0x484 <strcmp>
+ 43e:	9c 01       	movw	r18, r24
+ 440:	80 e0       	ldi	r24, 0x00	; 0
+ 442:	23 2b       	or	r18, r19
+ 444:	09 f4       	brne	.+2      	; 0x448 <hc_06_bluetooth_device_name_change+0x40>
+ 446:	81 e0       	ldi	r24, 0x01	; 1
+	}
+	else
+	{
+		return 0;
+	}
+}
+ 448:	1f 91       	pop	r17
+ 44a:	0f 91       	pop	r16
+ 44c:	08 95       	ret
+
+0000044e <hc_06_bluetooth_at_command_mode_test>:
+	*(receive_string+temp)='\0';
+	return receive_string;
+}
+unsigned char hc_06_bluetooth_at_command_mode_test(void)
+{
+	usart_string_transmit("AT");
+ 44e:	83 ef       	ldi	r24, 0xF3	; 243
+ 450:	90 e0       	ldi	r25, 0x00	; 0
+ 452:	0e 94 60 00 	call	0xc0	; 0xc0 <usart_string_transmit>
+ 456:	e5 e0       	ldi	r30, 0x05	; 5
+ 458:	f1 e0       	ldi	r31, 0x01	; 1
+_delay_ms(1);
+}
+
+unsigned char usart_data_receive( void )
+{
+while ( !(UCSRA & (1<<RXC)) )
+ 45a:	5f 9b       	sbis	0x0b, 7	; 11
+ 45c:	fe cf       	rjmp	.-4      	; 0x45a <hc_06_bluetooth_at_command_mode_test+0xc>
+;
+return UDR;
+ 45e:	8c b1       	in	r24, 0x0c	; 12
+	for(unsigned char i=0; i<2;i++)
+	{
+		hc_06_buffer1[i]=usart_data_receive();
+ 460:	81 93       	st	Z+, r24
+	return receive_string;
+}
+unsigned char hc_06_bluetooth_at_command_mode_test(void)
+{
+	usart_string_transmit("AT");
+	for(unsigned char i=0; i<2;i++)
+ 462:	81 e0       	ldi	r24, 0x01	; 1
+ 464:	e7 30       	cpi	r30, 0x07	; 7
+ 466:	f8 07       	cpc	r31, r24
+ 468:	c1 f7       	brne	.-16     	; 0x45a <hc_06_bluetooth_at_command_mode_test+0xc>
+	{
+		hc_06_buffer1[i]=usart_data_receive();
+	}
+	hc_06_buffer1[2]=0;
+ 46a:	10 82       	st	Z, r1
+	if(!(strcmp(hc_06_buffer1,"OK")))
+ 46c:	cf 01       	movw	r24, r30
+ 46e:	02 97       	sbiw	r24, 0x02	; 2
+ 470:	67 e6       	ldi	r22, 0x67	; 103
+ 472:	70 e0       	ldi	r23, 0x00	; 0
+ 474:	0e 94 42 02 	call	0x484	; 0x484 <strcmp>
+ 478:	9c 01       	movw	r18, r24
+ 47a:	80 e0       	ldi	r24, 0x00	; 0
+ 47c:	23 2b       	or	r18, r19
+ 47e:	09 f4       	brne	.+2      	; 0x482 <__stack+0x23>
+ 480:	81 e0       	ldi	r24, 0x01	; 1
+	}
+	else
+	{
+		return 0;
+	}
+}
+ 482:	08 95       	ret
+
+00000484 <strcmp>:
+ 484:	fb 01       	movw	r30, r22
+ 486:	dc 01       	movw	r26, r24
+ 488:	8d 91       	ld	r24, X+
+ 48a:	01 90       	ld	r0, Z+
+ 48c:	80 19       	sub	r24, r0
+ 48e:	01 10       	cpse	r0, r1
+ 490:	d9 f3       	breq	.-10     	; 0x488 <strcmp+0x4>
+ 492:	99 0b       	sbc	r25, r25
+ 494:	08 95       	ret
+
+00000496 <_exit>:
+ 496:	f8 94       	cli
+
+00000498 <__stop_program>:
+ 498:	ff cf       	rjmp	.-2      	; 0x498 <__stop_program>

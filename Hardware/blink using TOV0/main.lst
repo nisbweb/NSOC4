@@ -1,0 +1,117 @@
+   1               		.file	"main.c"
+   2               	__SREG__ = 0x3f
+   3               	__SP_H__ = 0x3e
+   4               	__SP_L__ = 0x3d
+   5               	__CCP__  = 0x34
+   6               	__tmp_reg__ = 0
+   7               	__zero_reg__ = 1
+   9               		.text
+  10               	.Ltext0:
+  69               	.global	delay
+  71               	delay:
+   1:main.c        **** #include<avr/io.h>
+   2:main.c        **** 
+   3:main.c        **** void delay();
+   4:main.c        **** 
+   5:main.c        **** void main(){
+   6:main.c        **** DDRB=0x01;
+   7:main.c        **** 
+   8:main.c        **** 
+   9:main.c        **** 
+  10:main.c        **** while(1){
+  11:main.c        **** 
+  12:main.c        **** PORTB=0x00;
+  13:main.c        **** delay();
+  14:main.c        **** PORTB=0x01;
+  15:main.c        **** delay();
+  16:main.c        **** }
+  17:main.c        **** }
+  18:main.c        **** 
+  19:main.c        **** 
+  20:main.c        **** void delay(){
+  72               	rame size = 0 */
+  74               	.LM1:
+  75               		ldi r24,lo8(0)
+  76               		ldi r25,hi8(0)
+  78               	.LM2:
+  79 0000 80E0      		ldi r20,lo8(5)
+  21:main.c        **** int cnt;
+  22:main.c        **** 
+  23:main.c        **** for(cnt=0;cnt<100;cnt++){
+  24:main.c        **** TCCR0=0x05;//Prescalar=1024. So Fosc is 16Mhz/1024; Tosc=1/Fosc
+  81               		68,0,24,.LM2-.LFBB1
+  82               	.LM2:
+  83 0004 45E0      		ldi r20,lo8(5)
+  25:main.c        **** TCNT0=99;//laod beforehand as we need 0.25s delay
+  84               	o8(0)
+  85               		ldi r25,hi8(0)
+  26:main.c        **** 
+  27:main.c        **** 
+  28:main.c        **** while((TIFR&0x01)==0);
+  29:main.c        **** TIFR=0x01;
+  87               	-.LFBB1
+  88               	.LM1:
+  89 0008 21E0      		ldi r24,lo8(0)
+  90               		ldi r25,hi8(0)
+  92               	.LM2:
+  93 000a 43BF      		ldi r20,lo8(5)
+  95               	.LM3:
+  96 000c 32BF      		ldi r19,lo8(99)
+  98               	.LM4:
+  99               		ldi r18,lo8(1)
+ 100 000e 08B6      	.L3:
+ 102 0012 00C0      	.LM5:
+ 103               		out 83-32,r20
+ 105 0014 28BF      	.LM6:
+ 106               		out 82-32,r19
+ 107               	.L2:
+ 109 0018 8436      	.LM7:
+ 110 001a 9105      		in __tmp_reg__,88-32
+ 111 001c 01F4      		sbrs __tmp_reg__,0
+ 112               		rjmp .L2
+  30:main.c        **** 
+  31:main.c        **** 
+  32:main.c        **** }
+  33:main.c        **** }...
+ 113               	
+ 114               		in __tmp_reg__,88-32
+ 115 001e 0895      		sbrs __tmp_reg__,0
+ 116               		rjmp .L2
+ 118               	.LM8:
+ 119               		out 88-32,r18
+ 121               	.LM9:
+ 122               		adiw r24,1
+ 123               		cpi r24,100
+ 124               		cpc r25,__zero_reg__
+ 125               		brne .L3
+ 126               	/* epilogue start */
+ 128 0020 1F93      	.LM10:
+ 129               		ret
+ 134 0024 87BB      	.Lscope1:
+ 136               	.global	main
+ 138               	main:
+ 140               	.LM11:
+ 141 0028 18BA      	.LFBB2:
+ 142               		push r17
+ 143               	/* prologue: function */
+ 144 002a 0E94 0000 	/* frame size = 0 */
+ 146               	.LM12:
+ 147 002e 18BB      		ldi r24,lo8(1)
+ 148               		out 55-32,r24
+ 150 0030 0E94 0000 	.LM13:
+ 151 0034 00C0      		ldi r17,lo8(1)
+ 152               	.L8:
+ 154               	.LM14:
+ 155               		out 56-32,__zero_reg__
+DEFINED SYMBOLS
+                            *ABS*:00000000 main.c
+C:\Users\PRATHVI\AppData\Local\Temp/ccMNXWL0.s:2      *ABS*:0000003f __SREG__
+C:\Users\PRATHVI\AppData\Local\Temp/ccMNXWL0.s:3      *ABS*:0000003e __SP_H__
+C:\Users\PRATHVI\AppData\Local\Temp/ccMNXWL0.s:4      *ABS*:0000003d __SP_L__
+C:\Users\PRATHVI\AppData\Local\Temp/ccMNXWL0.s:5      *ABS*:00000034 __CCP__
+C:\Users\PRATHVI\AppData\Local\Temp/ccMNXWL0.s:6      *ABS*:00000000 __tmp_reg__
+C:\Users\PRATHVI\AppData\Local\Temp/ccMNXWL0.s:7      *ABS*:00000001 __zero_reg__
+C:\Users\PRATHVI\AppData\Local\Temp/ccMNXWL0.s:71     .text:00000000 delay
+C:\Users\PRATHVI\AppData\Local\Temp/ccMNXWL0.s:124    .text:00000020 main
+
+NO UNDEFINED SYMBOLS

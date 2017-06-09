@@ -1,0 +1,1631 @@
+   1               		.file	"main.c"
+   2               	__SREG__ = 0x3f
+   3               	__SP_H__ = 0x3e
+   4               	__SP_L__ = 0x3d
+   5               	__CCP__  = 0x34
+   6               	__tmp_reg__ = 0
+   7               	__zero_reg__ = 1
+   9               		.text
+  10               	.Ltext0:
+  69               	.global	usart_init
+  71               	usart_init:
+  73               	.Ltext1:
+   1:usart.h       **** //Micricontroller		:All 8-bit AVR Micricontrollers with Similar Register Configuration with ATmega1
+   2:usart.h       **** //System Clock			:8 MHz
+   3:usart.h       **** //Header File Version 		:1.1
+   4:usart.h       **** //Author			:Arun Kumar Garg 
+   5:usart.h       **** //				:ABLab Solutions
+   6:usart.h       **** //				:www.ablab.in
+   7:usart.h       **** //				:arun@ablab.in
+   8:usart.h       **** //Date				:1st August 2011
+   9:usart.h       **** 
+  10:usart.h       **** /*Copyright (c) 2011 ABLab Solutions All rights reserved.
+  11:usart.h       **** Redistribution and use in source and binary forms, with or without modification, are permitted prov
+  12:usart.h       **** 
+  13:usart.h       ****    * Redistributions of source code must retain the above copyright notice, this list of conditions
+  14:usart.h       ****    * Redistributions in binary form must reproduce the above copyright notice, this list of conditi
+  15:usart.h       ****      and/or other materials provided with the distribution.
+  16:usart.h       ****    * Neither the name of the copyright holders nor the names of contributors may be used to endorse
+  17:usart.h       ****      specific prior written permission.
+  18:usart.h       **** 
+  19:usart.h       **** THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPL
+  20:usart.h       **** WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE  ARE DISCLAIMED. IN NO EVENT SHA
+  21:usart.h       **** INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, 
+  22:usart.h       **** PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRA
+  23:usart.h       **** ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMA
+  24:usart.h       **** 
+  25:usart.h       **** 
+  26:usart.h       **** /*The functions and macros defined in this header file are for USART of all 8-bit AVR Micricontroll
+  27:usart.h       **** with ATmega 16*/
+  28:usart.h       **** 
+  29:usart.h       **** #ifndef	_USART_H_
+  30:usart.h       **** #define	_USART_H_ 	1
+  31:usart.h       **** 
+  32:usart.h       **** 
+  33:usart.h       **** 
+  34:usart.h       **** #include<avr/io.h>
+  35:usart.h       **** #include<util/delay.h>
+  36:usart.h       **** 
+  37:usart.h       **** 
+  38:usart.h       **** 
+  39:usart.h       **** /*The function is declared to initialize the USART with following cinfiguration:-
+  40:usart.h       **** USART mode - Asynchronous
+  41:usart.h       **** Baud rate - 9600
+  42:usart.h       **** Data bits - 8
+  43:usart.h       **** Stop bit - 1
+  44:usart.h       **** Parity - No parity.*/
+  45:usart.h       **** 
+  46:usart.h       **** void usart_init();
+  47:usart.h       **** 
+  48:usart.h       **** 
+  49:usart.h       **** 
+  50:usart.h       **** 
+  51:usart.h       **** /*The function is declared to transmit data.*/
+  52:usart.h       **** 
+  53:usart.h       **** void usart_data_transmit(unsigned char data );
+  54:usart.h       **** 
+  55:usart.h       **** 
+  56:usart.h       **** 
+  57:usart.h       **** 
+  58:usart.h       **** /*The function is declared to receive data.*/
+  59:usart.h       **** 
+  60:usart.h       **** unsigned char usart_data_receive( void );
+  61:usart.h       **** 
+  62:usart.h       **** 
+  63:usart.h       **** 
+  64:usart.h       **** 
+  65:usart.h       **** /*The function is declared to transmit string.*/
+  66:usart.h       **** 
+  67:usart.h       **** void usart_string_transmit(char *string);
+  68:usart.h       **** 
+  69:usart.h       **** 
+  70:usart.h       **** 
+  71:usart.h       **** 
+  72:usart.h       **** /*The function is declared to receive string.*/
+  73:usart.h       **** 
+  74:usart.h       **** char *usart_string_receive(char *receive_string,unsigned char terminating_character);
+  75:usart.h       **** 
+  76:usart.h       **** 
+  77:usart.h       **** 
+  78:usart.h       **** /*Function defination*/
+  79:usart.h       **** 
+  80:usart.h       **** void usart_init()
+  81:usart.h       **** {
+  74               	me size = 0 */
+  76               	.LM1:
+  77               		out 64-32,__zero_reg__
+  82:usart.h       **** UBRRH = 0;
+  79               	
+  80               		ldi r24,lo8(2)
+  81 0000 10BC      		out 41-32,r24
+  83:usart.h       **** UBRRL =2;
+  82               	stabn	68,0,84,.LM3-.LFBB1
+  83               	.LM3:
+  84 0002 82E0      		sbi 43-32,1
+  84:usart.h       **** UCSRA |=(1<<U2X);
+  86               	:
+  87               		in r24,42-32
+  88 0006 599A      		ori r24,lo8(24)
+  85:usart.h       **** UCSRB|= (1<<RXEN)|(1<<TXEN);
+  89               	t 42-32,r24
+  91 0008 8AB1      	.LM5:
+  92 000a 8861      		in r24,64-32
+  93 000c 8AB9      		ori r24,lo8(-122)
+  86:usart.h       **** UCSRC |= (1 << URSEL)|(3<<UCSZ0);
+  94               	64-32,r24
+  95               	/* epilogue start */
+  97 0010 8668      	.LM6:
+  98 0012 80BD      		ret
+  87:usart.h       **** }
+ 100               	e1:
+ 103               	.global	usart_data_transmit
+ 105               	usart_data_transmit:
+ 107               	.LM7:
+ 108               	.LFBB2:
+ 109               	/* prologue: function */
+  88:usart.h       **** 
+  89:usart.h       **** 
+  90:usart.h       **** void usart_data_transmit(unsigned char data )
+  91:usart.h       **** {
+ 110               	ize = 0 */
+ 111               	.L4:
+ 113               	.LM8:
+ 114               		sbis 43-32,5
+ 115               		rjmp .L4
+  92:usart.h       **** while ( !( UCSRA & (1<<UDRE)) )
+ 116               	n	68,0,94,.LM9-.LFBB2
+ 117               	.LM9:
+ 118 0016 5D9B      		out 44-32,r24
+ 119 0018 00C0      	.LBB80:
+  93:usart.h       **** ;
+  94:usart.h       **** UDR = data;
+ 120               	81:
+ 121               	.LBB82:
+ 122 001a 8CB9      	.LBB83:
+ 124               	.Ltext2:
+ 126               	.LM10:
+ 127               		ldi r24,lo8(3000)
+ 128               		ldi r25,hi8(3000)
+   1:g:/winavr/lib/gcc/../../avr/include/util/delay_basic.h **** /* Copyright (c) 2002, Marek Michalkiewicz
+   2:g:/winavr/lib/gcc/../../avr/include/util/delay_basic.h ****    Copyright (c) 2007 Joerg Wunsch
+   3:g:/winavr/lib/gcc/../../avr/include/util/delay_basic.h ****    All rights reserved.
+   4:g:/winavr/lib/gcc/../../avr/include/util/delay_basic.h **** 
+   5:g:/winavr/lib/gcc/../../avr/include/util/delay_basic.h ****    Redistribution and use in source and binary forms, with or without
+   6:g:/winavr/lib/gcc/../../avr/include/util/delay_basic.h ****    modification, are permitted provided that the following conditions are met:
+   7:g:/winavr/lib/gcc/../../avr/include/util/delay_basic.h **** 
+   8:g:/winavr/lib/gcc/../../avr/include/util/delay_basic.h ****    * Redistributions of source code must retain the above copyright
+   9:g:/winavr/lib/gcc/../../avr/include/util/delay_basic.h ****      notice, this list of conditions and the following disclaimer.
+  10:g:/winavr/lib/gcc/../../avr/include/util/delay_basic.h **** 
+  11:g:/winavr/lib/gcc/../../avr/include/util/delay_basic.h ****    * Redistributions in binary form must reproduce the above copyright
+  12:g:/winavr/lib/gcc/../../avr/include/util/delay_basic.h ****      notice, this list of conditions and the following disclaimer in
+  13:g:/winavr/lib/gcc/../../avr/include/util/delay_basic.h ****      the documentation and/or other materials provided with the
+  14:g:/winavr/lib/gcc/../../avr/include/util/delay_basic.h ****      distribution.
+  15:g:/winavr/lib/gcc/../../avr/include/util/delay_basic.h **** 
+  16:g:/winavr/lib/gcc/../../avr/include/util/delay_basic.h ****    * Neither the name of the copyright holders nor the names of
+  17:g:/winavr/lib/gcc/../../avr/include/util/delay_basic.h ****      contributors may be used to endorse or promote products derived
+  18:g:/winavr/lib/gcc/../../avr/include/util/delay_basic.h ****      from this software without specific prior written permission.
+  19:g:/winavr/lib/gcc/../../avr/include/util/delay_basic.h **** 
+  20:g:/winavr/lib/gcc/../../avr/include/util/delay_basic.h ****   THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+  21:g:/winavr/lib/gcc/../../avr/include/util/delay_basic.h ****   AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+  22:g:/winavr/lib/gcc/../../avr/include/util/delay_basic.h ****   IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+  23:g:/winavr/lib/gcc/../../avr/include/util/delay_basic.h ****   ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE
+  24:g:/winavr/lib/gcc/../../avr/include/util/delay_basic.h ****   LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+  25:g:/winavr/lib/gcc/../../avr/include/util/delay_basic.h ****   CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+  26:g:/winavr/lib/gcc/../../avr/include/util/delay_basic.h ****   SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+  27:g:/winavr/lib/gcc/../../avr/include/util/delay_basic.h ****   INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+  28:g:/winavr/lib/gcc/../../avr/include/util/delay_basic.h ****   CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+  29:g:/winavr/lib/gcc/../../avr/include/util/delay_basic.h ****   ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+  30:g:/winavr/lib/gcc/../../avr/include/util/delay_basic.h ****   POSSIBILITY OF SUCH DAMAGE. */
+  31:g:/winavr/lib/gcc/../../avr/include/util/delay_basic.h **** 
+  32:g:/winavr/lib/gcc/../../avr/include/util/delay_basic.h **** /* $Id: delay_basic.h,v 1.1 2007/05/13 21:23:20 joerg_wunsch Exp $ */
+  33:g:/winavr/lib/gcc/../../avr/include/util/delay_basic.h **** 
+  34:g:/winavr/lib/gcc/../../avr/include/util/delay_basic.h **** #ifndef _UTIL_DELAY_BASIC_H_
+  35:g:/winavr/lib/gcc/../../avr/include/util/delay_basic.h **** #define _UTIL_DELAY_BASIC_H_ 1
+  36:g:/winavr/lib/gcc/../../avr/include/util/delay_basic.h **** 
+  37:g:/winavr/lib/gcc/../../avr/include/util/delay_basic.h **** #include <inttypes.h>
+  38:g:/winavr/lib/gcc/../../avr/include/util/delay_basic.h **** 
+  39:g:/winavr/lib/gcc/../../avr/include/util/delay_basic.h **** /** \file */
+  40:g:/winavr/lib/gcc/../../avr/include/util/delay_basic.h **** /** \defgroup util_delay_basic <util/delay_basic.h>: Basic busy-wait delay loops
+  41:g:/winavr/lib/gcc/../../avr/include/util/delay_basic.h ****     \code
+  42:g:/winavr/lib/gcc/../../avr/include/util/delay_basic.h ****     #include <util/delay_basic.h>
+  43:g:/winavr/lib/gcc/../../avr/include/util/delay_basic.h ****     \endcode
+  44:g:/winavr/lib/gcc/../../avr/include/util/delay_basic.h **** 
+  45:g:/winavr/lib/gcc/../../avr/include/util/delay_basic.h ****     The functions in this header file implement simple delay loops
+  46:g:/winavr/lib/gcc/../../avr/include/util/delay_basic.h ****     that perform a busy-waiting.  They are typically used to
+  47:g:/winavr/lib/gcc/../../avr/include/util/delay_basic.h ****     facilitate short delays in the program execution.  They are
+  48:g:/winavr/lib/gcc/../../avr/include/util/delay_basic.h ****     implemented as count-down loops with a well-known CPU cycle
+  49:g:/winavr/lib/gcc/../../avr/include/util/delay_basic.h ****     count per loop iteration.  As such, no other processing can
+  50:g:/winavr/lib/gcc/../../avr/include/util/delay_basic.h ****     occur simultaneously.  It should be kept in mind that the
+  51:g:/winavr/lib/gcc/../../avr/include/util/delay_basic.h ****     functions described here do not disable interrupts.
+  52:g:/winavr/lib/gcc/../../avr/include/util/delay_basic.h **** 
+  53:g:/winavr/lib/gcc/../../avr/include/util/delay_basic.h ****     In general, for long delays, the use of hardware timers is
+  54:g:/winavr/lib/gcc/../../avr/include/util/delay_basic.h ****     much preferrable, as they free the CPU, and allow for
+  55:g:/winavr/lib/gcc/../../avr/include/util/delay_basic.h ****     concurrent processing of other events while the timer is
+  56:g:/winavr/lib/gcc/../../avr/include/util/delay_basic.h ****     running.  However, in particular for very short delays, the
+  57:g:/winavr/lib/gcc/../../avr/include/util/delay_basic.h ****     overhead of setting up a hardware timer is too much compared
+  58:g:/winavr/lib/gcc/../../avr/include/util/delay_basic.h ****     to the overall delay time.
+  59:g:/winavr/lib/gcc/../../avr/include/util/delay_basic.h **** 
+  60:g:/winavr/lib/gcc/../../avr/include/util/delay_basic.h ****     Two inline functions are provided for the actual delay algorithms.
+  61:g:/winavr/lib/gcc/../../avr/include/util/delay_basic.h **** 
+  62:g:/winavr/lib/gcc/../../avr/include/util/delay_basic.h **** */
+  63:g:/winavr/lib/gcc/../../avr/include/util/delay_basic.h **** 
+  64:g:/winavr/lib/gcc/../../avr/include/util/delay_basic.h **** #if !defined(__DOXYGEN__)
+  65:g:/winavr/lib/gcc/../../avr/include/util/delay_basic.h **** static inline void _delay_loop_1(uint8_t __count) __attribute__((always_inline));
+  66:g:/winavr/lib/gcc/../../avr/include/util/delay_basic.h **** static inline void _delay_loop_2(uint16_t __count) __attribute__((always_inline));
+  67:g:/winavr/lib/gcc/../../avr/include/util/delay_basic.h **** #endif
+  68:g:/winavr/lib/gcc/../../avr/include/util/delay_basic.h **** 
+  69:g:/winavr/lib/gcc/../../avr/include/util/delay_basic.h **** /** \ingroup util_delay_basic
+  70:g:/winavr/lib/gcc/../../avr/include/util/delay_basic.h **** 
+  71:g:/winavr/lib/gcc/../../avr/include/util/delay_basic.h ****     Delay loop using an 8-bit counter \c __count, so up to 256
+  72:g:/winavr/lib/gcc/../../avr/include/util/delay_basic.h ****     iterations are possible.  (The value 256 would have to be passed
+  73:g:/winavr/lib/gcc/../../avr/include/util/delay_basic.h ****     as 0.)  The loop executes three CPU cycles per iteration, not
+  74:g:/winavr/lib/gcc/../../avr/include/util/delay_basic.h ****     including the overhead the compiler needs to setup the counter
+  75:g:/winavr/lib/gcc/../../avr/include/util/delay_basic.h ****     register.
+  76:g:/winavr/lib/gcc/../../avr/include/util/delay_basic.h **** 
+  77:g:/winavr/lib/gcc/../../avr/include/util/delay_basic.h ****     Thus, at a CPU speed of 1 MHz, delays of up to 768 microseconds
+  78:g:/winavr/lib/gcc/../../avr/include/util/delay_basic.h ****     can be achieved.
+  79:g:/winavr/lib/gcc/../../avr/include/util/delay_basic.h **** */
+  80:g:/winavr/lib/gcc/../../avr/include/util/delay_basic.h **** void
+  81:g:/winavr/lib/gcc/../../avr/include/util/delay_basic.h **** _delay_loop_1(uint8_t __count)
+  82:g:/winavr/lib/gcc/../../avr/include/util/delay_basic.h **** {
+  83:g:/winavr/lib/gcc/../../avr/include/util/delay_basic.h **** 	__asm__ volatile (
+  84:g:/winavr/lib/gcc/../../avr/include/util/delay_basic.h **** 		"1: dec %0" "\n\t"
+  85:g:/winavr/lib/gcc/../../avr/include/util/delay_basic.h **** 		"brne 1b"
+  86:g:/winavr/lib/gcc/../../avr/include/util/delay_basic.h **** 		: "=r" (__count)
+  87:g:/winavr/lib/gcc/../../avr/include/util/delay_basic.h **** 		: "0" (__count)
+  88:g:/winavr/lib/gcc/../../avr/include/util/delay_basic.h **** 	);
+  89:g:/winavr/lib/gcc/../../avr/include/util/delay_basic.h **** }
+  90:g:/winavr/lib/gcc/../../avr/include/util/delay_basic.h **** 
+  91:g:/winavr/lib/gcc/../../avr/include/util/delay_basic.h **** /** \ingroup util_delay_basic
+  92:g:/winavr/lib/gcc/../../avr/include/util/delay_basic.h **** 
+  93:g:/winavr/lib/gcc/../../avr/include/util/delay_basic.h ****     Delay loop using a 16-bit counter \c __count, so up to 65536
+  94:g:/winavr/lib/gcc/../../avr/include/util/delay_basic.h ****     iterations are possible.  (The value 65536 would have to be
+  95:g:/winavr/lib/gcc/../../avr/include/util/delay_basic.h ****     passed as 0.)  The loop executes four CPU cycles per iteration,
+  96:g:/winavr/lib/gcc/../../avr/include/util/delay_basic.h ****     not including the overhead the compiler requires to setup the
+  97:g:/winavr/lib/gcc/../../avr/include/util/delay_basic.h ****     counter register pair.
+  98:g:/winavr/lib/gcc/../../avr/include/util/delay_basic.h **** 
+  99:g:/winavr/lib/gcc/../../avr/include/util/delay_basic.h ****     Thus, at a CPU speed of 1 MHz, delays of up to about 262.1
+ 100:g:/winavr/lib/gcc/../../avr/include/util/delay_basic.h ****     milliseconds can be achieved.
+ 101:g:/winavr/lib/gcc/../../avr/include/util/delay_basic.h ****  */
+ 102:g:/winavr/lib/gcc/../../avr/include/util/delay_basic.h **** void
+ 103:g:/winavr/lib/gcc/../../avr/include/util/delay_basic.h **** _delay_loop_2(uint16_t __count)
+ 104:g:/winavr/lib/gcc/../../avr/include/util/delay_basic.h **** {
+ 105:g:/winavr/lib/gcc/../../avr/include/util/delay_basic.h **** 	__asm__ volatile (
+ 129               	/
+ 130               	 ;  105 "g:/winavr/lib/gcc/../../avr/include/util/delay_basic.h" 1
+ 131 001c 88EB      		1: sbiw r24,1
+ 132 001e 9BE0      		brne 1b
+ 133               	 ;  0 "" 2
+ 134               	/* epilogue start */
+ 135 0020 0197      	/* #NOAPP */
+ 136 0022 01F4      	.LBE83:
+ 137               	.LBE82:
+ 138               	.LBE81:
+ 139               	.LBE80:
+ 141               	.Ltext3:
+ 143               	.LM11:
+ 144               		ret
+  95:usart.h       **** _delay_ms(1);
+  96:usart.h       **** }
+ 146               		"usart_data_receive:F(0,11)",36,0,0,usart_data_receive
+ 147               	.global	usart_data_receive
+ 149               	usart_data_receive:
+ 151               	.LM12:
+ 152               	.LFBB3:
+ 153               	/* prologue: function */
+ 154               	/* frame size = 0 */
+  97:usart.h       **** 
+  98:usart.h       **** unsigned char usart_data_receive( void )
+  99:usart.h       **** {
+ 155               	abn	68,0,100,.LM13-.LFBB3
+ 156               	.LM13:
+ 157               		sbis 43-32,7
+ 158               		rjmp .L8
+ 160               	.LM14:
+ 100:usart.h       **** while ( !(UCSRA & (1<<RXC)) )
+ 161               	4,44-32
+ 162               	/* epilogue start */
+ 164 0028 00C0      	.LM15:
+ 101:usart.h       **** ;
+ 102:usart.h       **** return UDR;
+ 165               	
+ 167 002a 8CB1      	.Lscope3:
+ 103:usart.h       **** }
+ 169               	tabs	"string:P(0,16)=*(0,2)",64,0,0,30
+ 170               	.global	usart_string_transmit
+ 172               	usart_string_transmit:
+ 174               	.LM16:
+ 175               	.LFBB4:
+ 176               	/* prologue: function */
+ 177               	/* frame size = 0 */
+ 178               		movw r30,r24
+ 104:usart.h       **** 
+ 105:usart.h       **** void usart_string_transmit(char *string)
+ 106:usart.h       **** {
+ 179               	BB85:
+ 180               	.LBB86:
+ 181               	.LBB87:
+ 182               	.LBB88:
+ 183               	.LBB89:
+ 185               	.Ltext4:
+ 187               	.LM17:
+ 188               		ldi r18,lo8(3000)
+ 189               		ldi r19,hi8(3000)
+ 190               		rjmp .L12
+ 191               	.L15:
+ 192               	.LBE89:
+ 193               	.LBE88:
+ 194               	.LBE87:
+ 195 0030 28EB      	.LBE86:
+ 197 0034 00C0      	.Ltext5:
+ 199               	.LM18:
+ 200               		sbis 43-32,5
+ 201               		rjmp .L15
+ 202               	.LBE85:
+ 203               	.LBE84:
+ 205               	.LM19:
+ 206               		adiw r30,1
+ 207 0036 5D9B      	.LBB95:
+ 208 0038 00C0      	.LBB94:
+ 210               	.LM20:
+ 107:usart.h       **** while(*string)
+ 108:usart.h       **** {
+ 109:usart.h       **** usart_data_transmit(*string++);
+ 211               	LBB91:
+ 212               	.LBB90:
+ 214               	.Ltext6:
+ 216               	.LM21:
+ 217               		movw r24,r18
+ 218 003c 8CB9      	/* #APP */
+ 219               	 ;  105 "g:/winavr/lib/gcc/../../avr/include/util/delay_basic.h" 1
+ 220               		1: sbiw r24,1
+ 221               		brne 1b
+ 222               	 ;  0 "" 2
+ 223               	/* #NOAPP */
+ 224               	.L12:
+ 225               	.LBE90:
+ 226               	.LBE91:
+ 227 003e C901      	.LBE92:
+ 228               	.LBE93:
+ 229               	.LBE94:
+ 230 0040 0197      	.LBE95:
+ 232               	.Ltext7:
+ 234               	.LM22:
+ 235               		ld r24,Z
+ 236               		tst r24
+ 237               		brne .L15
+ 238               	/* epilogue start */
+ 240               	.LM23:
+ 241               		ret
+ 243               	.Lscope4:
+ 247 0048 01F4      	.global	usart_string_receive
+ 110:usart.h       **** }
+ 111:usart.h       **** }
+ 249               	,.LM24-.LFBB5
+ 250               	.LM24:
+ 251 004a 0895      	.LFBB5:
+ 252               	/* prologue: function */
+ 253               	/* frame size = 0 */
+ 254               		movw r18,r24
+ 256               	.LM25:
+ 257               		ldi r25,lo8(0)
+ 258               	.L23:
+ 259               	.LBB96:
+ 112:usart.h       **** 
+ 113:usart.h       **** char *usart_string_receive(char *receive_string,unsigned char terminating_character)
+ 114:usart.h       **** {
+ 260               	B98:
+ 262               	.LM26:
+ 263               		sbis 43-32,7
+ 264               		rjmp .L23
+ 266               	.LM27:
+ 267               		in r24,44-32
+ 268 004e 90E0      	.LBE98:
+ 269               	.LBE97:
+ 271               	.LM28:
+ 272               		movw r30,r18
+ 273               		add r30,r25
+ 274               		adc r31,__zero_reg__
+ 275 0050 5F9B      		st Z,r24
+ 277               	.LM29:
+ 278               		cp r24,r22
+ 279 0054 8CB1      		breq .L19
+ 281               	.LM30:
+ 115:usart.h       **** 	unsigned char temp=0x00;
+ 116:usart.h       **** 	for(unsigned char i=0;;i++)
+ 117:usart.h       **** 	{
+ 118:usart.h       **** 		*(receive_string+i)=usart_data_receive();
+ 282               	jmp .L23
+ 283               	.L19:
+ 284 0056 F901      	.LBE96:
+ 286 005a F11D      	.LM31:
+ 287 005c 8083      		st Z,__zero_reg__
+ 119:usart.h       **** 		if(*(receive_string+i)==terminating_character)
+ 288               	n	68,0,126,.LM32-.LFBB5
+ 289               	.LM32:
+ 290 005e 8617      		movw r24,r18
+ 291 0060 01F0      	/* epilogue start */
+ 120:usart.h       **** 			break;
+ 121:usart.h       **** 		else
+ 122:usart.h       **** 		temp++;
+ 292               	
+ 297               	.Lscope5:
+ 123:usart.h       **** 	}
+ 124:usart.h       **** 	*(receive_string+temp)='\0';
+ 298               	bs	"hc_06_bluetooth_transmit_byte:F(0,15)",36,0,0,hc_06_bluetooth_transmit_byte
+ 300 0066 1082      	.global	hc_06_bluetooth_transmit_byte
+ 125:usart.h       **** 	return receive_string;
+ 126:usart.h       **** }
+ 301               	ype	hc_06_bluetooth_transmit_byte, @function
+ 302               	hc_06_bluetooth_transmit_byte:
+ 304               	.Ltext8:
+ 306               	.LM33:
+ 307               	.LFBB6:
+ 308               	/* prologue: function */
+ 309               	/* frame size = 0 */
+ 310               	.L25:
+ 311               	.LBB99:
+ 312               	.LBB100:
+ 314               	.Ltext9:
+ 316               	.LM34:
+ 317               		sbis 43-32,5
+   1:hc06.h        **** //Micricontroller		:All 8-bit AVR Micricontrollers with Similar Register Configuration with ATmega1
+   2:hc06.h        **** //System Clock			:8 MHz
+   3:hc06.h        **** //Header File Version 		:1.1
+   4:hc06.h        **** //Author			:Arun Kumar Garg 
+   5:hc06.h        **** //				:ABLab Solutions
+   6:hc06.h        **** //				:www.ablab.in
+   7:hc06.h        **** //				:arun@ablab.in
+   8:hc06.h        **** //Date				:1st June 2015
+   9:hc06.h        **** 
+  10:hc06.h        **** /*Copyright (c) 2011 ABLab Solutions All rights reserved.
+  11:hc06.h        **** Redistribution and use in source and binary forms, with or without modification, are permitted prov
+  12:hc06.h        **** 
+  13:hc06.h        ****    * Redistributions of source code must retain the above copyright notice, this list of conditions
+  14:hc06.h        ****    * Redistributions in binary form must reproduce the above copyright notice, this list of conditi
+  15:hc06.h        ****      and/or other materials provided with the distribution.
+  16:hc06.h        ****    * Neither the name of the copyright holders nor the names of contributors may be used to endorse
+  17:hc06.h        ****      specific prior written permission.
+  18:hc06.h        **** 
+  19:hc06.h        **** THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPL
+  20:hc06.h        **** WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE  ARE DISCLAIMED. IN NO EVENT SHA
+  21:hc06.h        **** INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, 
+  22:hc06.h        **** PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRA
+  23:hc06.h        **** ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMA
+  24:hc06.h        **** 
+  25:hc06.h        **** 
+  26:hc06.h        **** /*The functions and macros defined in this header file are for HC-06 Bluetooth Module*/
+  27:hc06.h        **** 
+  28:hc06.h        **** #ifndef	_HC06_H_
+  29:hc06.h        **** #define	_HC06_H_ 	1
+  30:hc06.h        **** 
+  31:hc06.h        **** 
+  32:hc06.h        **** 
+  33:hc06.h        **** #include<avr/io.h>
+  34:hc06.h        **** #include<util/delay.h>
+  35:hc06.h        **** #include"usart.h"
+  36:hc06.h        **** 
+  37:hc06.h        **** char hc_06_buffer1[3], hc_06_buffer2[15];
+  38:hc06.h        **** 
+  39:hc06.h        **** void hc_06_bluetooth_transmit_byte(char data_byte);
+  40:hc06.h        **** char hc_06_bluetooth_receive_byte(void);
+  41:hc06.h        **** void hc_06_bluetooth_transmit_string(char *transmit_string);
+  42:hc06.h        **** char *hc_06_bluetooth_receive_string(char *receive_string, unsigned char terminating_character);
+  43:hc06.h        **** unsigned char hc_06_bluetooth_at_command_mode_test(void);
+  44:hc06.h        **** unsigned char hc_06_bluetooth_device_name_change(char *device_name);
+  45:hc06.h        **** unsigned char hc_06_bluetooth_get_version(void);
+  46:hc06.h        **** unsigned  char hc_06_bluetooth_change_baud_rate(long int baud_rate);
+  47:hc06.h        **** unsigned  char hc_06_bluetooth_pin_change(char *new_pin);
+  48:hc06.h        **** 
+  49:hc06.h        **** 
+  50:hc06.h        **** void hc_06_bluetooth_transmit_byte(char data_byte)
+  51:hc06.h        **** {
+ 318               	n	68,0,94,.LM35-.LFBB6
+ 319               	.LM35:
+ 320               		out 44-32,r24
+ 321               	.LBB101:
+ 322               	.LBB102:
+ 323               	.LBB103:
+ 324               	.LBB104:
+ 326               	.Ltext10:
+ 328               	.LM36:
+ 329               		ldi r24,lo8(3000)
+ 330 006c 5D9B      		ldi r25,hi8(3000)
+ 331 006e 00C0      	/* #APP */
+ 332               	 ;  105 "g:/winavr/lib/gcc/../../avr/include/util/delay_basic.h" 1
+ 333               		1: sbiw r24,1
+ 334 0070 8CB9      		brne 1b
+ 335               	 ;  0 "" 2
+ 336               	/* epilogue start */
+ 337               	/* #NOAPP */
+ 338               	.LBE104:
+ 339               	.LBE103:
+ 340               	.LBE102:
+ 341               	.LBE101:
+ 342               	.LBE100:
+ 343 0072 88EB      	.LBE99:
+ 345               	.Ltext11:
+ 347 0076 0197      	.LM37:
+ 348 0078 01F4      		ret
+ 350               	.Lscope6:
+ 352               	.global	hc_06_bluetooth_receive_byte
+ 354               	hc_06_bluetooth_receive_byte:
+ 356               	.LM38:
+ 357               	.LFBB7:
+ 358               	/* prologue: function */
+ 359               	/* frame size = 0 */
+  52:hc06.h        **** 	usart_data_transmit(data_byte);
+  53:hc06.h        **** }
+ 360               	132,0,0,.Ltext12
+ 361               	.Ltext12:
+ 363               	.LM39:
+ 364               		sbis 43-32,7
+ 365               		rjmp .L29
+ 367               	.LM40:
+ 368               		in r24,44-32
+  54:hc06.h        **** char hc_06_bluetooth_receive_byte(void)
+  55:hc06.h        **** {
+ 369               	ue start */
+ 370               	.LBE106:
+ 371               	.LBE105:
+ 373               	.Ltext13:
+ 375               	.LM41:
+ 376               		ret
+ 378               	.Lscope7:
+ 381 007c 5F9B      	.global	hc_06_bluetooth_transmit_string
+ 383               	hc_06_bluetooth_transmit_string:
+ 385 0080 8CB1      	.LM42:
+ 386               	.LFBB8:
+ 387               	/* prologue: function */
+ 388               	/* frame size = 0 */
+ 390               	.LM43:
+  56:hc06.h        **** 	return usart_data_receive();
+  57:hc06.h        **** }
+ 391               	nsmit
+ 392               	/* epilogue start */
+ 394               	.LM44:
+ 395               		ret
+ 397               	.Lscope8:
+  58:hc06.h        **** void hc_06_bluetooth_transmit_string(char *transmit_string)
+  59:hc06.h        **** {
+ 401               	_06_bluetooth_receive_string
+ 403               	hc_06_bluetooth_receive_string:
+ 405               	.LM45:
+  60:hc06.h        **** 	usart_string_transmit(transmit_string);
+ 406               	9:
+ 407               	/* prologue: function */
+ 408 0084 0E94 0000 	/* frame size = 0 */
+ 409               		movw r18,r24
+  61:hc06.h        **** }
+ 410               	abn	68,0,63,.LM46-.LFBB9
+ 411               	.LM46:
+ 412 0088 0895      		ldi r25,lo8(0)
+ 413               	.L40:
+ 414               	.LBB107:
+ 415               	.LBB108:
+ 416               	.LBB109:
+ 418               	.Ltext14:
+ 420               	.LM47:
+  62:hc06.h        **** char *hc_06_bluetooth_receive_string(char *receive_string, unsigned char terminating_character)
+  63:hc06.h        **** {
+ 421               	,7
+ 422               		rjmp .L40
+ 424               	.LM48:
+ 425               		in r24,44-32
+ 426 008a 9C01      	.LBE109:
+ 427               	.LBE108:
+ 429 008c 90E0      	.Ltext15:
+ 431               	.LM49:
+ 432               		movw r30,r18
+ 433               		add r30,r25
+ 434               		adc r31,__zero_reg__
+ 435               		st Z,r24
+ 437               	.LM50:
+ 438 008e 5F9B      		cp r24,r22
+ 439 0090 00C0      		breq .L36
+ 441               	.LM51:
+ 442 0092 8CB1      		subi r25,lo8(-(1))
+ 443               		rjmp .L40
+ 444               	.L36:
+ 445               	.LBE107:
+  64:hc06.h        **** 	unsigned char temp=0x00;
+  65:hc06.h        **** 	for(unsigned char i=0;;i++)
+  66:hc06.h        **** 	{
+  67:hc06.h        **** 		*(receive_string+i)=usart_data_receive();
+ 448               	.LM53:
+ 449 0094 F901      		movw r24,r18
+ 450 0096 E90F      	/* epilogue start */
+ 451 0098 F11D      		ret
+  68:hc06.h        **** 		if(*(receive_string+i)==terminating_character)
+ 453               	s	"temp:r(0,11)",64,0,0,25
+ 456 009e 01F0      	.Lscope9:
+  69:hc06.h        **** 			break;
+  70:hc06.h        **** 		else
+  71:hc06.h        **** 			temp++;
+ 457               	abs	"main:F(0,15)",36,0,0,main
+ 458               	.global	main
+ 460 00a2 00C0      	main:
+ 462               	.Ltext16:
+  72:hc06.h        **** 	}
+  73:hc06.h        **** 	*(receive_string+temp)='\0';
+ 463               	n	68,0,6,.LM54-.LFBB10
+ 464               	.LM54:
+ 465 00a4 1082      	.LFBB10:
+  74:hc06.h        **** 	return receive_string;
+  75:hc06.h        **** }
+ 466               	prologue: function */
+ 467               	/* frame size = 0 */
+ 469               	.LM55:
+ 470 00a8 0895      		call usart_init
+ 471               	.LBB110:
+ 472               	.LBB111:
+ 473               	.LBB112:
+ 474               	.LBB113:
+ 475               	.LBB114:
+ 476               	.LBB115:
+ 477               	.LBB116:
+ 478               	.LBB117:
+ 480               	.Ltext17:
+   1:main.c        **** #include<avr/io.h>
+   2:main.c        **** #include<util/delay.h>
+   3:main.c        **** #include "usart.h"
+   4:main.c        **** #include "hc06.h"
+   5:main.c        **** 
+   6:main.c        **** void main(){
+ 482               	lo8(3000)
+ 483               		ldi r19,hi8(3000)
+ 484               	.L48:
+ 485               	.LBE117:
+ 486               	.LBE116:
+   7:main.c        **** char a;
+   8:main.c        **** usart_init();
+ 487               	15:
+ 488               	.LBE114:
+ 489 00aa 0E94 0000 	.LBE113:
+ 490               	.LBE112:
+ 491               	.LBE111:
+ 492               	.LBE110:
+ 493               	.LBB125:
+ 494               	.LBB126:
+ 495               	.LBB127:
+ 496               	.LBB128:
+ 498               	.Ltext18:
+ 500               	.LM57:
+ 501               		sbis 43-32,7
+ 502 00ae 28EB      		rjmp .L48
+ 504               	.LM58:
+ 505               		in r24,44-32
+ 506               	.L43:
+ 507               	.LBE128:
+ 508               	.LBE127:
+ 509               	.LBE126:
+ 510               	.LBE125:
+ 511               	.LBB129:
+ 512               	.LBB124:
+ 513               	.LBB123:
+ 514               	.LBB122:
+ 516               	.LM59:
+ 517               		sbis 43-32,5
+ 518               		rjmp .L43
+ 520               	.LM60:
+ 521 00b2 5F9B      		out 44-32,r24
+ 522 00b4 00C0      	.LBB121:
+ 523               	.LBB120:
+ 524               	.LBB119:
+ 525 00b6 8CB1      	.LBB118:
+ 527               	.Ltext19:
+ 529               	.LM61:
+ 530               		movw r24,r18
+ 531               	/* #APP */
+ 532               	 ;  105 "g:/winavr/lib/gcc/../../avr/include/util/delay_basic.h" 1
+ 533               		1: sbiw r24,1
+ 534               		brne 1b
+ 535               	 ;  0 "" 2
+ 536               	/* #NOAPP */
+ 537 00b8 5D9B      		rjmp .L48
+ 538 00ba 00C0      	.LBE118:
+ 539               	.LBE119:
+ 540               	.LBE120:
+ 541 00bc 8CB9      	.LBE121:
+ 542               	.LBE122:
+ 543               	.LBE123:
+ 544               	.LBE124:
+ 545               	.LBE129:
+ 550 00be C901      	.Lscope10:
+ 551               		.data
+ 552               	.LC0:
+ 553 00c0 0197      		.string	"AT+PIN"
+ 554 00c2 01F4      	.LC1:
+ 555               		.string	"OK"
+ 556               		.text
+ 559               	.global	hc_06_bluetooth_pin_change
+ 561               	hc_06_bluetooth_pin_change:
+ 563               	.Ltext20:
+ 565               	.LM62:
+ 566               	.LFBB11:
+ 567               		push r16
+ 568               		push r17
+ 569               	/* prologue: function */
+ 570               	/* frame size = 0 */
+ 571               		movw r16,r24
+ 573 0000 4154 2B50 	.LM63:
+ 573      494E 00
+ 574               		ldi r24,lo8(.LC0)
+ 575 0007 4F4B 00   		ldi r25,hi8(.LC0)
+ 576               		call usart_string_transmit
+ 578               	.LM64:
+ 579               		movw r24,r16
+ 580               		call usart_string_transmit
+ 581               		ldi r30,lo8(hc_06_buffer1)
+ 582               		ldi r31,hi8(hc_06_buffer1)
+ 583               	.L58:
+  76:hc06.h        **** unsigned char hc_06_bluetooth_at_command_mode_test(void)
+  77:hc06.h        **** {
+  78:hc06.h        **** 	usart_string_transmit("AT");
+  79:hc06.h        **** 	for(unsigned char i=0; i<2;i++)
+  80:hc06.h        **** 	{
+  81:hc06.h        **** 		hc_06_buffer1[i]=usart_data_receive();
+  82:hc06.h        **** 	}
+  83:hc06.h        **** 	hc_06_buffer1[2]=0;
+  84:hc06.h        **** 	if(!(strcmp(hc_06_buffer1,"OK")))
+  85:hc06.h        **** 	{
+  86:hc06.h        **** 		return 1;
+  87:hc06.h        **** 	}
+  88:hc06.h        **** 	else
+  89:hc06.h        **** 	{
+  90:hc06.h        **** 		return 0;
+  91:hc06.h        **** 	}
+  92:hc06.h        **** }
+  93:hc06.h        **** unsigned char hc_06_bluetooth_device_name_change(char *device_name)
+  94:hc06.h        **** {
+  95:hc06.h        **** 	usart_string_transmit("AT+NAME");
+  96:hc06.h        **** 	usart_string_transmit(device_name);
+  97:hc06.h        **** 	for(unsigned char i=0; i<9;i++)
+  98:hc06.h        **** 	{
+  99:hc06.h        **** 		hc_06_buffer2[i]=usart_data_receive();
+ 100:hc06.h        **** 	}
+ 101:hc06.h        **** 	hc_06_buffer2[9]=0;	
+ 102:hc06.h        **** 	if(!(strcmp(hc_06_buffer2,"OKsetname")))
+ 103:hc06.h        **** 	{
+ 104:hc06.h        **** 		return 1;
+ 105:hc06.h        **** 	}
+ 106:hc06.h        **** 	else
+ 107:hc06.h        **** 	{
+ 108:hc06.h        **** 		return 0;
+ 109:hc06.h        **** 	}
+ 110:hc06.h        **** }
+ 111:hc06.h        **** unsigned char hc_06_bluetooth_get_version(void)
+ 112:hc06.h        **** {
+ 113:hc06.h        **** 	usart_string_transmit("AT+VERSION");
+ 114:hc06.h        **** 	for(unsigned char i=0; i<2;i++)
+ 115:hc06.h        **** 	{
+ 116:hc06.h        **** 		hc_06_buffer1[i]=usart_data_receive();
+ 117:hc06.h        **** 	}
+ 118:hc06.h        **** 	hc_06_buffer1[2]=0;
+ 119:hc06.h        **** 	for(unsigned char i=0; i<10;i++)
+ 120:hc06.h        **** 	{
+ 121:hc06.h        **** 		hc_06_buffer2[i]=usart_data_receive();
+ 122:hc06.h        **** 	}
+ 123:hc06.h        **** 	hc_06_buffer2[10]=0;
+ 124:hc06.h        **** 	if(!(strcmp(hc_06_buffer1,"OK")))
+ 125:hc06.h        **** 	{
+ 126:hc06.h        **** 		return 1;
+ 127:hc06.h        **** 	}
+ 128:hc06.h        **** 	else
+ 129:hc06.h        **** 	{
+ 130:hc06.h        **** 		return 0;
+ 131:hc06.h        **** 	}
+ 132:hc06.h        **** }
+ 133:hc06.h        **** unsigned  char hc_06_bluetooth_change_baud_rate(long int baud_rate)
+ 134:hc06.h        **** {
+ 135:hc06.h        **** 	if(baud_rate==1200)
+ 136:hc06.h        **** 	{
+ 137:hc06.h        **** 		usart_string_transmit("AT+BAUD1");
+ 138:hc06.h        **** 	}
+ 139:hc06.h        **** 	else if(baud_rate==2400)
+ 140:hc06.h        **** 	{
+ 141:hc06.h        **** 		usart_string_transmit("AT+BAUD2");
+ 142:hc06.h        **** 	}
+ 143:hc06.h        **** 	else if(baud_rate==4800)
+ 144:hc06.h        **** 	{
+ 145:hc06.h        **** 		usart_string_transmit("AT+BAUD3");
+ 146:hc06.h        **** 	}
+ 147:hc06.h        **** 	else if(baud_rate==9600)
+ 148:hc06.h        **** 	{
+ 149:hc06.h        **** 		usart_string_transmit("AT+BAUD4");
+ 150:hc06.h        **** 	}
+ 151:hc06.h        **** 	else if(baud_rate==19200)
+ 152:hc06.h        **** 	{
+ 153:hc06.h        **** 		usart_string_transmit("AT+BAUD5");
+ 154:hc06.h        **** 	}
+ 155:hc06.h        **** 	else if(baud_rate==38400)
+ 156:hc06.h        **** 	{
+ 157:hc06.h        **** 		usart_string_transmit("AT+BAUD6");
+ 158:hc06.h        **** 	}
+ 159:hc06.h        **** 	else if(baud_rate==57600)
+ 160:hc06.h        **** 	{
+ 161:hc06.h        **** 		usart_string_transmit("AT+BAUD7");
+ 162:hc06.h        **** 	}
+ 163:hc06.h        **** 	else if(baud_rate==115200)
+ 164:hc06.h        **** 	{
+ 165:hc06.h        **** 		usart_string_transmit("AT+BAUD8");
+ 166:hc06.h        **** 	}
+ 167:hc06.h        **** 	else if(baud_rate==230400)
+ 168:hc06.h        **** 	{
+ 169:hc06.h        **** 		usart_string_transmit("AT+BAUD9");
+ 170:hc06.h        **** 	}
+ 171:hc06.h        **** 	else if(baud_rate==460800)
+ 172:hc06.h        **** 	{
+ 173:hc06.h        **** 		usart_string_transmit("AT+BAUDA");
+ 174:hc06.h        **** 	}
+ 175:hc06.h        **** 	else if(baud_rate==921600)
+ 176:hc06.h        **** 	{
+ 177:hc06.h        **** 		usart_string_transmit("AT+BAUDB");
+ 178:hc06.h        **** 	}
+ 179:hc06.h        **** 	else if(baud_rate==1382400)
+ 180:hc06.h        **** 	{
+ 181:hc06.h        **** 		usart_string_transmit("AT+BAUDC");
+ 182:hc06.h        **** 	}
+ 183:hc06.h        **** 	else
+ 184:hc06.h        **** 	{
+ 185:hc06.h        **** 		;
+ 186:hc06.h        **** 	}
+ 187:hc06.h        **** 	for(unsigned char i=0; i<2;i++)
+ 188:hc06.h        **** 	{
+ 189:hc06.h        **** 		hc_06_buffer1[i]=usart_data_receive();
+ 190:hc06.h        **** 	}
+ 191:hc06.h        **** 	hc_06_buffer1[2]=0;
+ 192:hc06.h        **** 	
+ 193:hc06.h        **** 	if(baud_rate<=9600)
+ 194:hc06.h        **** 	{
+ 195:hc06.h        **** 		for(unsigned char i=0; i<4;i++)
+ 196:hc06.h        **** 		{
+ 197:hc06.h        **** 			hc_06_buffer2[i]=usart_data_receive();
+ 198:hc06.h        **** 		}
+ 199:hc06.h        **** 		hc_06_buffer2[4]=0;
+ 200:hc06.h        **** 	}
+ 201:hc06.h        **** 	else if(baud_rate<=57600)
+ 202:hc06.h        **** 	{
+ 203:hc06.h        **** 		for(unsigned char i=0; i<5;i++)
+ 204:hc06.h        **** 		{
+ 205:hc06.h        **** 			hc_06_buffer2[i]=usart_data_receive();
+ 206:hc06.h        **** 		}
+ 207:hc06.h        **** 		hc_06_buffer2[5]=0;
+ 208:hc06.h        **** 	}
+ 209:hc06.h        **** 	else if(baud_rate<=921600)
+ 210:hc06.h        **** 	{
+ 211:hc06.h        **** 		for(unsigned char i=0; i<6;i++)
+ 212:hc06.h        **** 		{
+ 213:hc06.h        **** 			hc_06_buffer2[i]=usart_data_receive();
+ 214:hc06.h        **** 		}
+ 215:hc06.h        **** 		hc_06_buffer2[6]=0;
+ 216:hc06.h        **** 	}
+ 217:hc06.h        **** 	else if(baud_rate==1382400)
+ 218:hc06.h        **** 	{
+ 219:hc06.h        **** 		for(unsigned char i=0; i<7;i++)
+ 220:hc06.h        **** 		{
+ 221:hc06.h        **** 			hc_06_buffer2[i]=usart_data_receive();
+ 222:hc06.h        **** 		}
+ 223:hc06.h        **** 		hc_06_buffer2[7]=0;
+ 224:hc06.h        **** 	}
+ 225:hc06.h        **** 	if(!(strcmp(hc_06_buffer1,"OK")))
+ 226:hc06.h        **** 	{
+ 227:hc06.h        **** 		return 1;
+ 228:hc06.h        **** 	}
+ 229:hc06.h        **** 	else
+ 230:hc06.h        **** 	{
+ 231:hc06.h        **** 		return 0;
+ 232:hc06.h        **** 	}
+ 233:hc06.h        **** }
+ 234:hc06.h        **** unsigned  char hc_06_bluetooth_pin_change(char *new_pin)
+ 235:hc06.h        **** {
+ 584               	FBB11
+ 585               	.LM65:
+ 586               		sbis 43-32,7
+ 587 00c6 0F93      		rjmp .L58
+ 589               	.LM66:
+ 590               		in r24,44-32
+ 591 00ca 8C01      	.LBE132:
+ 236:hc06.h        **** 	usart_string_transmit("AT+PIN");
+ 592               	
+ 594 00cc 80E0      	.Ltext22:
+ 596 00d0 0E94 0000 	.LM67:
+ 237:hc06.h        **** 	usart_string_transmit(new_pin);
+ 597               	Z+,r24
+ 599 00d4 C801      	.LM68:
+ 600 00d6 0E94 0000 		ldi r24,hi8(hc_06_buffer1+2)
+ 601 00da E0E0      		cpi r30,lo8(hc_06_buffer1+2)
+ 602 00dc F0E0      		cpc r31,r24
+ 603               		brne .L58
+ 604               	.LBE130:
+ 606               	.LM69:
+ 607               		st Z,__zero_reg__
+ 608               		ldi r30,lo8(hc_06_buffer2)
+ 609               		ldi r31,hi8(hc_06_buffer2)
+ 610               	.L59:
+ 611 00de 5F9B      	.LBB133:
+ 612 00e0 00C0      	.LBB134:
+ 613               	.LBB135:
+ 615 00e2 8CB1      	.Ltext23:
+ 617               	.LM70:
+ 618               		sbis 43-32,7
+ 619               		rjmp .L59
+ 238:hc06.h        **** 	for(unsigned char i=0; i<2;i++)
+ 239:hc06.h        **** 	{
+ 240:hc06.h        **** 		hc_06_buffer1[i]=usart_data_receive();
+ 620               	.LFBB11
+ 621               	.LM71:
+ 622 00e4 8193      		in r24,44-32
+ 623               	.LBE135:
+ 624               	.LBE134:
+ 626 00e8 E030      	.Ltext24:
+ 628 00ec 01F4      	.LM72:
+ 629               		st Z+,r24
+ 241:hc06.h        **** 	}
+ 242:hc06.h        **** 	hc_06_buffer1[2]=0;
+ 630               	,0,243,.LM73-.LFBB11
+ 631               	.LM73:
+ 632 00ee 1082      		ldi r24,hi8(hc_06_buffer2+6)
+ 633 00f0 E0E0      		cpi r30,lo8(hc_06_buffer2+6)
+ 634 00f2 F0E0      		cpc r31,r24
+ 635               		brne .L59
+ 636               	.LBE133:
+ 638               	.LM74:
+ 639               		st Z,__zero_reg__
+ 641               	.LM75:
+ 642               		ldi r24,lo8(hc_06_buffer1)
+ 643 00f4 5F9B      		ldi r25,hi8(hc_06_buffer1)
+ 644 00f6 00C0      		ldi r22,lo8(.LC1)
+ 645               		ldi r23,hi8(.LC1)
+ 646               		call strcmp
+ 647 00f8 8CB1      		movw r18,r24
+ 648               		ldi r24,lo8(0)
+ 649               		or r18,r19
+ 650               		brne .L52
+ 651               		ldi r24,lo8(1)
+ 243:hc06.h        **** 	for(unsigned char i=0; i<6;i++)
+ 244:hc06.h        **** 	{
+ 245:hc06.h        **** 		hc_06_buffer2[i]=usart_data_receive();
+ 652               	t */
+ 654 00fa 8193      	.LM76:
+ 655               		pop r17
+ 656               		pop r16
+ 657 00fc 80E0      		ret
+ 659 0100 F807      	.Lscope11:
+ 660 0102 01F4      		.data
+ 661               	.LC2:
+ 246:hc06.h        **** 	}
+ 247:hc06.h        **** 	hc_06_buffer2[6]=0;
+ 662               	AT+BAUD1"
+ 663               	.LC3:
+ 664 0104 1082      		.string	"AT+BAUD2"
+ 248:hc06.h        **** 	if(!(strcmp(hc_06_buffer1,"OK")))
+ 665               	4:
+ 666               		.string	"AT+BAUD3"
+ 667 0106 80E0      	.LC5:
+ 668 0108 90E0      		.string	"AT+BAUD4"
+ 669 010a 60E0      	.LC6:
+ 670 010c 70E0      		.string	"AT+BAUD5"
+ 671 010e 0E94 0000 	.LC7:
+ 672 0112 9C01      		.string	"AT+BAUD6"
+ 673 0114 80E0      	.LC8:
+ 674 0116 232B      		.string	"AT+BAUD7"
+ 675 0118 01F4      	.LC9:
+ 676 011a 81E0      		.string	"AT+BAUD8"
+ 677               	.LC10:
+ 678               		.string	"AT+BAUD9"
+ 249:hc06.h        **** 	{
+ 250:hc06.h        **** 		return 1;
+ 251:hc06.h        **** 	}
+ 252:hc06.h        **** 	else
+ 253:hc06.h        **** 	{
+ 254:hc06.h        **** 		return 0;
+ 255:hc06.h        **** 	}
+ 256:hc06.h        **** }
+ 679               	g	"AT+BAUDA"
+ 680               	.LC12:
+ 681 011c 1F91      		.string	"AT+BAUDB"
+ 682 011e 0F91      	.LC13:
+ 683 0120 0895      		.string	"AT+BAUDC"
+ 684               		.text
+ 687               	.global	hc_06_bluetooth_change_baud_rate
+ 689               	hc_06_bluetooth_change_baud_rate:
+ 691               	.LM77:
+ 692 001c 4154 2B42 	.LFBB12:
+ 692      4155 4433 
+ 692      00
+ 693               		push r14
+ 694 0025 4154 2B42 		push r15
+ 694      4155 4434 
+ 694      00
+ 695               		push r16
+ 696 002e 4154 2B42 		push r17
+ 696      4155 4435 
+ 696      00
+ 697               	/* prologue: function */
+ 698 0037 4154 2B42 	/* frame size = 0 */
+ 698      4155 4436 
+ 698      00
+ 699               		movw r14,r22
+ 700 0040 4154 2B42 		movw r16,r24
+ 700      4155 4437 
+ 700      00
+ 702 0049 4154 2B42 	.LM78:
+ 702      4155 4438 
+ 702      00
+ 703               		ldi r24,lo8(1200)
+ 704 0052 4154 2B42 		cp r14,r24
+ 704      4155 4439 
+ 704      00
+ 705               		ldi r24,hi8(1200)
+ 706 005b 4154 2B42 		cpc r15,r24
+ 706      4155 4441 
+ 706      00
+ 707               		ldi r24,hlo8(1200)
+ 708 0064 4154 2B42 		cpc r16,r24
+ 708      4155 4442 
+ 708      00
+ 709               		ldi r24,hhi8(1200)
+ 710 006d 4154 2B42 		cpc r17,r24
+ 710      4155 4443 
+ 710      00
+ 711               		brne .L61
+ 713               	.LM79:
+ 714               		ldi r24,lo8(.LC2)
+ 715               		ldi r25,hi8(.LC2)
+ 716               		rjmp .L99
+ 717               	.L61:
+ 719               	.LM80:
+ 720 0122 EF92      		ldi r24,lo8(2400)
+ 721 0124 FF92      		cp r14,r24
+ 722 0126 0F93      		ldi r24,hi8(2400)
+ 723 0128 1F93      		cpc r15,r24
+ 724               		ldi r24,hlo8(2400)
+ 725               		cpc r16,r24
+ 726 012a 7B01      		ldi r24,hhi8(2400)
+ 727 012c 8C01      		cpc r17,r24
+ 728               		brne .L63
+ 730 012e 80EB      	.LM81:
+ 731 0130 E816      		ldi r24,lo8(.LC3)
+ 732 0132 84E0      		ldi r25,hi8(.LC3)
+ 733 0134 F806      		rjmp .L99
+ 734 0136 80E0      	.L63:
+ 736 013a 80E0      	.LM82:
+ 737 013c 1807      		ldi r24,lo8(4800)
+ 738 013e 01F4      		cp r14,r24
+ 739               		ldi r24,hi8(4800)
+ 740               		cpc r15,r24
+ 741 0140 80E0      		ldi r24,hlo8(4800)
+ 742 0142 90E0      		cpc r16,r24
+ 743 0144 00C0      		ldi r24,hhi8(4800)
+ 744               		cpc r17,r24
+ 745               		brne .L64
+ 747 0146 80E6      	.LM83:
+ 748 0148 E816      		ldi r24,lo8(.LC4)
+ 749 014a 89E0      		ldi r25,hi8(.LC4)
+ 750 014c F806      	.L99:
+ 751 014e 80E0      		call usart_string_transmit
+ 752 0150 0807      	.L62:
+ 753 0152 80E0      		ldi r30,lo8(hc_06_buffer1)
+ 754 0154 1807      		ldi r31,hi8(hc_06_buffer1)
+ 755 0156 01F4      		rjmp .L94
+ 756               	.L64:
+ 758 0158 80E0      	.LM84:
+ 759 015a 90E0      		ldi r24,lo8(9600)
+ 760 015c 00C0      		cp r14,r24
+ 761               		ldi r24,hi8(9600)
+ 762               		cpc r15,r24
+ 763               		ldi r24,hlo8(9600)
+ 764 015e 80EC      		cpc r16,r24
+ 765 0160 E816      		ldi r24,hhi8(9600)
+ 766 0162 82E1      		cpc r17,r24
+ 767 0164 F806      		brne .L66
+ 769 0168 0807      	.LM85:
+ 770 016a 80E0      		ldi r24,lo8(.LC5)
+ 771 016c 1807      		ldi r25,hi8(.LC5)
+ 772 016e 01F4      		rjmp .L99
+ 773               	.L66:
+ 775 0170 80E0      	.LM86:
+ 776 0172 90E0      		ldi r24,lo8(19200)
+ 777               		cp r14,r24
+ 778 0174 0E94 0000 		ldi r24,hi8(19200)
+ 779               		cpc r15,r24
+ 780 0178 E0E0      		ldi r24,hlo8(19200)
+ 781 017a F0E0      		cpc r16,r24
+ 782 017c 00C0      		ldi r24,hhi8(19200)
+ 783               		cpc r17,r24
+ 784               		brne .L67
+ 786 017e 80E8      	.LM87:
+ 787 0180 E816      		ldi r24,lo8(.LC6)
+ 788 0182 85E2      		ldi r25,hi8(.LC6)
+ 789 0184 F806      		rjmp .L99
+ 790 0186 80E0      	.L67:
+ 792 018a 80E0      	.LM88:
+ 793 018c 1807      		ldi r24,lo8(38400)
+ 794 018e 01F4      		cp r14,r24
+ 795               		ldi r24,hi8(38400)
+ 796               		cpc r15,r24
+ 797 0190 80E0      		ldi r24,hlo8(38400)
+ 798 0192 90E0      		cpc r16,r24
+ 799 0194 00C0      		ldi r24,hhi8(38400)
+ 800               		cpc r17,r24
+ 801               		brne .L68
+ 803 0196 80E0      	.LM89:
+ 804 0198 E816      		ldi r24,lo8(.LC7)
+ 805 019a 8BE4      		ldi r25,hi8(.LC7)
+ 806 019c F806      		rjmp .L99
+ 807 019e 80E0      	.L68:
+ 809 01a2 80E0      	.LM90:
+ 810 01a4 1807      		ldi r24,lo8(57600)
+ 811 01a6 01F4      		cp r14,r24
+ 812               		ldi r24,hi8(57600)
+ 813               		cpc r15,r24
+ 814 01a8 80E0      		ldi r24,hlo8(57600)
+ 815 01aa 90E0      		cpc r16,r24
+ 816 01ac 00C0      		ldi r24,hhi8(57600)
+ 817               		cpc r17,r24
+ 818               		brne .L69
+ 820 01ae 80E0      	.LM91:
+ 821 01b0 E816      		ldi r24,lo8(.LC8)
+ 822 01b2 86E9      		ldi r25,hi8(.LC8)
+ 823 01b4 F806      		rjmp .L99
+ 824 01b6 80E0      	.L69:
+ 826 01ba 80E0      	.LM92:
+ 827 01bc 1807      		ldi r24,lo8(115200)
+ 828 01be 01F4      		cp r14,r24
+ 829               		ldi r24,hi8(115200)
+ 830               		cpc r15,r24
+ 831 01c0 80E0      		ldi r24,hlo8(115200)
+ 832 01c2 90E0      		cpc r16,r24
+ 833 01c4 00C0      		ldi r24,hhi8(115200)
+ 834               		cpc r17,r24
+ 835               		brne .L70
+ 837 01c6 80E0      	.LM93:
+ 838 01c8 E816      		ldi r24,lo8(.LC9)
+ 839 01ca 81EE      		ldi r25,hi8(.LC9)
+ 840 01cc F806      		rjmp .L99
+ 841 01ce 80E0      	.L70:
+ 843 01d2 80E0      	.LM94:
+ 844 01d4 1807      		ldi r24,lo8(230400)
+ 845 01d6 01F4      		cp r14,r24
+ 846               		ldi r24,hi8(230400)
+ 847               		cpc r15,r24
+ 848 01d8 80E0      		ldi r24,hlo8(230400)
+ 849 01da 90E0      		cpc r16,r24
+ 850 01dc 00C0      		ldi r24,hhi8(230400)
+ 851               		cpc r17,r24
+ 852               		brne .L71
+ 854 01de 80E0      	.LM95:
+ 855 01e0 E816      		ldi r24,lo8(.LC10)
+ 856 01e2 82EC      		ldi r25,hi8(.LC10)
+ 857 01e4 F806      		rjmp .L99
+ 858 01e6 81E0      	.L71:
+ 860 01ea 80E0      	.LM96:
+ 861 01ec 1807      		ldi r24,lo8(460800)
+ 862 01ee 01F4      		cp r14,r24
+ 863               		ldi r24,hi8(460800)
+ 864               		cpc r15,r24
+ 865 01f0 80E0      		ldi r24,hlo8(460800)
+ 866 01f2 90E0      		cpc r16,r24
+ 867 01f4 00C0      		ldi r24,hhi8(460800)
+ 868               		cpc r17,r24
+ 869               		brne .L72
+ 871 01f6 80E0      	.LM97:
+ 872 01f8 E816      		ldi r24,lo8(.LC11)
+ 873 01fa 84E8      		ldi r25,hi8(.LC11)
+ 874 01fc F806      		rjmp .L99
+ 875 01fe 83E0      	.L72:
+ 877 0202 80E0      	.LM98:
+ 878 0204 1807      		ldi r24,lo8(921600)
+ 879 0206 01F4      		cp r14,r24
+ 880               		ldi r24,hi8(921600)
+ 881               		cpc r15,r24
+ 882 0208 80E0      		ldi r24,hlo8(921600)
+ 883 020a 90E0      		cpc r16,r24
+ 884 020c 00C0      		ldi r24,hhi8(921600)
+ 885               		cpc r17,r24
+ 886               		brne .L73
+ 888 020e 80E0      	.LM99:
+ 889 0210 E816      		ldi r24,lo8(.LC12)
+ 890 0212 88E0      		ldi r25,hi8(.LC12)
+ 891 0214 F806      		rjmp .L99
+ 892 0216 87E0      	.L73:
+ 894 021a 80E0      	.LM100:
+ 895 021c 1807      		ldi r24,lo8(1382400)
+ 896 021e 01F4      		cp r14,r24
+ 897               		ldi r24,hi8(1382400)
+ 898               		cpc r15,r24
+ 899 0220 80E0      		ldi r24,hlo8(1382400)
+ 900 0222 90E0      		cpc r16,r24
+ 901 0224 00C0      		ldi r24,hhi8(1382400)
+ 902               		cpc r17,r24
+ 903               		breq .+2
+ 904               		rjmp .L62
+ 906 0228 E816      	.LM101:
+ 907 022a 80E1      		ldi r24,lo8(.LC13)
+ 908 022c F806      		ldi r25,hi8(.LC13)
+ 909 022e 8EE0      		rjmp .L99
+ 910 0230 0807      	.L94:
+ 911 0232 80E0      	.LBB136:
+ 912 0234 1807      	.LBB137:
+ 913 0236 01F4      	.LBB138:
+ 915               	.Ltext25:
+ 917 023a 90E0      	.LM102:
+ 918 023c 00C0      		sbis 43-32,7
+ 919               		rjmp .L94
+ 921               	.LM103:
+ 922 023e 80E0      		in r24,44-32
+ 923 0240 E816      	.LBE138:
+ 924 0242 88E1      	.LBE137:
+ 926 0246 85E1      	.Ltext26:
+ 928 024a 80E0      	.LM104:
+ 929 024c 1807      		st Z+,r24
+ 931 0250 00C0      	.LM105:
+ 932               		ldi r24,hi8(hc_06_buffer1+2)
+ 933               		cpi r30,lo8(hc_06_buffer1+2)
+ 934 0252 80E0      		cpc r31,r24
+ 935 0254 90E0      		brne .L94
+ 936 0256 00C0      	.LBE136:
+ 938               	.LM106:
+ 939               		st Z,__zero_reg__
+ 941               	.LM107:
+ 942               		ldi r24,lo8(9601)
+ 943               		cp r14,r24
+ 944               		ldi r24,hi8(9601)
+ 945 0258 5F9B      		cpc r15,r24
+ 946 025a 00C0      		ldi r24,hlo8(9601)
+ 947               		cpc r16,r24
+ 948               		ldi r24,hhi8(9601)
+ 949 025c 8CB1      		cpc r17,r24
+ 950               		brge .L74
+ 951               		ldi r30,lo8(hc_06_buffer2)
+ 952               		ldi r31,hi8(hc_06_buffer2)
+ 953               	.L95:
+ 954               	.LBB139:
+ 955               	.LBB140:
+ 956 025e 8193      	.LBB141:
+ 958               	.Ltext27:
+ 960 0262 E030      	.LM108:
+ 961 0264 F807      		sbis 43-32,7
+ 962 0266 01F4      		rjmp .L95
+ 964               	.LM109:
+ 965               		in r24,44-32
+ 966 0268 1082      	.LBE141:
+ 967               	.LBE140:
+ 969 026a 81E8      	.Ltext28:
+ 971 026e 85E2      	.LM110:
+ 972 0270 F806      		st Z+,r24
+ 974 0274 0807      	.LM111:
+ 975 0276 80E0      		ldi r24,hi8(hc_06_buffer2+4)
+ 976 0278 1807      		cpi r30,lo8(hc_06_buffer2+4)
+ 977 027a 04F4      		cpc r31,r24
+ 978 027c E0E0      		brne .L95
+ 979 027e F0E0      		rjmp .L100
+ 980               	.L74:
+ 981               	.LBE139:
+ 983               	.LM112:
+ 984               		ldi r24,lo8(57601)
+ 985               		cp r14,r24
+ 986               		ldi r24,hi8(57601)
+ 987               		cpc r15,r24
+ 988 0280 5F9B      		ldi r24,hlo8(57601)
+ 989 0282 00C0      		cpc r16,r24
+ 990               		ldi r24,hhi8(57601)
+ 991               		cpc r17,r24
+ 992 0284 8CB1      		brge .L77
+ 993               		ldi r30,lo8(hc_06_buffer2)
+ 994               		ldi r31,hi8(hc_06_buffer2)
+ 995               	.L96:
+ 996               	.LBB142:
+ 997               	.LBB143:
+ 998               	.LBB144:
+ 1000               	.Ltext29:
+ 1002 0288 80E0      	.LM113:
+ 1003 028a E030      		sbis 43-32,7
+ 1004 028c F807      		rjmp .L96
+ 1006 0290 00C0      	.LM114:
+ 1007               		in r24,44-32
+ 1008               	.LBE144:
+ 1009               	.LBE143:
+ 1011 0292 81E0      	.Ltext30:
+ 1013 0296 81EE      	.LM115:
+ 1014 0298 F806      		st Z+,r24
+ 1016 029c 0807      	.LM116:
+ 1017 029e 80E0      		ldi r24,hi8(hc_06_buffer2+5)
+ 1018 02a0 1807      		cpi r30,lo8(hc_06_buffer2+5)
+ 1019 02a2 04F4      		cpc r31,r24
+ 1020 02a4 E0E0      		brne .L96
+ 1021 02a6 F0E0      		rjmp .L100
+ 1022               	.L77:
+ 1023               	.LBE142:
+ 1025               	.LM117:
+ 1026               		ldi r24,lo8(921601)
+ 1027               		cp r14,r24
+ 1028               		ldi r24,hi8(921601)
+ 1029               		cpc r15,r24
+ 1030 02a8 5F9B      		ldi r24,hlo8(921601)
+ 1031 02aa 00C0      		cpc r16,r24
+ 1032               		ldi r24,hhi8(921601)
+ 1033               		cpc r17,r24
+ 1034 02ac 8CB1      		brge .L79
+ 1035               		ldi r30,lo8(hc_06_buffer2)
+ 1036               		ldi r31,hi8(hc_06_buffer2)
+ 1037               	.L97:
+ 1038               	.LBB145:
+ 1039               	.LBB146:
+ 1040               	.LBB147:
+ 1042               	.Ltext31:
+ 1044 02b0 80E0      	.LM118:
+ 1045 02b2 E030      		sbis 43-32,7
+ 1046 02b4 F807      		rjmp .L97
+ 1048 02b8 00C0      	.LM119:
+ 1049               		in r24,44-32
+ 1050               	.LBE147:
+ 1051               	.LBE146:
+ 1053 02ba 81E0      	.Ltext32:
+ 1055 02be 80E1      	.LM120:
+ 1056 02c0 F806      		st Z+,r24
+ 1058 02c4 0807      	.LM121:
+ 1059 02c6 80E0      		ldi r24,hi8(hc_06_buffer2+6)
+ 1060 02c8 1807      		cpi r30,lo8(hc_06_buffer2+6)
+ 1061 02ca 04F4      		cpc r31,r24
+ 1062 02cc E0E0      		brne .L97
+ 1063 02ce F0E0      		rjmp .L100
+ 1064               	.L79:
+ 1065               	.LBE145:
+ 1067               	.LM122:
+ 1068               		ldi r24,lo8(1382400)
+ 1069               		cp r14,r24
+ 1070               		ldi r24,hi8(1382400)
+ 1071               		cpc r15,r24
+ 1072 02d0 5F9B      		ldi r24,hlo8(1382400)
+ 1073 02d2 00C0      		cpc r16,r24
+ 1074               		ldi r24,hhi8(1382400)
+ 1075               		cpc r17,r24
+ 1076 02d4 8CB1      		brne .L76
+ 1077               		ldi r30,lo8(hc_06_buffer2)
+ 1078               		ldi r31,hi8(hc_06_buffer2)
+ 1079               	.L98:
+ 1080               	.LBB148:
+ 1081               	.LBB149:
+ 1082               	.LBB150:
+ 1084               	.Ltext33:
+ 1086 02d8 80E0      	.LM123:
+ 1087 02da E030      		sbis 43-32,7
+ 1088 02dc F807      		rjmp .L98
+ 1090 02e0 00C0      	.LM124:
+ 1091               		in r24,44-32
+ 1092               	.LBE150:
+ 1093               	.LBE149:
+ 1095 02e2 80E0      	.Ltext34:
+ 1097 02e6 88E1      	.LM125:
+ 1098 02e8 F806      		st Z+,r24
+ 1100 02ec 0807      	.LM126:
+ 1101 02ee 80E0      		ldi r24,hi8(hc_06_buffer2+7)
+ 1102 02f0 1807      		cpi r30,lo8(hc_06_buffer2+7)
+ 1103 02f2 01F4      		cpc r31,r24
+ 1104 02f4 E0E0      		brne .L98
+ 1105 02f6 F0E0      	.L100:
+ 1106               	.LBE148:
+ 1108               	.LM127:
+ 1109               		st Z,__zero_reg__
+ 1110               	.L76:
+ 1112               	.LM128:
+ 1113               		ldi r24,lo8(hc_06_buffer1)
+ 1114 02f8 5F9B      		ldi r25,hi8(hc_06_buffer1)
+ 1115 02fa 00C0      		ldi r22,lo8(.LC1)
+ 1116               		ldi r23,hi8(.LC1)
+ 1117               		call strcmp
+ 1118 02fc 8CB1      		movw r18,r24
+ 1119               		ldi r24,lo8(0)
+ 1120               		or r18,r19
+ 1121               		brne .L82
+ 1122               		ldi r24,lo8(1)
+ 1123               	.L82:
+ 1124               	/* epilogue start */
+ 1126               	.LM129:
+ 1127               		pop r17
+ 1128 0300 80E0      		pop r16
+ 1129 0302 E030      		pop r15
+ 1130 0304 F807      		pop r14
+ 1131 0306 01F4      		ret
+ 1133               	.Lscope12:
+ 1134               		.data
+ 1135               	.LC14:
+ 1136 0308 1082      		.string	"AT+VERSION"
+ 1137               		.text
+ 1139               	.global	hc_06_bluetooth_get_version
+ 1141 030c 90E0      	hc_06_bluetooth_get_version:
+ 1143 0310 70E0      	.LM130:
+ 1144 0312 0E94 0000 	.LFBB13:
+ 1145 0316 9C01      	/* prologue: function */
+ 1146 0318 80E0      	/* frame size = 0 */
+ 1148 031c 01F4      	.LM131:
+ 1149 031e 81E0      		ldi r24,lo8(.LC14)
+ 1150               		ldi r25,hi8(.LC14)
+ 1151               		call usart_string_transmit
+ 1152               		ldi r30,lo8(hc_06_buffer1)
+ 1153               		ldi r31,hi8(hc_06_buffer1)
+ 1154 0320 1F91      	.L110:
+ 1155 0322 0F91      	.LBB151:
+ 1156 0324 FF90      	.LBB152:
+ 1157 0326 EF90      	.LBB153:
+ 1159               	.Ltext35:
+ 1161               	.LM132:
+ 1162               		sbis 43-32,7
+ 1163 0076 4154 2B56 		rjmp .L110
+ 1163      4552 5349 
+ 1163      4F4E 00
+ 1165               	.LM133:
+ 1166               		in r24,44-32
+ 1167               	.LBE153:
+ 1168               	.LBE152:
+ 1170               	.Ltext36:
+ 1172               	.LM134:
+ 1173               		st Z+,r24
+ 1175               	.LM135:
+ 1176 032a 80E0      		ldi r24,hi8(hc_06_buffer1+2)
+ 1177 032c 90E0      		cpi r30,lo8(hc_06_buffer1+2)
+ 1178 032e 0E94 0000 		cpc r31,r24
+ 1179 0332 E0E0      		brne .L110
+ 1180 0334 F0E0      	.LBE151:
+ 1182               	.LM136:
+ 1183               		st Z,__zero_reg__
+ 1184               		ldi r30,lo8(hc_06_buffer2)
+ 1185               		ldi r31,hi8(hc_06_buffer2)
+ 1186               	.L111:
+ 1187               	.LBB154:
+ 1188               	.LBB155:
+ 1189 0336 5F9B      	.LBB156:
+ 1191               	.Ltext37:
+ 1193 033a 8CB1      	.LM137:
+ 1194               		sbis 43-32,7
+ 1195               		rjmp .L111
+ 1197               	.LM138:
+ 1198               		in r24,44-32
+ 1199               	.LBE156:
+ 1200 033c 8193      	.LBE155:
+ 1202               	.Ltext38:
+ 1204 0340 E030      	.LM139:
+ 1205 0342 F807      		st Z+,r24
+ 1207               	.LM140:
+ 1208               		ldi r24,hi8(hc_06_buffer2+10)
+ 1209               		cpi r30,lo8(hc_06_buffer2+10)
+ 1210 0346 1082      		cpc r31,r24
+ 1211 0348 E0E0      		brne .L111
+ 1212 034a F0E0      	.LBE154:
+ 1214               	.LM141:
+ 1215               		st Z,__zero_reg__
+ 1217               	.LM142:
+ 1218               		ldi r24,lo8(hc_06_buffer1)
+ 1219               		ldi r25,hi8(hc_06_buffer1)
+ 1220               		ldi r22,lo8(.LC1)
+ 1221 034c 5F9B      		ldi r23,hi8(.LC1)
+ 1222 034e 00C0      		call strcmp
+ 1223               		movw r18,r24
+ 1224               		ldi r24,lo8(0)
+ 1225 0350 8CB1      		or r18,r19
+ 1226               		brne .L104
+ 1227               		ldi r24,lo8(1)
+ 1228               	.L104:
+ 1230               	.LM143:
+ 1231               		ret
+ 1233               	.Lscope13:
+ 1234               		.data
+ 1235 0354 80E0      	.LC15:
+ 1236 0356 E030      		.string	"AT+NAME"
+ 1237 0358 F807      	.LC16:
+ 1238 035a 01F4      		.string	"OKsetname"
+ 1239               		.text
+ 1242 035c 1082      	.global	hc_06_bluetooth_device_name_change
+ 1244               	hc_06_bluetooth_device_name_change:
+ 1246 0360 90E0      	.LM144:
+ 1247 0362 60E0      	.LFBB14:
+ 1248 0364 70E0      		push r16
+ 1249 0366 0E94 0000 		push r17
+ 1250 036a 9C01      	/* prologue: function */
+ 1251 036c 80E0      	/* frame size = 0 */
+ 1252 036e 232B      		movw r16,r24
+ 1254 0372 81E0      	.LM145:
+ 1255               		ldi r24,lo8(.LC15)
+ 1256               		ldi r25,hi8(.LC15)
+ 1257               		call usart_string_transmit
+ 1259               	.LM146:
+ 1260               		movw r24,r16
+ 1261               		call usart_string_transmit
+ 1262               		ldi r30,lo8(hc_06_buffer2)
+ 1263 0081 4154 2B4E 		ldi r31,hi8(hc_06_buffer2)
+ 1263      414D 4500 
+ 1264               	.L118:
+ 1265 0089 4F4B 7365 	.LBB157:
+ 1265      746E 616D 
+ 1265      6500 
+ 1266               	.LBB158:
+ 1267               	.LBB159:
+ 1269               	.Ltext39:
+ 1271               	.LM147:
+ 1272               		sbis 43-32,7
+ 1273               		rjmp .L118
+ 1275 0376 0F93      	.LM148:
+ 1276 0378 1F93      		in r24,44-32
+ 1277               	.LBE159:
+ 1278               	.LBE158:
+ 1280               	.Ltext40:
+ 1282 037c 80E0      	.LM149:
+ 1283 037e 90E0      		st Z+,r24
+ 1285               	.LM150:
+ 1286               		ldi r24,hi8(hc_06_buffer2+9)
+ 1287 0384 C801      		cpi r30,lo8(hc_06_buffer2+9)
+ 1288 0386 0E94 0000 		cpc r31,r24
+ 1289 038a E0E0      		brne .L118
+ 1290 038c F0E0      	.LBE157:
+ 1292               	.LM151:
+ 1293               		st Z,__zero_reg__
+ 1295               	.LM152:
+ 1296               		movw r24,r30
+ 1297               		sbiw r24,9
+ 1298               		ldi r22,lo8(.LC16)
+ 1299 038e 5F9B      		ldi r23,hi8(.LC16)
+ 1300 0390 00C0      		call strcmp
+ 1301               		movw r18,r24
+ 1302               		ldi r24,lo8(0)
+ 1303 0392 8CB1      		or r18,r19
+ 1304               		brne .L114
+ 1305               		ldi r24,lo8(1)
+ 1306               	.L114:
+ 1307               	/* epilogue start */
+ 1309               	.LM153:
+ 1310 0394 8193      		pop r17
+ 1311               		pop r16
+ 1312               		ret
+ 1314 0398 E030      	.Lscope14:
+ 1315 039a F807      		.data
+ 1316 039c 01F4      	.LC17:
+ 1317               		.string	"AT"
+ 1318               		.text
+ 1320 039e 1082      	.global	hc_06_bluetooth_at_command_mode_test
+ 1322               	hc_06_bluetooth_at_command_mode_test:
+ 1324 03a2 0997      	.LM154:
+ 1325 03a4 60E0      	.LFBB15:
+ 1326 03a6 70E0      	/* prologue: function */
+ 1327 03a8 0E94 0000 	/* frame size = 0 */
+ 1329 03ae 80E0      	.LM155:
+ 1330 03b0 232B      		ldi r24,lo8(.LC17)
+ 1331 03b2 01F4      		ldi r25,hi8(.LC17)
+ 1332 03b4 81E0      		call usart_string_transmit
+ 1333               		ldi r30,lo8(hc_06_buffer1)
+ 1334               		ldi r31,hi8(hc_06_buffer1)
+ 1335               	.L125:
+ 1336               	.LBB160:
+ 1337 03b6 1F91      	.LBB161:
+ 1338 03b8 0F91      	.LBB162:
+ 1340               	.Ltext41:
+ 1342               	.LM156:
+ 1343               		sbis 43-32,7
+ 1344 0093 4154 00   		rjmp .L125
+ 1346               	.LM157:
+ 1347               		in r24,44-32
+ 1348               	.LBE162:
+ 1349               	.LBE161:
+ 1351               	.Ltext42:
+ 1353               	.LM158:
+ 1354               		st Z+,r24
+ 1356               	.LM159:
+ 1357 03bc 80E0      		ldi r24,hi8(hc_06_buffer1+2)
+ 1358 03be 90E0      		cpi r30,lo8(hc_06_buffer1+2)
+ 1359 03c0 0E94 0000 		cpc r31,r24
+ 1360 03c4 E0E0      		brne .L125
+ 1361 03c6 F0E0      	.LBE160:
+ 1363               	.LM160:
+ 1364               		st Z,__zero_reg__
+ 1366               	.LM161:
+ 1367               		movw r24,r30
+ 1368               		sbiw r24,2
+ 1369               		ldi r22,lo8(.LC1)
+ 1370 03c8 5F9B      		ldi r23,hi8(.LC1)
+ 1371 03ca 00C0      		call strcmp
+ 1372               		movw r18,r24
+ 1373               		ldi r24,lo8(0)
+ 1374 03cc 8CB1      		or r18,r19
+ 1375               		brne .L121
+ 1376               		ldi r24,lo8(1)
+ 1377               	.L121:
+ 1379               	.LM162:
+ 1380               		ret
+ 1382               	.Lscope15:
+ 1383               		.comm hc_06_buffer1,3,1
+ 1384 03d0 80E0      		.comm hc_06_buffer2,15,1
+ 1388               	.Letext0:
+ 1389               	.global __do_copy_data
+ 1390               	.global __do_clear_bss
+ 1391 03d8 1082      	...
+DEFINED SYMBOLS
+                            *ABS*:00000000 main.c
+C:\Users\PRATHVI\AppData\Local\Temp/ccDs4TTs.s:2      *ABS*:0000003f __SREG__
+C:\Users\PRATHVI\AppData\Local\Temp/ccDs4TTs.s:3      *ABS*:0000003e __SP_H__
+C:\Users\PRATHVI\AppData\Local\Temp/ccDs4TTs.s:4      *ABS*:0000003d __SP_L__
+C:\Users\PRATHVI\AppData\Local\Temp/ccDs4TTs.s:5      *ABS*:00000034 __CCP__
+C:\Users\PRATHVI\AppData\Local\Temp/ccDs4TTs.s:6      *ABS*:00000000 __tmp_reg__
+C:\Users\PRATHVI\AppData\Local\Temp/ccDs4TTs.s:7      *ABS*:00000001 __zero_reg__
+C:\Users\PRATHVI\AppData\Local\Temp/ccDs4TTs.s:71     .text:00000000 usart_init
+C:\Users\PRATHVI\AppData\Local\Temp/ccDs4TTs.s:109    .text:00000016 usart_data_transmit
+C:\Users\PRATHVI\AppData\Local\Temp/ccDs4TTs.s:154    .text:00000026 usart_data_receive
+C:\Users\PRATHVI\AppData\Local\Temp/ccDs4TTs.s:178    .text:0000002e usart_string_transmit
+C:\Users\PRATHVI\AppData\Local\Temp/ccDs4TTs.s:259    .text:0000004c usart_string_receive
+C:\Users\PRATHVI\AppData\Local\Temp/ccDs4TTs.s:315    .text:0000006c hc_06_bluetooth_transmit_byte
+C:\Users\PRATHVI\AppData\Local\Temp/ccDs4TTs.s:368    .text:0000007c hc_06_bluetooth_receive_byte
+C:\Users\PRATHVI\AppData\Local\Temp/ccDs4TTs.s:400    .text:00000084 hc_06_bluetooth_transmit_string
+C:\Users\PRATHVI\AppData\Local\Temp/ccDs4TTs.s:420    .text:0000008a hc_06_bluetooth_receive_string
+C:\Users\PRATHVI\AppData\Local\Temp/ccDs4TTs.s:479    .text:000000aa main
+C:\Users\PRATHVI\AppData\Local\Temp/ccDs4TTs.s:581    .text:000000c6 hc_06_bluetooth_pin_change
+                            *COM*:00000003 hc_06_buffer1
+                            *COM*:0000000f hc_06_buffer2
+C:\Users\PRATHVI\AppData\Local\Temp/ccDs4TTs.s:716    .text:00000122 hc_06_bluetooth_change_baud_rate
+C:\Users\PRATHVI\AppData\Local\Temp/ccDs4TTs.s:1168   .text:0000032a hc_06_bluetooth_get_version
+C:\Users\PRATHVI\AppData\Local\Temp/ccDs4TTs.s:1271   .text:00000376 hc_06_bluetooth_device_name_change
+C:\Users\PRATHVI\AppData\Local\Temp/ccDs4TTs.s:1349   .text:000003bc hc_06_bluetooth_at_command_mode_test
+
+UNDEFINED SYMBOLS
+strcmp
+__do_copy_data
+__do_clear_bss

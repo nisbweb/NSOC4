@@ -1,0 +1,243 @@
+
+main.elf:     file format elf32-avr
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .text         0000011c  00000000  00000000  00000054  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  1 .stab         000005dc  00000000  00000000  00000170  2**2
+                  CONTENTS, READONLY, DEBUGGING
+  2 .stabstr      000006f8  00000000  00000000  0000074c  2**0
+                  CONTENTS, READONLY, DEBUGGING
+
+Disassembly of section .text:
+
+00000000 <__vectors>:
+   0:	0c 94 2a 00 	jmp	0x54	; 0x54 <__ctors_end>
+   4:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+   8:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+   c:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  10:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  14:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  18:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  1c:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  20:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  24:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  28:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  2c:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  30:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  34:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  38:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  3c:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  40:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  44:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  48:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  4c:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  50:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+
+00000054 <__ctors_end>:
+  54:	11 24       	eor	r1, r1
+  56:	1f be       	out	0x3f, r1	; 63
+  58:	cf e5       	ldi	r28, 0x5F	; 95
+  5a:	d4 e0       	ldi	r29, 0x04	; 4
+  5c:	de bf       	out	0x3e, r29	; 62
+  5e:	cd bf       	out	0x3d, r28	; 61
+  60:	0e 94 4a 00 	call	0x94	; 0x94 <main>
+  64:	0c 94 8c 00 	jmp	0x118	; 0x118 <_exit>
+
+00000068 <__bad_interrupt>:
+  68:	0c 94 00 00 	jmp	0	; 0x0 <__vectors>
+
+0000006c <adc_init>:
+#include<avr/interrupt.h>			//header file for using interrupt service routins
+
+
+ void adc_init()
+ {
+  ADCSRA=0XE6;						//ADC enable, ADC interrupt enable, set prescaller to 64
+  6c:	86 ee       	ldi	r24, 0xE6	; 230
+  6e:	86 b9       	out	0x06, r24	; 6
+  		
+ }
+  70:	08 95       	ret
+
+00000072 <getdata>:
+ unsigned int getdata(unsigned char chno)	
+  {
+	unsigned int adcdata,adcdata1;
+    ADMUX=0X40;						//right align the ADC result
+  72:	90 e4       	ldi	r25, 0x40	; 64
+  74:	97 b9       	out	0x07, r25	; 7
+    ADMUX|=chno;					//select the ADC channel
+  76:	97 b1       	in	r25, 0x07	; 7
+  78:	98 2b       	or	r25, r24
+  7a:	97 b9       	out	0x07, r25	; 7
+    milliseconds can be achieved.
+ */
+void
+_delay_loop_2(uint16_t __count)
+{
+	__asm__ volatile (
+  7c:	88 eb       	ldi	r24, 0xB8	; 184
+  7e:	9b e0       	ldi	r25, 0x0B	; 11
+  80:	01 97       	sbiw	r24, 0x01	; 1
+  82:	f1 f7       	brne	.-4      	; 0x80 <getdata+0xe>
+    //ADCSRA|=0X40;					//start ADC convertion
+    _delay_ms(1);
+adcdata1=ADCL;					//give some time delay to complit the aDC convertion
+  84:	94 b1       	in	r25, 0x04	; 4
+	adcdata=ADCH;
+  86:	85 b1       	in	r24, 0x05	; 5
+  88:	38 2f       	mov	r19, r24
+  8a:	20 e0       	ldi	r18, 0x00	; 0
+  8c:	29 0f       	add	r18, r25
+  8e:	31 1d       	adc	r19, r1
+	
+	adcdata1+=(adcdata<<8);
+	return (adcdata1);
+	
+	
+  }
+  90:	c9 01       	movw	r24, r18
+  92:	08 95       	ret
+
+00000094 <main>:
+#include<avr/io.h>
+#include<util/delay.h>
+#include "adc.h"
+
+void main()
+{
+  94:	ef 92       	push	r14
+  96:	ff 92       	push	r15
+  98:	0f 93       	push	r16
+  9a:	1f 93       	push	r17
+  9c:	cf 93       	push	r28
+  9e:	df 93       	push	r29
+#include<avr/interrupt.h>			//header file for using interrupt service routins
+
+
+ void adc_init()
+ {
+  ADCSRA=0XE6;						//ADC enable, ADC interrupt enable, set prescaller to 64
+  a0:	86 ee       	ldi	r24, 0xE6	; 230
+  a2:	86 b9       	out	0x06, r24	; 6
+int x,y;
+adc_init();	//ADC initialisation
+DDRD=0xff;	//PORT B as output
+  a4:	8f ef       	ldi	r24, 0xFF	; 255
+  a6:	81 bb       	out	0x11, r24	; 17
+  		
+ }
+ unsigned int getdata(unsigned char chno)	
+  {
+	unsigned int adcdata,adcdata1;
+    ADMUX=0X40;						//right align the ADC result
+  a8:	a0 e4       	ldi	r26, 0x40	; 64
+  aa:	e8 eb       	ldi	r30, 0xB8	; 184
+  ac:	fb e0       	ldi	r31, 0x0B	; 11
+{
+x=getdata(0x00);
+y=getdata(0x01);
+
+if(x>516)
+	PORTD=0x04;	//left	
+  ae:	94 e0       	ldi	r25, 0x04	; 4
+  b0:	f9 2e       	mov	r15, r25
+if(x<516)
+	PORTD=0x02;	//right
+  b2:	02 e0       	ldi	r16, 0x02	; 2
+ if(y<529)
+	PORTD=0x06;	//forward
+  b4:	16 e0       	ldi	r17, 0x06	; 6
+if(y>529)
+	PORTD=0x09;	//backward
+  b6:	89 e0       	ldi	r24, 0x09	; 9
+  b8:	e8 2e       	mov	r14, r24
+  ba:	a7 b9       	out	0x07, r26	; 7
+    ADMUX|=chno;					//select the ADC channel
+  bc:	87 b1       	in	r24, 0x07	; 7
+  be:	87 b9       	out	0x07, r24	; 7
+  c0:	cf 01       	movw	r24, r30
+  c2:	01 97       	sbiw	r24, 0x01	; 1
+  c4:	f1 f7       	brne	.-4      	; 0xc2 <main+0x2e>
+    //ADCSRA|=0X40;					//start ADC convertion
+    _delay_ms(1);
+adcdata1=ADCL;					//give some time delay to complit the aDC convertion
+  c6:	94 b1       	in	r25, 0x04	; 4
+	adcdata=ADCH;
+  c8:	85 b1       	in	r24, 0x05	; 5
+int x,y;
+adc_init();	//ADC initialisation
+DDRD=0xff;	//PORT B as output
+while(1)
+{
+x=getdata(0x00);
+  ca:	58 2f       	mov	r21, r24
+  cc:	40 e0       	ldi	r20, 0x00	; 0
+  ce:	ba 01       	movw	r22, r20
+  d0:	69 0f       	add	r22, r25
+  d2:	71 1d       	adc	r23, r1
+  		
+ }
+ unsigned int getdata(unsigned char chno)	
+  {
+	unsigned int adcdata,adcdata1;
+    ADMUX=0X40;						//right align the ADC result
+  d4:	a7 b9       	out	0x07, r26	; 7
+    ADMUX|=chno;					//select the ADC channel
+  d6:	38 9a       	sbi	0x07, 0	; 7
+  d8:	cf 01       	movw	r24, r30
+  da:	01 97       	sbiw	r24, 0x01	; 1
+  dc:	f1 f7       	brne	.-4      	; 0xda <main+0x46>
+    //ADCSRA|=0X40;					//start ADC convertion
+    _delay_ms(1);
+adcdata1=ADCL;					//give some time delay to complit the aDC convertion
+  de:	94 b1       	in	r25, 0x04	; 4
+	adcdata=ADCH;
+  e0:	85 b1       	in	r24, 0x05	; 5
+y=getdata(0x01);
+  e2:	38 2f       	mov	r19, r24
+  e4:	20 e0       	ldi	r18, 0x00	; 0
+  e6:	e9 01       	movw	r28, r18
+  e8:	c9 0f       	add	r28, r25
+  ea:	d1 1d       	adc	r29, r1
+  ec:	ce 01       	movw	r24, r28
+
+if(x>516)
+  ee:	b2 e0       	ldi	r27, 0x02	; 2
+  f0:	65 30       	cpi	r22, 0x05	; 5
+  f2:	7b 07       	cpc	r23, r27
+  f4:	0c f0       	brlt	.+2      	; 0xf8 <main+0x64>
+	PORTD=0x04;	//left	
+  f6:	f2 ba       	out	0x12, r15	; 18
+if(x<516)
+  f8:	64 50       	subi	r22, 0x04	; 4
+  fa:	72 40       	sbci	r23, 0x02	; 2
+  fc:	0c f4       	brge	.+2      	; 0x100 <main+0x6c>
+	PORTD=0x02;	//right
+  fe:	02 bb       	out	0x12, r16	; 18
+ if(y<529)
+ 100:	62 e0       	ldi	r22, 0x02	; 2
+ 102:	81 31       	cpi	r24, 0x11	; 17
+ 104:	96 07       	cpc	r25, r22
+ 106:	0c f4       	brge	.+2      	; 0x10a <main+0x76>
+	PORTD=0x06;	//forward
+ 108:	12 bb       	out	0x12, r17	; 18
+if(y>529)
+ 10a:	82 51       	subi	r24, 0x12	; 18
+ 10c:	92 40       	sbci	r25, 0x02	; 2
+ 10e:	14 f0       	brlt	.+4      	; 0x114 <main+0x80>
+	PORTD=0x09;	//backward
+ 110:	e2 ba       	out	0x12, r14	; 18
+ 112:	d3 cf       	rjmp	.-90     	; 0xba <main+0x26>
+else
+	PORTD=0x00;	//hault
+ 114:	12 ba       	out	0x12, r1	; 18
+ 116:	d1 cf       	rjmp	.-94     	; 0xba <main+0x26>
+
+00000118 <_exit>:
+ 118:	f8 94       	cli
+
+0000011a <__stop_program>:
+ 11a:	ff cf       	rjmp	.-2      	; 0x11a <__stop_program>

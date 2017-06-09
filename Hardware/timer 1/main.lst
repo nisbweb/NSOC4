@@ -1,0 +1,100 @@
+   1               		.file	"main.c"
+   2               	__SREG__ = 0x3f
+   3               	__SP_H__ = 0x3e
+   4               	__SP_L__ = 0x3d
+   5               	__CCP__  = 0x34
+   6               	__tmp_reg__ = 0
+   7               	__zero_reg__ = 1
+   9               		.text
+  10               	.Ltext0:
+  69               	.global	delay
+  71               	delay:
+   1:main.c        **** #include<avr/io.h>
+   2:main.c        **** 
+   3:main.c        **** 
+   4:main.c        **** void delay();
+   5:main.c        **** 
+   6:main.c        **** void main(){
+   7:main.c        **** DDRB=0x01;
+   8:main.c        **** 
+   9:main.c        **** while(1){
+  10:main.c        **** 
+  11:main.c        **** PORTB=0x00;
+  12:main.c        **** delay();
+  13:main.c        **** PORTB=0x01;
+  14:main.c        **** delay();
+  15:main.c        **** }
+  16:main.c        **** 
+  17:main.c        **** 
+  18:main.c        **** }
+  19:main.c        **** 
+  20:main.c        **** 
+  21:main.c        **** void delay(){
+  72               	:F(0,15)",36,0,0,delay
+  73               	.global	delay
+  75               	delay:
+  22:main.c        **** 
+  23:main.c        **** 
+  24:main.c        **** TCNT1H=0xc2;
+  77               	l	delay
+  79 0000 82EC      	delay:
+  25:main.c        **** TCNT1L=0xf7;
+  81               	l	delay
+  83 0004 87EF      	delay:
+  26:main.c        **** TCCR1B=0x05;
+  85               	l	delay
+  87 0008 85E0      	delay:
+  89               	.LM0:
+  27:main.c        **** while((TIFR&0x04)==0);
+  90               	
+  92 000c 08B6      	delay:
+  94 0010 00C0      	.LM0:
+  28:main.c        **** TIFR=0x04;
+  95               	
+  97 0012 84E0      	delay:
+  99               	.LM0:
+  29:main.c        **** 
+  30:main.c        **** 
+  31:main.c        **** 
+  32:main.c        **** }...
+ 100               	
+ 102 0016 0895      	delay:
+ 104               	.LM0:
+ 105               	.LFBB1:
+ 106               	/* prologue: function */
+ 107               	/* frame size = 0 */
+ 109               	.LM1:
+ 110               		ldi r24,lo8(-62)
+ 111               		out 77-32,r24
+ 113               	.LM2:
+ 114               		ldi r24,lo8(-9)
+ 115               		out 76-32,r24
+ 117 001a 81E0      	.LM3:
+ 118 001c 87BB      		ldi r24,lo8(5)
+ 119               		out 78-32,r24
+ 120               	.L2:
+ 122               	.LM4:
+ 123               		in __tmp_reg__,88-32
+ 124               		sbrs __tmp_reg__,2
+ 125 0020 18BA      		rjmp .L2
+ 127               	.LM5:
+ 128 0022 0E94 0000 		ldi r24,lo8(4)
+ 129               		out 88-32,r24
+ 130               	/* epilogue start */
+ 132               	.LM6:
+ 133               		ret
+ 135 002c 00C0      	.Lscope1:
+ 137               	.global	main
+ 139               	main:
+DEFINED SYMBOLS
+                            *ABS*:00000000 main.c
+C:\Users\PRATHVI\AppData\Local\Temp/ccGIdfXG.s:2      *ABS*:0000003f __SREG__
+C:\Users\PRATHVI\AppData\Local\Temp/ccGIdfXG.s:3      *ABS*:0000003e __SP_H__
+C:\Users\PRATHVI\AppData\Local\Temp/ccGIdfXG.s:4      *ABS*:0000003d __SP_L__
+C:\Users\PRATHVI\AppData\Local\Temp/ccGIdfXG.s:5      *ABS*:00000034 __CCP__
+C:\Users\PRATHVI\AppData\Local\Temp/ccGIdfXG.s:6      *ABS*:00000000 __tmp_reg__
+C:\Users\PRATHVI\AppData\Local\Temp/ccGIdfXG.s:7      *ABS*:00000001 __zero_reg__
+C:\Users\PRATHVI\AppData\Local\Temp/ccGIdfXG.s:71     .text:00000000 delay
+C:\Users\PRATHVI\AppData\Local\Temp/ccGIdfXG.s:108    .text:00000018 main
+
+NO UNDEFINED SYMBOLS

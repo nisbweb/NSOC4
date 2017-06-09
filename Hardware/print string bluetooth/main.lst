@@ -1,0 +1,515 @@
+   1               		.file	"main.c"
+   2               	__SREG__ = 0x3f
+   3               	__SP_H__ = 0x3e
+   4               	__SP_L__ = 0x3d
+   5               	__CCP__  = 0x34
+   6               	__tmp_reg__ = 0
+   7               	__zero_reg__ = 1
+   9               		.text
+  10               	.Ltext0:
+  69               	.global	usart_init
+  71               	usart_init:
+  73               	.Ltext1:
+   1:usart.h       **** //Micricontroller		:All 8-bit AVR Micricontrollers with Similar Register Configuration with ATmega1
+   2:usart.h       **** //System Clock			:8 MHz
+   3:usart.h       **** //Header File Version 		:1.1
+   4:usart.h       **** //Author			:Arun Kumar Garg 
+   5:usart.h       **** //				:ABLab Solutions
+   6:usart.h       **** //				:www.ablab.in
+   7:usart.h       **** //				:arun@ablab.in
+   8:usart.h       **** //Date				:1st August 2011
+   9:usart.h       **** 
+  10:usart.h       **** /*Copyright (c) 2011 ABLab Solutions All rights reserved.
+  11:usart.h       **** Redistribution and use in source and binary forms, with or without modification, are permitted prov
+  12:usart.h       **** 
+  13:usart.h       ****    * Redistributions of source code must retain the above copyright notice, this list of conditions
+  14:usart.h       ****    * Redistributions in binary form must reproduce the above copyright notice, this list of conditi
+  15:usart.h       ****      and/or other materials provided with the distribution.
+  16:usart.h       ****    * Neither the name of the copyright holders nor the names of contributors may be used to endorse
+  17:usart.h       ****      specific prior written permission.
+  18:usart.h       **** 
+  19:usart.h       **** THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPL
+  20:usart.h       **** WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE  ARE DISCLAIMED. IN NO EVENT SHA
+  21:usart.h       **** INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, 
+  22:usart.h       **** PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRA
+  23:usart.h       **** ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMA
+  24:usart.h       **** 
+  25:usart.h       **** 
+  26:usart.h       **** /*The functions and macros defined in this header file are for USART of all 8-bit AVR Micricontroll
+  27:usart.h       **** with ATmega 16*/
+  28:usart.h       **** 
+  29:usart.h       **** #ifndef	_USART_H_
+  30:usart.h       **** #define	_USART_H_ 	1
+  31:usart.h       **** 
+  32:usart.h       **** 
+  33:usart.h       **** 
+  34:usart.h       **** #include<avr/io.h>
+  35:usart.h       **** #include<util/delay.h>
+  36:usart.h       **** 
+  37:usart.h       **** 
+  38:usart.h       **** 
+  39:usart.h       **** /*The function is declared to initialize the USART with following cinfiguration:-
+  40:usart.h       **** USART mode - Asynchronous
+  41:usart.h       **** Baud rate - 9600
+  42:usart.h       **** Data bits - 8
+  43:usart.h       **** Stop bit - 1
+  44:usart.h       **** Parity - No parity.*/
+  45:usart.h       **** 
+  46:usart.h       **** void usart_init();
+  47:usart.h       **** 
+  48:usart.h       **** 
+  49:usart.h       **** 
+  50:usart.h       **** 
+  51:usart.h       **** /*The function is declared to transmit data.*/
+  52:usart.h       **** 
+  53:usart.h       **** void usart_data_transmit(unsigned char data );
+  54:usart.h       **** 
+  55:usart.h       **** 
+  56:usart.h       **** 
+  57:usart.h       **** 
+  58:usart.h       **** /*The function is declared to receive data.*/
+  59:usart.h       **** 
+  60:usart.h       **** unsigned char usart_data_receive( void );
+  61:usart.h       **** 
+  62:usart.h       **** 
+  63:usart.h       **** 
+  64:usart.h       **** 
+  65:usart.h       **** /*The function is declared to transmit string.*/
+  66:usart.h       **** 
+  67:usart.h       **** void usart_string_transmit(char *string);
+  68:usart.h       **** 
+  69:usart.h       **** 
+  70:usart.h       **** 
+  71:usart.h       **** 
+  72:usart.h       **** /*The function is declared to receive string.*/
+  73:usart.h       **** 
+  74:usart.h       **** char *usart_string_receive(char *receive_string,unsigned char terminating_character);
+  75:usart.h       **** 
+  76:usart.h       **** 
+  77:usart.h       **** 
+  78:usart.h       **** /*Function defination*/
+  79:usart.h       **** 
+  80:usart.h       **** void usart_init()
+  81:usart.h       **** {
+  74               	me size = 0 */
+  76               	.LM1:
+  77               		out 64-32,__zero_reg__
+  82:usart.h       **** UBRRH = 0;
+  79               	
+  80               		ldi r24,lo8(10)
+  81 0000 10BC      		out 41-32,r24
+  83:usart.h       **** UBRRL =10;
+  82               	stabn	68,0,84,.LM3-.LFBB1
+  83               	.LM3:
+  84 0002 8AE0      		in r24,43-32
+  85 0004 89B9      		out 43-32,r24
+  84:usart.h       **** UCSRA |=(1<U2X);
+  86               	abn	68,0,85,.LM4-.LFBB1
+  87               	.LM4:
+  88 0006 8BB1      		in r24,42-32
+  89 0008 8BB9      		ori r24,lo8(24)
+  85:usart.h       **** UCSRB|= (1<<RXEN)|(1<<TXEN);
+  90               	 42-32,r24
+  92 000a 8AB1      	.LM5:
+  93 000c 8861      		in r24,64-32
+  94 000e 8AB9      		ori r24,lo8(-122)
+  86:usart.h       **** UCSRC |= (1 << URSEL)|(3<<UCSZ0);
+  95               	64-32,r24
+  96               	/* epilogue start */
+  98 0012 8668      	.LM6:
+  99 0014 80BD      		ret
+  87:usart.h       **** }
+ 101               	e1:
+ 104               	.global	usart_data_transmit
+ 106               	usart_data_transmit:
+ 108               	.LM7:
+ 109               	.LFBB2:
+ 110               	/* prologue: function */
+  88:usart.h       **** 
+  89:usart.h       **** 
+  90:usart.h       **** void usart_data_transmit(unsigned char data )
+  91:usart.h       **** {
+ 111               	ize = 0 */
+ 112               	.L4:
+ 114               	.LM8:
+ 115               		sbis 43-32,5
+ 116               		rjmp .L4
+  92:usart.h       **** while ( !( UCSRA & (1<<UDRE)) )
+ 117               	n	68,0,94,.LM9-.LFBB2
+ 118               	.LM9:
+ 119 0018 5D9B      		out 44-32,r24
+ 120 001a 00C0      	.LBB28:
+  93:usart.h       **** ;
+  94:usart.h       **** UDR = data;
+ 121               	29:
+ 122               	.LBB30:
+ 123 001c 8CB9      	.LBB31:
+ 125               	.Ltext2:
+ 127               	.LM10:
+ 128               		ldi r24,lo8(3000)
+ 129               		ldi r25,hi8(3000)
+   1:g:/winavr/lib/gcc/../../avr/include/util/delay_basic.h **** /* Copyright (c) 2002, Marek Michalkiewicz
+   2:g:/winavr/lib/gcc/../../avr/include/util/delay_basic.h ****    Copyright (c) 2007 Joerg Wunsch
+   3:g:/winavr/lib/gcc/../../avr/include/util/delay_basic.h ****    All rights reserved.
+   4:g:/winavr/lib/gcc/../../avr/include/util/delay_basic.h **** 
+   5:g:/winavr/lib/gcc/../../avr/include/util/delay_basic.h ****    Redistribution and use in source and binary forms, with or without
+   6:g:/winavr/lib/gcc/../../avr/include/util/delay_basic.h ****    modification, are permitted provided that the following conditions are met:
+   7:g:/winavr/lib/gcc/../../avr/include/util/delay_basic.h **** 
+   8:g:/winavr/lib/gcc/../../avr/include/util/delay_basic.h ****    * Redistributions of source code must retain the above copyright
+   9:g:/winavr/lib/gcc/../../avr/include/util/delay_basic.h ****      notice, this list of conditions and the following disclaimer.
+  10:g:/winavr/lib/gcc/../../avr/include/util/delay_basic.h **** 
+  11:g:/winavr/lib/gcc/../../avr/include/util/delay_basic.h ****    * Redistributions in binary form must reproduce the above copyright
+  12:g:/winavr/lib/gcc/../../avr/include/util/delay_basic.h ****      notice, this list of conditions and the following disclaimer in
+  13:g:/winavr/lib/gcc/../../avr/include/util/delay_basic.h ****      the documentation and/or other materials provided with the
+  14:g:/winavr/lib/gcc/../../avr/include/util/delay_basic.h ****      distribution.
+  15:g:/winavr/lib/gcc/../../avr/include/util/delay_basic.h **** 
+  16:g:/winavr/lib/gcc/../../avr/include/util/delay_basic.h ****    * Neither the name of the copyright holders nor the names of
+  17:g:/winavr/lib/gcc/../../avr/include/util/delay_basic.h ****      contributors may be used to endorse or promote products derived
+  18:g:/winavr/lib/gcc/../../avr/include/util/delay_basic.h ****      from this software without specific prior written permission.
+  19:g:/winavr/lib/gcc/../../avr/include/util/delay_basic.h **** 
+  20:g:/winavr/lib/gcc/../../avr/include/util/delay_basic.h ****   THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+  21:g:/winavr/lib/gcc/../../avr/include/util/delay_basic.h ****   AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+  22:g:/winavr/lib/gcc/../../avr/include/util/delay_basic.h ****   IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+  23:g:/winavr/lib/gcc/../../avr/include/util/delay_basic.h ****   ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE
+  24:g:/winavr/lib/gcc/../../avr/include/util/delay_basic.h ****   LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+  25:g:/winavr/lib/gcc/../../avr/include/util/delay_basic.h ****   CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+  26:g:/winavr/lib/gcc/../../avr/include/util/delay_basic.h ****   SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+  27:g:/winavr/lib/gcc/../../avr/include/util/delay_basic.h ****   INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+  28:g:/winavr/lib/gcc/../../avr/include/util/delay_basic.h ****   CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+  29:g:/winavr/lib/gcc/../../avr/include/util/delay_basic.h ****   ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+  30:g:/winavr/lib/gcc/../../avr/include/util/delay_basic.h ****   POSSIBILITY OF SUCH DAMAGE. */
+  31:g:/winavr/lib/gcc/../../avr/include/util/delay_basic.h **** 
+  32:g:/winavr/lib/gcc/../../avr/include/util/delay_basic.h **** /* $Id: delay_basic.h,v 1.1 2007/05/13 21:23:20 joerg_wunsch Exp $ */
+  33:g:/winavr/lib/gcc/../../avr/include/util/delay_basic.h **** 
+  34:g:/winavr/lib/gcc/../../avr/include/util/delay_basic.h **** #ifndef _UTIL_DELAY_BASIC_H_
+  35:g:/winavr/lib/gcc/../../avr/include/util/delay_basic.h **** #define _UTIL_DELAY_BASIC_H_ 1
+  36:g:/winavr/lib/gcc/../../avr/include/util/delay_basic.h **** 
+  37:g:/winavr/lib/gcc/../../avr/include/util/delay_basic.h **** #include <inttypes.h>
+  38:g:/winavr/lib/gcc/../../avr/include/util/delay_basic.h **** 
+  39:g:/winavr/lib/gcc/../../avr/include/util/delay_basic.h **** /** \file */
+  40:g:/winavr/lib/gcc/../../avr/include/util/delay_basic.h **** /** \defgroup util_delay_basic <util/delay_basic.h>: Basic busy-wait delay loops
+  41:g:/winavr/lib/gcc/../../avr/include/util/delay_basic.h ****     \code
+  42:g:/winavr/lib/gcc/../../avr/include/util/delay_basic.h ****     #include <util/delay_basic.h>
+  43:g:/winavr/lib/gcc/../../avr/include/util/delay_basic.h ****     \endcode
+  44:g:/winavr/lib/gcc/../../avr/include/util/delay_basic.h **** 
+  45:g:/winavr/lib/gcc/../../avr/include/util/delay_basic.h ****     The functions in this header file implement simple delay loops
+  46:g:/winavr/lib/gcc/../../avr/include/util/delay_basic.h ****     that perform a busy-waiting.  They are typically used to
+  47:g:/winavr/lib/gcc/../../avr/include/util/delay_basic.h ****     facilitate short delays in the program execution.  They are
+  48:g:/winavr/lib/gcc/../../avr/include/util/delay_basic.h ****     implemented as count-down loops with a well-known CPU cycle
+  49:g:/winavr/lib/gcc/../../avr/include/util/delay_basic.h ****     count per loop iteration.  As such, no other processing can
+  50:g:/winavr/lib/gcc/../../avr/include/util/delay_basic.h ****     occur simultaneously.  It should be kept in mind that the
+  51:g:/winavr/lib/gcc/../../avr/include/util/delay_basic.h ****     functions described here do not disable interrupts.
+  52:g:/winavr/lib/gcc/../../avr/include/util/delay_basic.h **** 
+  53:g:/winavr/lib/gcc/../../avr/include/util/delay_basic.h ****     In general, for long delays, the use of hardware timers is
+  54:g:/winavr/lib/gcc/../../avr/include/util/delay_basic.h ****     much preferrable, as they free the CPU, and allow for
+  55:g:/winavr/lib/gcc/../../avr/include/util/delay_basic.h ****     concurrent processing of other events while the timer is
+  56:g:/winavr/lib/gcc/../../avr/include/util/delay_basic.h ****     running.  However, in particular for very short delays, the
+  57:g:/winavr/lib/gcc/../../avr/include/util/delay_basic.h ****     overhead of setting up a hardware timer is too much compared
+  58:g:/winavr/lib/gcc/../../avr/include/util/delay_basic.h ****     to the overall delay time.
+  59:g:/winavr/lib/gcc/../../avr/include/util/delay_basic.h **** 
+  60:g:/winavr/lib/gcc/../../avr/include/util/delay_basic.h ****     Two inline functions are provided for the actual delay algorithms.
+  61:g:/winavr/lib/gcc/../../avr/include/util/delay_basic.h **** 
+  62:g:/winavr/lib/gcc/../../avr/include/util/delay_basic.h **** */
+  63:g:/winavr/lib/gcc/../../avr/include/util/delay_basic.h **** 
+  64:g:/winavr/lib/gcc/../../avr/include/util/delay_basic.h **** #if !defined(__DOXYGEN__)
+  65:g:/winavr/lib/gcc/../../avr/include/util/delay_basic.h **** static inline void _delay_loop_1(uint8_t __count) __attribute__((always_inline));
+  66:g:/winavr/lib/gcc/../../avr/include/util/delay_basic.h **** static inline void _delay_loop_2(uint16_t __count) __attribute__((always_inline));
+  67:g:/winavr/lib/gcc/../../avr/include/util/delay_basic.h **** #endif
+  68:g:/winavr/lib/gcc/../../avr/include/util/delay_basic.h **** 
+  69:g:/winavr/lib/gcc/../../avr/include/util/delay_basic.h **** /** \ingroup util_delay_basic
+  70:g:/winavr/lib/gcc/../../avr/include/util/delay_basic.h **** 
+  71:g:/winavr/lib/gcc/../../avr/include/util/delay_basic.h ****     Delay loop using an 8-bit counter \c __count, so up to 256
+  72:g:/winavr/lib/gcc/../../avr/include/util/delay_basic.h ****     iterations are possible.  (The value 256 would have to be passed
+  73:g:/winavr/lib/gcc/../../avr/include/util/delay_basic.h ****     as 0.)  The loop executes three CPU cycles per iteration, not
+  74:g:/winavr/lib/gcc/../../avr/include/util/delay_basic.h ****     including the overhead the compiler needs to setup the counter
+  75:g:/winavr/lib/gcc/../../avr/include/util/delay_basic.h ****     register.
+  76:g:/winavr/lib/gcc/../../avr/include/util/delay_basic.h **** 
+  77:g:/winavr/lib/gcc/../../avr/include/util/delay_basic.h ****     Thus, at a CPU speed of 1 MHz, delays of up to 768 microseconds
+  78:g:/winavr/lib/gcc/../../avr/include/util/delay_basic.h ****     can be achieved.
+  79:g:/winavr/lib/gcc/../../avr/include/util/delay_basic.h **** */
+  80:g:/winavr/lib/gcc/../../avr/include/util/delay_basic.h **** void
+  81:g:/winavr/lib/gcc/../../avr/include/util/delay_basic.h **** _delay_loop_1(uint8_t __count)
+  82:g:/winavr/lib/gcc/../../avr/include/util/delay_basic.h **** {
+  83:g:/winavr/lib/gcc/../../avr/include/util/delay_basic.h **** 	__asm__ volatile (
+  84:g:/winavr/lib/gcc/../../avr/include/util/delay_basic.h **** 		"1: dec %0" "\n\t"
+  85:g:/winavr/lib/gcc/../../avr/include/util/delay_basic.h **** 		"brne 1b"
+  86:g:/winavr/lib/gcc/../../avr/include/util/delay_basic.h **** 		: "=r" (__count)
+  87:g:/winavr/lib/gcc/../../avr/include/util/delay_basic.h **** 		: "0" (__count)
+  88:g:/winavr/lib/gcc/../../avr/include/util/delay_basic.h **** 	);
+  89:g:/winavr/lib/gcc/../../avr/include/util/delay_basic.h **** }
+  90:g:/winavr/lib/gcc/../../avr/include/util/delay_basic.h **** 
+  91:g:/winavr/lib/gcc/../../avr/include/util/delay_basic.h **** /** \ingroup util_delay_basic
+  92:g:/winavr/lib/gcc/../../avr/include/util/delay_basic.h **** 
+  93:g:/winavr/lib/gcc/../../avr/include/util/delay_basic.h ****     Delay loop using a 16-bit counter \c __count, so up to 65536
+  94:g:/winavr/lib/gcc/../../avr/include/util/delay_basic.h ****     iterations are possible.  (The value 65536 would have to be
+  95:g:/winavr/lib/gcc/../../avr/include/util/delay_basic.h ****     passed as 0.)  The loop executes four CPU cycles per iteration,
+  96:g:/winavr/lib/gcc/../../avr/include/util/delay_basic.h ****     not including the overhead the compiler requires to setup the
+  97:g:/winavr/lib/gcc/../../avr/include/util/delay_basic.h ****     counter register pair.
+  98:g:/winavr/lib/gcc/../../avr/include/util/delay_basic.h **** 
+  99:g:/winavr/lib/gcc/../../avr/include/util/delay_basic.h ****     Thus, at a CPU speed of 1 MHz, delays of up to about 262.1
+ 100:g:/winavr/lib/gcc/../../avr/include/util/delay_basic.h ****     milliseconds can be achieved.
+ 101:g:/winavr/lib/gcc/../../avr/include/util/delay_basic.h ****  */
+ 102:g:/winavr/lib/gcc/../../avr/include/util/delay_basic.h **** void
+ 103:g:/winavr/lib/gcc/../../avr/include/util/delay_basic.h **** _delay_loop_2(uint16_t __count)
+ 104:g:/winavr/lib/gcc/../../avr/include/util/delay_basic.h **** {
+ 105:g:/winavr/lib/gcc/../../avr/include/util/delay_basic.h **** 	__asm__ volatile (
+ 130               	/
+ 131               	 ;  105 "g:/winavr/lib/gcc/../../avr/include/util/delay_basic.h" 1
+ 132 001e 88EB      		1: sbiw r24,1
+ 133 0020 9BE0      		brne 1b
+ 134               	 ;  0 "" 2
+ 135               	/* epilogue start */
+ 136 0022 0197      	/* #NOAPP */
+ 137 0024 01F4      	.LBE31:
+ 138               	.LBE30:
+ 139               	.LBE29:
+ 140               	.LBE28:
+ 142               	.Ltext3:
+ 144               	.LM11:
+ 145               		ret
+  95:usart.h       **** _delay_ms(1);
+  96:usart.h       **** }
+ 147               		"usart_data_receive:F(0,11)",36,0,0,usart_data_receive
+ 148               	.global	usart_data_receive
+ 150               	usart_data_receive:
+ 152               	.LM12:
+ 153               	.LFBB3:
+ 154               	/* prologue: function */
+ 155               	/* frame size = 0 */
+  97:usart.h       **** 
+  98:usart.h       **** unsigned char usart_data_receive( void )
+  99:usart.h       **** {
+ 156               	abn	68,0,100,.LM13-.LFBB3
+ 157               	.LM13:
+ 158               		sbis 43-32,7
+ 159               		rjmp .L8
+ 161               	.LM14:
+ 100:usart.h       **** while ( !(UCSRA & (1<<RXC)) )
+ 162               	art_data_receive:
+ 164 0028 5F9B      	.LM12:
+ 165 002a 00C0      	.LFBB3:
+ 101:usart.h       **** ;
+ 102:usart.h       **** return UDR;
+ 166               	sart_data_transmit
+ 167               	.Lscope2:
+ 169               	.global	usart_data_receive
+ 103:usart.h       **** }
+ 170               	pe	usart_data_receive, @function
+ 171               	usart_data_receive:
+ 173               	.LM12:
+ 174               	.LFBB3:
+ 175               	/* prologue: function */
+ 176               	/* frame size = 0 */
+ 177               	.L8:
+ 179               	.LM13:
+ 104:usart.h       **** 
+ 105:usart.h       **** void usart_string_transmit(char *string)
+ 106:usart.h       **** {
+ 180               	global	usart_data_receive
+ 182               	usart_data_receive:
+ 184               	.LM12:
+ 185 0030 FC01      	.LFBB3:
+ 186               	/* prologue: function */
+ 187               	/* frame size = 0 */
+ 188               	.L8:
+ 190               	.LM13:
+ 191               		sbis 43-32,7
+ 192               		rjmp .L8
+ 194               	.LM14:
+ 195               		in r24,44-32
+ 196 0032 28EB      	/* epilogue start */
+ 198 0036 00C0      	.LM15:
+ 199               		ret
+ 201               	.Lscope3:
+ 204               	.global	usart_string_transmit
+ 206               	usart_string_transmit:
+ 208 0038 5D9B      	.LM16:
+ 209 003a 00C0      	.LFBB4:
+ 210               	/* prologue: function */
+ 211               	/* frame size = 0 */
+ 107:usart.h       **** while(*string)
+ 108:usart.h       **** {
+ 109:usart.h       **** usart_data_transmit(*string++);
+ 212               	64,0,0,30
+ 213               	.global	usart_string_transmit
+ 215               	usart_string_transmit:
+ 217               	.LM16:
+ 218               	.LFBB4:
+ 219 003e 8CB9      	/* prologue: function */
+ 220               	/* frame size = 0 */
+ 221               		movw r30,r24
+ 222               	.LBB32:
+ 223               	.LBB33:
+ 224               	.LBB34:
+ 225               	.LBB35:
+ 226               	.LBB36:
+ 227               	.LBB37:
+ 229               	.Ltext4:
+ 231 0042 0197      	.LM17:
+ 232 0044 01F4      		ldi r18,lo8(3000)
+ 233               		ldi r19,hi8(3000)
+ 234               		rjmp .L12
+ 235               	.L15:
+ 236               	.LBE37:
+ 237               	.LBE36:
+ 238               	.LBE35:
+ 239               	.LBE34:
+ 241               	.Ltext5:
+ 243               	.LM18:
+ 244               		sbis 43-32,5
+ 245               		rjmp .L15
+ 246 0046 8081      	.LBE33:
+ 247 0048 8823      	.LBE32:
+ 249               	.LM19:
+ 110:usart.h       **** }
+ 111:usart.h       **** }
+ 250               	.LBE34:
+ 252 004c 0895      	.Ltext5:
+ 254               	.LM18:
+ 255               		sbis 43-32,5
+ 256               		rjmp .L15
+ 257               	.LBE33:
+ 258               	.LBE32:
+ 260               	.LM19:
+ 112:usart.h       **** 
+ 113:usart.h       **** char *usart_string_receive(char *receive_string,unsigned char terminating_character)
+ 114:usart.h       **** {
+ 261               	.LBE34:
+ 263               	.Ltext5:
+ 265               	.LM18:
+ 266 004e 9C01      		sbis 43-32,5
+ 267               		rjmp .L15
+ 268               	.LBE33:
+ 269 0050 90E0      	.LBE32:
+ 271               	.LM19:
+ 272               		adiw r30,1
+ 273               	.LBB43:
+ 274               	.LBB42:
+ 276 0052 5F9B      	.LM20:
+ 277 0054 00C0      		out 44-32,r24
+ 278               	.LBB41:
+ 279               	.LBB40:
+ 280 0056 8CB1      	.LBB39:
+ 281               	.LBB38:
+ 115:usart.h       **** 	unsigned char temp=0x00;
+ 116:usart.h       **** 	for(unsigned char i=0;;i++)
+ 117:usart.h       **** 	{
+ 118:usart.h       **** 		*(receive_string+i)=usart_data_receive();
+ 283               	,0,94,.LM20-.LFBB4
+ 284               	.LM20:
+ 285 0058 F901      		out 44-32,r24
+ 286 005a E90F      	.LBB41:
+ 287 005c F11D      	.LBB40:
+ 288 005e 8083      	.LBB39:
+ 119:usart.h       **** 		if(*(receive_string+i)==terminating_character)
+ 289               	.LBE33:
+ 290               	.LBE32:
+ 292 0062 01F0      	.LM19:
+ 120:usart.h       **** 			break;
+ 121:usart.h       **** 		else
+ 122:usart.h       **** 		temp++;
+ 293               	.LBE34:
+ 295 0064 9F5F      	.Ltext5:
+ 297               	.LM18:
+ 298               		sbis 43-32,5
+ 123:usart.h       **** 	}
+ 124:usart.h       **** 	*(receive_string+temp)='\0';
+ 299               	o8(3000)
+ 300               		ldi r19,hi8(3000)
+ 301 0068 1082      		rjmp .L12
+ 125:usart.h       **** 	return receive_string;
+ 126:usart.h       **** }
+ 302               	37:
+ 304 006a C901      	.Ltext4:
+ 306 006c 0895      	.LM17:
+ 307               		ldi r18,lo8(3000)
+ 308               		ldi r19,hi8(3000)
+ 309               		rjmp .L12
+ 310               	.L15:
+ 311               	.LBE37:
+ 312               	.LBE36:
+ 313               	.LBE35:
+ 314 0000 4E53 4F43 	.LBE34:
+ 314      2034 2E30 
+ 314      0A0D 00
+ 316               	.Ltext5:
+ 318               	.LM18:
+ 319               		sbis 43-32,5
+ 320               		rjmp .L15
+ 321               	.LBE33:
+   1:main.c        **** #include<avr/io.h>
+   2:main.c        **** #include<util/delay.h>
+   3:main.c        **** #include "usart.h"
+   4:main.c        **** 
+   5:main.c        **** void main()
+   6:main.c        **** {
+ 322               	(3000)
+ 323               		rjmp .L12
+ 324               	.L15:
+ 325 006e CF93      	.LBE37:
+ 326 0070 DF93      	.LBE36:
+ 327               	.LBE35:
+ 328               	.LBE34:
+   7:main.c        **** 
+   8:main.c        **** usart_init();
+ 329               	clude/util/delay_basic.h",132,0,0,.Ltext4
+ 330               	.Ltext4:
+ 332               	.LM17:
+ 333               		ldi r18,lo8(3000)
+ 334               		ldi r19,hi8(3000)
+ 335               		rjmp .L12
+ 336               	.L15:
+ 337               	.LBE37:
+ 338               	.LBE36:
+ 339               	.LBE35:
+ 340 0076 C0E3      	.LBE34:
+ 342               	.Ltext5:
+ 344               	.LM18:
+ 345               		sbis 43-32,5
+ 346               		rjmp .L15
+ 347               	.LBE33:
+ 348               	.LBE32:
+   9:main.c        **** 
+  10:main.c        **** while(1){
+  11:main.c        **** usart_string_transmit("NSOC 4.0\n\r");
+ 349               	jmp .L12
+ 350               	.L15:
+ 351 007a 80E0      	.LBE37:
+ 352 007c 90E0      	.LBE36:
+ 353 007e 0E94 0000 	.LBE35:
+ 354               	.LBE34:
+ 356               	.Ltext5:
+ 358               	.LM18:
+ 359               		sbis 43-32,5
+ 360               		rjmp .L15
+ 361               	.LBE33:
+ 362 0082 CE01      	.LBE32:
+ 364               	.LM19:
+ 365 0084 0197      		adiw r30,1
+ 366 0086 01F4      	.LBB43:
+ 367               	.LBB42:
+ 369 0088 00C0      	.LM20:
+ 370               		out 44-32,r24
+ 371               	.LBB41:
+ 372               	.LBB40:
+ 373               	.LBB39:
+ 374               	.LBB38:
+ 376               	.Ltext6:
+ 378               	.LM21:
+DEFINED SYMBOLS
+                            *ABS*:00000000 main.c
+C:\Users\PRATHVI\AppData\Local\Temp/ccSztYua.s:2      *ABS*:0000003f __SREG__
+C:\Users\PRATHVI\AppData\Local\Temp/ccSztYua.s:3      *ABS*:0000003e __SP_H__
+C:\Users\PRATHVI\AppData\Local\Temp/ccSztYua.s:4      *ABS*:0000003d __SP_L__
+C:\Users\PRATHVI\AppData\Local\Temp/ccSztYua.s:5      *ABS*:00000034 __CCP__
+C:\Users\PRATHVI\AppData\Local\Temp/ccSztYua.s:6      *ABS*:00000000 __tmp_reg__
+C:\Users\PRATHVI\AppData\Local\Temp/ccSztYua.s:7      *ABS*:00000001 __zero_reg__
+C:\Users\PRATHVI\AppData\Local\Temp/ccSztYua.s:71     .text:00000000 usart_init
+C:\Users\PRATHVI\AppData\Local\Temp/ccSztYua.s:110    .text:00000018 usart_data_transmit
+C:\Users\PRATHVI\AppData\Local\Temp/ccSztYua.s:155    .text:00000028 usart_data_receive
+C:\Users\PRATHVI\AppData\Local\Temp/ccSztYua.s:179    .text:00000030 usart_string_transmit
+C:\Users\PRATHVI\AppData\Local\Temp/ccSztYua.s:260    .text:0000004e usart_string_receive
+C:\Users\PRATHVI\AppData\Local\Temp/ccSztYua.s:319    .text:0000006e main
+
+UNDEFINED SYMBOLS
+__do_copy_data
